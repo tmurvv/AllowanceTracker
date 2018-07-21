@@ -459,7 +459,8 @@ header {
     .listings {
       padding: 0; } }
   .listings__headers {
-    display: flex; }
+    display: flex;
+    margin-top: 1.5rem; }
     .listings__headers--type {
       flex: 3; }
     .listings__headers--note {
@@ -469,24 +470,12 @@ header {
     .listings__headers--balance {
       flex: 1; }
   .listings__job {
-    display: flex;
     padding-top: 1.5rem; }
-    @media only screen and (max-width: 56.25em) {
-      .listings__job {
-        display: block; } }
-    .listings__job--type {
-      align-self: center;
-      justify-self: center;
-      display: inline-flex;
-      margin: 2rem; }
-      @media only screen and (max-width: 56.25em) {
-        .listings__job--type {
-          margin: 0; } }
     .listings__job--info {
-      flex: 5;
       font-size: 80%; }
       .listings__job--info-line1 {
-        display: flex; }
+        display: flex;
+        justify-content: space-between; }
         @media only screen and (max-width: 56.25em) {
           .listings__job--info-line1 {
             margin-top: 1rem; } }
@@ -494,20 +483,32 @@ header {
           font-style: italic;
           margin-bottom: 8px; }
       .listings__job--info-line2 {
-        display: flex;
-        justify-content: space-between; }
+        display: flex; }
+        .listings__job--info-line2Type {
+          flex: 1.5;
+          padding: 3px 5px;
+          display: inline-flex;
+          margin-right: 2rem; }
+          @media only screen and (max-width: 56.25em) {
+            .listings__job--info-line2Type {
+              margin: 0; } }
         .listings__job--info-line2 > h2 {
-          flex: 5; }
-        .listings__job--info-line2Amount {
-          flex: 1.25; }
+          flex: 8; }
+        .listings__job--info-line2Amount, .listings__job--info-line2Balance {
+          flex: 1; }
 
 .addTransaction {
-  border: 7px double #e47587;
+  border: 2px solid #e47587;
   padding: 1rem; }
-  .addTransactionh3 {
+  .addTransaction > h3 {
     color: #D9AE5C; }
-    .addTransactionh3 > span {
+    .addTransaction > h3 > span {
       color: #e47587; }
+  .addTransaction__form > form {
+    display: flex;
+    justify-content: space-between; }
+    .addTransaction__form > form > input {
+      border-radius: 7px; }
 
 .addJob {
   margin: 50px 25px; }

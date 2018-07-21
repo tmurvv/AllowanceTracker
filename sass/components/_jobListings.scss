@@ -6,6 +6,7 @@
 
     &__headers {
         display:flex;
+        margin-top: 1.5rem;
         &--type {
             flex: 3;
         }
@@ -17,32 +18,15 @@
         }
         &--balance {
             flex: 1;
-        }
-        
+        }       
     }
-    &__job {
-        display: flex; 
-        @include respond(portrait) {
-            display: block;
-        }
+    &__job { 
         padding-top: 1.5rem;
-        
-        &--type {
-            align-self: center;
-            justify-self: center;
-            display: inline-flex;                     
-            margin: 2rem;
-            @include respond(portrait) {
-                margin: 0;
-            }
-        }
-
         &--info {
-            flex:5;
             font-size: 80%;
-
             &-line1 {
                 display: flex;
+                justify-content: space-between;
                 @include respond(portrait) {
                     margin-top: 1rem;
                 }
@@ -54,12 +38,23 @@
 
             &-line2 {
                 display: flex;
-                justify-content: space-between;
-                &>h2 {
-                    flex: 5;
+                &Type {
+                    flex: 1.5;
+                    padding: 3px 5px;
+                    // align-self: center;
+                    // justify-self: center;
+                    display: inline-flex;                     
+                    margin-right: 2rem;
+                    @include respond(portrait) {
+                        margin: 0;
+                    }
                 }
-                &Amount {
-                    flex: 1.25;
+                &>h2 {
+                    flex: 8;
+                }
+                &Amount,
+                &Balance {
+                    flex: 1;
                 }              
             }
         }

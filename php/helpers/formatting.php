@@ -5,7 +5,8 @@
 */
 
 function formatDate($date) {
-    return date('F j, Y, g:i a',strtotime($date));
+    //return date('F j, Y, g:i a',strtotime($date));
+    return date('F j, Y',strtotime($date));
 }
 
 function concatText($text) {

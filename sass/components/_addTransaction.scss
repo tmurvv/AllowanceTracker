@@ -1,10 +1,17 @@
 .addTransaction {
-    border: 7px double $colorPrimary;
+    border: 2px solid $colorPrimary;
     padding: 1rem;
-    &h3 {
+    &>h3 {
         color: $colorSecondary;
         &>span {
             color: $colorPrimary;
+        }
+    }
+    &__form>form {
+        display: flex;
+        justify-content: space-between;
+        &>input {
+            border-radius: 7px;
         }
     }
 }
