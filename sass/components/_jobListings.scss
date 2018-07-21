@@ -1,0 +1,67 @@
+.listings {
+    padding: 0 2rem 0 2rem;
+    @include respond(portrait) {
+        padding: 0;
+    }
+
+    &__headers {
+        display:flex;
+        &--type {
+            flex: 3;
+        }
+        &--note {
+            flex: 8;
+        }
+        &--amount {
+            flex: 2;
+        }
+        &--balance {
+            flex: 1;
+        }
+        
+    }
+    &__job {
+        display: flex; 
+        @include respond(portrait) {
+            display: block;
+        }
+        padding-top: 1.5rem;
+        
+        &--type {
+            align-self: center;
+            justify-self: center;
+            display: inline-flex;                     
+            margin: 2rem;
+            @include respond(portrait) {
+                margin: 0;
+            }
+        }
+
+        &--info {
+            flex:5;
+            font-size: 80%;
+
+            &-line1 {
+                display: flex;
+                @include respond(portrait) {
+                    margin-top: 1rem;
+                }
+                &-datePosted {
+                    font-style: italic;
+                    margin-bottom: 8px;
+                }
+            }
+
+            &-line2 {
+                display: flex;
+                justify-content: space-between;
+                &>h2 {
+                    flex: 5;
+                }
+                &Amount {
+                    flex: 1.25;
+                }              
+            }
+        }
+    }
+}

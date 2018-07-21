@@ -1,0 +1,82 @@
+.footer {
+    background-color: #333;
+    padding: 2rem 3rem;
+    @include respond(phone) {
+        padding: 1rem 1rem;
+    }
+    &__topRow {
+        display: flex;
+        justify-content: space-between;
+        
+        &--menu {           
+            text-transform: uppercase;
+        } 
+        
+        &--contact {
+            text-align: right;
+        }
+        
+        & ul {
+            list-style: none;
+            display: flex;
+            @include respond(portrait) {
+                flex-flow: column;     
+            }          
+        }
+        &--menu li,
+        &--contact li {
+            
+            margin: 0 1.7rem;
+            font-size: 120%;
+
+            @include respond(landscape) {               
+                margin: 0 1rem;          
+            }
+            @include respond(portrait) {
+                font-size: 90%; 
+                margin: 0 0;          
+            }
+            @include respond(phone) {
+                font-size: 80%; 
+                margin: 0 0;          
+            }
+        }
+        &--menu li a:link,
+        &--menu li a:visited,
+        &--contact li a:link,
+        &--contact li a:visited {
+            text-decoration: none;
+            border: 0;
+            color: #888;
+            transition: color 0.4s;
+        }
+        &--menu li a:hover,
+        &--menu li a:active,
+        &--contact li a:hover,
+        &--contact li a:active {
+            color: #dfdfdf;
+        }
+        &--contact {
+            & img {
+                height: 1.5rem;
+                border-radius: 5px;
+                &:link,
+                &:visited {
+                    transition: all 0.4s;
+                }
+                &:hover,
+                &:active {
+                    transform: scale(1.5);
+                }
+            }
+        }
+    }
+    &__copy {
+        color: #888;
+        text-align: center;
+        margin-top: 1rem;
+        @include respond(portrait) {
+            font-size: 90%;           
+        }
+    }
+}

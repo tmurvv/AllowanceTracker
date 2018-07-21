@@ -1,0 +1,89 @@
+.updateSelectorsHeading {
+    margin: 1.5rem;
+}
+.updateSelectors {
+    width: 50%;
+    @include respond(landscape) {
+        width: 80%;
+    }
+    
+    margin: auto auto 5rem auto;
+    border: 5px double $colorPrimary;
+    padding: 0 3rem 1.5rem 3rem;
+    @include respond(portrait) {
+        width: 96%;
+        padding: 0 1rem 1.5rem 1rem;
+    }
+    border-radius: 7px;
+
+    &__selector {
+        margin: 1.5rem auto 2rem auto;
+        &--add {
+            display: flex;
+            
+            padding: 2px 4px;
+            &>:first-child {
+                flex:1;
+                width:100%;
+                text-align: center;
+                margin-right: 5px;
+                border-radius: 7px;
+                padding: 3px 5px;
+            }
+            &>:nth-child(2) {
+                flex:7;
+                margin-right: 5px;
+                padding: 3px 5px;
+            }
+            &>:nth-child(3) {
+                flex:2;
+            }
+
+        }
+        &--item {
+            display: flex;
+            border-radius: 7px;
+            padding: 2px 4px;
+            &-order {
+                flex:1;
+                margin-right: 5px;
+                &>input {
+                    width: 100%;
+                    padding: 3px 5px;
+                    border-radius: 7px;
+                }
+            }
+            &-itemName {
+                flex:7;
+                margin-right: 5px;
+                &>input {
+                    width: 100%;
+                    padding: 3px 5px;
+                    border-radius: 7px;
+                }
+                
+            }
+            &-saveEdit {
+                flex: 1;
+                
+                &>input {
+                    width: 100%;
+                    padding: 2px;
+                    border-radius: 7px;
+                    @include respond(phone) {
+                        font-size: 9px;
+                    }
+                }
+                &>button {
+                    @include respond(phone) {
+                        font-size: 9px;
+                    }
+                }
+            }
+        }
+
+        &>p{
+            font-size: .65rem;
+        }
+    }
+}

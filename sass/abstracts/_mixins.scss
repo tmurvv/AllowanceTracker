@@ -1,0 +1,35 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin centerBoxAbs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+//MEDIA QUERIES SECTION
+//Recommended order of developing queries--base + typography > grid + page layout > components
+
+//Media query max-width settings do not refer to rems. 
+//We use ems in order to account for changes user has made in default settings
+
+@mixin respond($breakpoint) {  //1em=16px, formula (max or min-screen width) / 16px = ??ems
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content }; //600px  600px/16px (1em) = 37.5em
+    }
+    @if $breakpoint == portrait {
+        @media only screen and (max-width: 56.25em) { @content }; //900px   900px/16px (1em) = 56.25em
+    }
+    @if $breakpoint == landscape {
+        @media only screen and (max-width: 75em) { @content }; //1200px   1200px/16px (1em) = 75.5em
+    }
+    @if $breakpoint == bigScreen {
+        @media only screen and (min-width: 112.5em) { @content }; //1800+px     1800px/16px (1em) = 112.5em
+    }
+}

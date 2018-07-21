@@ -1,0 +1,26 @@
+.deleteJob {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 25px;
+
+    &__ask {
+        background-color: $colorGrey-dark1;       
+        padding: 10px;
+        box-shadow: 2px 5px $colorGrey-light2;
+        border-radius: 7px;
+        text-align: center;
+        color: $colorGrey-light1;
+        margin-right: 25px; 
+    }
+
+    &>a {
+        text-decoration: none;
+        padding: 0px 6px;
+        margin-left: 25px;
+        margin-top: 6px;
+        box-shadow: 2px 2px grey;
+        display: inline-flex;
+        font-size: 15px;
+    }
+}

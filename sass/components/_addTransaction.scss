@@ -1,0 +1,10 @@
+.addTransaction {
+    border: 7px double $colorPrimary;
+    padding: 1rem;
+    &h3 {
+        color: $colorSecondary;
+        &>span {
+            color: $colorPrimary;
+        }
+    }
+}

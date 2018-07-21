@@ -1,0 +1,44 @@
+.addJob {
+    margin: 50px 25px;
+
+    &__mainHeading {
+        text-decoration: none;
+        color: $colorGrey-dark1;
+    }
+    &__mainHeading>span {
+        color: $colorPrimary;
+    }
+
+    &>button {
+        border-radius: 7px;
+        padding: 5px 10px;
+        margin: 10px;
+        font-size: 125%;
+    }
+
+    &__job {
+        
+        & * input,
+        &>select,
+        & * textarea {
+            border-radius: 7px;
+            padding: 5px 10px;
+            margin: 10px;
+        }
+
+        
+
+        & * input {
+            width: 100%;
+        }
+
+        &--datePosted {
+            &>input {
+                width: 150px;
+            }
+        }
+        &--type {
+
+        }
+    }    
+}

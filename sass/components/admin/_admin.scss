@@ -1,0 +1,26 @@
+.admin__messageBox {
+    background-color: $colorPrimary;
+    padding: 5px 10px;
+    border: 7px double white;
+    box-shadow: 2px 5px $colorGrey-light2;
+    color: $colorGrey-light1;
+    width: auto;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    margin-top: 0;
+    display: inline-flex;
+}
+
+.admin__editDelete {
+    display: flex;
+    &>a {
+        text-decoration: none;
+        width: 75px;
+        text-align: center;
+        font-size: 14px;
+    }
+    &--edit {
+        margin-right: 7px;
+    }
+    
+}

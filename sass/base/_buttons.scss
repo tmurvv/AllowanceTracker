@@ -1,0 +1,33 @@
+.btn {
+    border-radius: 7px;
+    padding: 3px 6px;
+
+    &>p {
+        border-radius: 7px;
+        padding: 3px 5px;
+    }
+    &__primary {
+        background-color: $colorPrimary;
+        color: $colorGrey-light1;
+    }
+    &__secondary {
+        background-color: $colorSecondary;
+        color: $colorGrey-light1;
+    }
+    &__secondary>p {
+        background-color: $colorSecondary;
+        color: $colorGrey-light1;
+    }
+
+    &__danger {
+        background-color: $colorDanger;
+        color: $colorGrey-light1;
+    }
+
+    &__small {
+        font-size: 9px;
+    }
+    &__shadow {
+        box-shadow: 1px 1px colorGrey-light1;
+    }
+}

@@ -1,0 +1,40 @@
+.search__form {
+    padding: 2rem 2rem;
+    display: flex;
+    @include respond(portrait) {
+        display: block;
+        padding-top: 0;
+        flex:1;
+        order:1;
+    }
+    @include respond(phone) {
+        padding-top: 2rem;
+    }
+    
+    &--title {
+        flex: 1;
+    }
+    &--selectBoxes {
+        flex:5;
+        display: flex;
+        @include respond(landscape) {
+            flex-flow:column;
+        }
+        justify-content: flex-start;
+
+        &-item {
+            padding: 5px 18px;
+            border-radius: 7px;
+            outline: none;
+            font-size: 16px;
+            margin-right: 4rem;
+            margin-top:.5rem;
+            @include respond(landscape) {
+                width:40%;
+            }
+            @include respond(portrait) {
+                width:auto;
+            }
+        }
+    }
+}
