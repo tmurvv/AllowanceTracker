@@ -58,6 +58,9 @@ body {
   .btn__danger {
     background-color: #ff3300;
     color: #fff9e9; }
+  .btn__primaryVeryDark {
+    background-color: #A43C3D;
+    color: #fff9e9; }
   .btn__small {
     font-size: 9px; }
   .btn__shadow {
