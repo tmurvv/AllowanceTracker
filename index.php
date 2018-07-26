@@ -33,18 +33,18 @@
   $sum=$row['valueSum']; 
 ?>
 <?php
-    if(isset($_POST['edit'])){
-        //Retrieve id for editting
-        $id = $_GET['id'];
+    // if(isset($_POST['edit'])){
+    //     //Retrieve id for editting
+    //     $id = $_GET['id'];
 
-        //Create DB Object
-        $db = new Database();
+    //     //Create DB Object
+    //     $db = new Database();
 
-        //Create Query
-        $query = "SELECT * FROM transactions WHERE id = ".$id;
-        //Run Query
-        $update = $db->select($query)->fetch_assoc();
-    }
+    //     //Create Query
+    //     $query = "SELECT * FROM transactions WHERE id = ".$id;
+    //     //Run Query
+    //     $update = $db->select($query)->fetch_assoc();
+    // }
 ?>
 <?php
     //Create DB Object
@@ -68,6 +68,17 @@
     
     //header("Location: admin.php", true, 301);
     
+    }
+?>
+<?php
+    if(isset($_POST['edit'])){
+        //Assign Vars   
+        $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
+
+        //Simple validation
+        
+        $query = "UPDATE transactions SET transactionNote = '$transactionNote' WHERE id=".$id;      
+        $update = $db->update($query);
     }
 ?>
 <?php
@@ -128,71 +139,70 @@
             </div>
             <?php if($transactions) : ?>
             <?php while($row = $transactions->fetch_assoc()) : ?>
+            <form method="post" name="edit" action="index.php?id=<?php echo $row['id'] ?>">
             <div class="listings__job">
-
                 <div class="listings__job--info">
                     <div class="listings__job--info-line1">
                         <div class="listings__job--info-line1-datePosted">
                             <?php echo formatDate($row['dateTransaction']); ?>
                         </div>
-                        <div class="listings__job--info-line1-editDelete">
-                            
-                            <form method="post" action="index.php?id=<?php echo $row['id'] ?>">
+                        <div class="listings__job--info-line1-editDelete"> 
+                            <div>                          
                                 <button name="edit" type="button" class="btn btn__secondary" onClick="startEditSelector(this)">Edit</button>
                                 <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditSelector(this)">Delete</button>
-                            </form>
-
+                            </div>
                         </div>
                     </div>
                     <div class="listings__job--info-line2">
-                        <div class="listings__job--info-line2Type">
-                            <p class="btn btn__primary">
-                                <?php if($row['addSubtract']=="Deposit") : echo "Cha-CHING"; else: echo "Spent It"; endif; ?>
-                                
-                                
-                                <select name="type" id="">
-    <option value="Select Type">Select Type</option>
-    <option value="Deposit">Deposit</option>
-    <option value="Withdrawal">Withdrawal</option>
-</select>
-                                    <?php //while($row = $transactionType->fetch_assoc()) : ?>
-                                        <?php //if ($update['transactionType'] === $row['transactionType']) {
-                                            //$selected = 'selected';
-                                            //}else{
-                                            //    $selected = "";
-                                            //}
-                                        ?>
-                                        <!-- <option value="<?php //echo $row['transactionType']; ?>" <?php //echo $selected; ?>>
-                                            <?php //echo $row['transactionType']; ?>
-                                        </option> -->
+
+                        <p class="btn btn__primary">
+                            <?php if($row['addSubtract']=="Deposit") : echo "Cha-CHING"; else: echo "Spent It"; endif; ?>
+
+
+                            <select name="type" id="">
+                                <option value="Select Type">Select Type</option>
+                                <option value="Deposit">Deposit</option>
+                                <option value="Withdrawal">Withdrawal</option>
+                            </select>
+                            <?php //while($row = $transactionType->fetch_assoc()) : ?>
+                            <?php //if ($update['transactionType'] === $row['transactionType']) {
+                                //$selected = 'selected';
+                                //}else{
+                                //    $selected = "";
+                                //}
+                            ?>
+                                    <!-- <option value="<?php //echo $row['transactionType']; ?>" <?php //echo $selected; ?>>
+                                <?php //echo $row['transactionType']; ?>
+                            </option> -->
                                     <?php //endwhile; ?>
-                                    
-                            
-                            </p>    
-                        </div>
+                        </p>
+
                         <h2>
-                            <?php echo $row['transactionNote']; ?>
-                            <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>"/>
+                            <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" disabled />
+                        
+                        </h2>
+                        <h2>
+                            <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
                         </h2>
                         <div class="listings__job--info-line2Amount">
                             <?php echo "$".$row['transactionAmount']; ?>
-                            
                         </div>
                         <div>
-                        <?php 
-                            //create and run sum query for current transaction balance
-                            $lineTransactionDate = $row['dateTransaction'];
-                            $result=$db->select("SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE dateTransaction <= '$lineTransactionDate';");
-                            $sumRow=$result->fetch_assoc();
-                            $lineSum=$sumRow['lineValueSum'];
-                            //$lineSum=40.35;
-                        ?>
-                        <?php echo "$".$lineSum; ?>
+                            <?php 
+                                //create and run sum query for current transaction balance
+                                $lineTransactionDate = $row['dateTransaction'];
+                                $result=$db->select("SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE dateTransaction <= '$lineTransactionDate';");
+                                $sumRow=$result->fetch_assoc();
+                                $lineSum=$sumRow['lineValueSum'];
+                                //$lineSum=40.35;
+                            ?>
+                            <?php echo "$".$lineSum; ?>
                         </div>
 
                     </div>
-                </div>
+                </div>                
             </div>
+            </form>
             <br>
             <hr>
             <?php endwhile; ?>

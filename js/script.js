@@ -30,62 +30,59 @@ function startEditSelector(clickedItem) {
     var itemEdit;
     var itemOrderEdit;
     var cancelButton;
+    var jobListingDiv;
     
     if(clickedItem.innerHTML=="Edit") {
         //define DOM elements
-        alert("imin-edit");
-        var jobListingDiv = clickedItem.parentElement.parentElement.parentElement;
         
-        item=jobListingDiv.nextElementSibling.children[1];
-        alert(item.innerHTML);
-        // itemOrder=item.parentElement.previousElementSibling.children[0];
-        // itemEdit=clickedItem.parentElement.previousElementSibling.children[1];
-        // itemOrderEdit=item.parentElement.previousElementSibling.children[1];
-        // cancelButton=clickedItem.parentElement.nextElementSibling.children[0];
+        jobListingDiv = clickedItem.parentElement.parentElement.parentElement;
+        
+        item=jobListingDiv.nextElementSibling.children[1].children[0];
+        itemEdit=jobListingDiv.nextElementSibling.children[2].children[0];
+        cancelButton=clickedItem.nextElementSibling;
 
-        // //confirm edit
-        // if(!confirm("Editing a " + item.name + " will cause all job listings with that " + item.name + " to be unsearchable by that " + item.name + ". You may wish to add a new " + item.name + " instead.")){
-        //     return;
-        // }
-
-        // //reset edit field values
-        // itemEdit.value=item.value;
+        //reset edit field values
+        itemEdit.value=item.value;
         // itemOrderEdit.value=itemOrder.value;
 
-        // //show edit fields / hide original data fields
-        // item.hidden=true;
+        //show edit fields / hide original data fields
+        itemEdit.hidden=false;
+        item.hidden=true;
         // itemOrder.hidden=true;
-        // itemEdit.hidden=false;
+        
         // itemOrderEdit.hidden=false;
 
-        // //change button text and style
-        // clickedItem.innerHTML="Save";
-        // cancelButton.innerHTML="Cancel";
-        // cancelButton.style="background-color:yellow;color:#333";
+        //change button text and style
+        clickedItem.innerHTML="Save";
+        cancelButton.innerHTML="Cancel";
+        cancelButton.style="background-color:yellow;color:#333";
         
         return;
     }
 
     if(clickedItem.innerHTML=="Cancel"){
         //define DOM elements
-        item=clickedItem.parentElement.previousElementSibling.previousElementSibling.children[0];
-        itemOrder=clickedItem.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.children[0];
-        itemEdit=clickedItem.parentElement.previousElementSibling.previousElementSibling.children[1];
-        itemOrderEdit=clickedItem.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.children[1];
+        // item=clickedItem.parentElement.previousElementSibling.previousElementSibling.children[0];
+        // itemOrder=clickedItem.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.children[0];
+        // itemEdit=clickedItem.parentElement.previousElementSibling.previousElementSibling.children[1];
+        // itemOrderEdit=clickedItem.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.children[1];
+        jobListingDiv = clickedItem.parentElement.parentElement.parentElement;       
+        item=jobListingDiv.nextElementSibling.children[1].children[0];
+        itemEdit=jobListingDiv.nextElementSibling.children[2].children[0];
         cancelButton=clickedItem;
 
         //reset edit fields values
         itemEdit.value=item.value;
-        itemOrderEdit.value=itemOrder.value;
+        //itemOrderEdit.value=itemOrder.value;
 
         //show original data fields / hide edit fields
-        itemOrder.hidden=false;
-        itemOrderEdit.hidden=true;
+        // itemOrder.hidden=false;
+        // itemOrderEdit.hidden=true;
         item.hidden=false;
         itemEdit.hidden=true;
-        clickedItem.parentElement.previousElementSibling.children[0].innerHTML="Edit";
+        clickedItem.previousElementSibling.innerHTML="Edit";
         cancelButton.innerHTML="Delete";
-        cancelButton.style="background-color:red;color:#fff";
+        cancelButton.style="background-color:#A43C3D;color:#eee";
         return;       
     }
     if(clickedItem.innerHTML=="Delete"){
@@ -98,27 +95,23 @@ function startEditSelector(clickedItem) {
 
     if(clickedItem.innerHTML=="Save"){
         //define DOM elements
-        item=clickedItem.parentElement.previousElementSibling.children[0];
-        itemOrder=item.parentElement.previousElementSibling.children[0];
-        itemEdit=clickedItem.parentElement.previousElementSibling.children[1];
-        itemOrderEdit=item.parentElement.previousElementSibling.children[1];
-        cancelButton=clickedItem.parentElement.nextElementSibling.children[0];
+        jobListingDiv = clickedItem.parentElement.parentElement.parentElement;
+        item=jobListingDiv.nextElementSibling.children[1].children[0];
+        itemEdit=jobListingDiv.nextElementSibling.children[2].children[0];
+        cancelButton=clickedItem.nextElementSibling;
 
         //change original data to new edit data
-        item.value=itemEdit.value;
-        itemOrder.value=itemOrderEdit.value;
-
+        item.innerText=itemEdit.value;
+        
         //show original data fields / hide edit fields
         item.hidden=false;
-        itemOrder.hidden=false;
         itemEdit.hidden=true;
-        itemOrderEdit.hidden=true;
-
+        
         //change text and style of buttons
         cancelButton.innerHTML="Delete";
-        cancelButton.style="background-color:red;color:#fff";
+        cancelButton.style="background-color:#A43C3D;color:#eee";
         clickedItem.innerHTML="Edit";
-        clickedItem.type="submit";      
+        clickedItem.type="submit";   
     }     
 }
 
