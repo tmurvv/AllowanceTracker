@@ -9,6 +9,10 @@ function formatDate($date) {
     return date('F j, Y',strtotime($date));
 }
 
+function formatDateHTMLInput($date) {
+    return date('Y-m-d', strtotime($date));
+}
+
 function concatText($text) {
     return substr($text, 0, 350);
 }

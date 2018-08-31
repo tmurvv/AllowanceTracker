@@ -3,7 +3,7 @@
 
 function createQuery() {
     $query = "";
-    $query = "SELECT * FROM transactions ORDER BY dateTransaction DESC";
+    $query = "SELECT * FROM transactions ORDER BY transactionDate DESC";
     return $query;
 }
 

@@ -30,21 +30,11 @@
   //create and run sum query for balance
   $result=$db->select('SELECT SUM(transactionAmount) AS valueSum FROM transactions');
   $row=$result->fetch_assoc();
-  $sum=$row['valueSum']; 
-?>
-<?php
-    // if(isset($_POST['edit'])){
-    //     //Retrieve id for editting
-    //     $id = $_GET['id'];
+  $sum=$row['valueSum'];
 
-    //     //Create DB Object
-    //     $db = new Database();
-
-    //     //Create Query
-    //     $query = "SELECT * FROM transactions WHERE id = ".$id;
-    //     //Run Query
-    //     $update = $db->select($query)->fetch_assoc();
-    // }
+  //Create and run Type Selector Query
+  $query = "SELECT * FROM transactionType";
+  $transactionTypes = $db->select($query);
 ?>
 <?php
     //Create DB Object
@@ -62,7 +52,7 @@
     //if($title == '' || $body == '' || $category == '' || $author == ''){
 
     $query = "INSERT INTO transactions
-                (addSubtract, transactionAmount, dateTransaction, transactionNote, piggyUser)
+                (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
                 VALUES('$transactionType', '$transactionAmount', '$transactionDate', '$transactionNote', '$piggyUser')";
     $insert_row = $db->insert($query);           
     
@@ -74,10 +64,12 @@
     if(isset($_POST['edit'])){
         //Assign Vars   
         $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
+        $transactionAmount = mysqli_real_escape_string($db->link, $_POST['transactionAmount']);
+        $transactionDate = mysqli_real_escape_string($db->link, $_POST['transactionDate']);
+        $transactionType = mysqli_real_escape_string($db->link, $_POST['transactionType']);
 
-        //Simple validation
-        
-        $query = "UPDATE transactions SET transactionNote = '$transactionNote' WHERE id=".$id;      
+        //Update Data       
+        $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDate', transactionType = '$transactionType' WHERE id=".$id;      
         $update = $db->update($query);
     }
 ?>
@@ -115,10 +107,20 @@
             <div class="addTransaction__form">
                 <form action="index.php" method="post">
                     <label for="type">Type: </label>
-                    <select name="type" id="">
-                        <option value="Select Type">Select Type</option>
-                        <option value="Deposit">Deposit</option>
-                        <option value="Withdrawal">Withdrawal</option>
+                    <select name="type" class="addSearch__form--selectBoxes-item" id="">
+                        <option value="" disabled selected>Select your option</option>
+                        <?php 
+                            //Create and run Type Selector Query
+                            $query = "SELECT * FROM transactionType ORDER BY transactionType";
+                            $transactionTypes = $db->select($query);
+                        ?>
+                        <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
+                        
+                        <option value="<?php echo $typeRow['transactionType']; ?>">
+                            <?php echo $typeRow['transactionType']; ?>
+                        </option>
+                        <?php endwhile; ?>
+                        
                     </select>
                     <label for="date">Date: </label>
                     <input name="date" type="date" placeholder="enter date">
@@ -143,8 +145,9 @@
             <div class="listings__job">
                 <div class="listings__job--info">
                     <div class="listings__job--info-line1">
+                        <div class="listings__job--info-line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
                         <div class="listings__job--info-line1-datePosted">
-                            <?php echo formatDate($row['dateTransaction']); ?>
+                            <input name="transactionDate" type="date" value="<?php echo formatDateHTMLInput($row['transactionDate']); ?>" hidden />
                         </div>
                         <div class="listings__job--info-line1-editDelete"> 
                             <div>                          
@@ -154,44 +157,45 @@
                         </div>
                     </div>
                     <div class="listings__job--info-line2">
-
-                        <p class="btn btn__primary">
-                            <?php if($row['addSubtract']=="Deposit") : echo "Cha-CHING"; else: echo "Spent It"; endif; ?>
-
-
-                            <select name="type" id="">
-                                <option value="Select Type">Select Type</option>
-                                <option value="Deposit">Deposit</option>
-                                <option value="Withdrawal">Withdrawal</option>
-                            </select>
-                            <?php //while($row = $transactionType->fetch_assoc()) : ?>
-                            <?php //if ($update['transactionType'] === $row['transactionType']) {
-                                //$selected = 'selected';
-                                //}else{
-                                //    $selected = "";
-                                //}
+                       
+                        <div class="btn btn__primary"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
+                        <div>
+                        <select name="transactionType" class="addSearch__form--selectBoxes-item" id="" hidden>
+                                                  
+                            <?php 
+                                //Create and run Type Selector Query
+                                $query = "SELECT * FROM transactionType ORDER BY transactionType";
+                                $transactionTypes = $db->select($query);
                             ?>
-                                    <!-- <option value="<?php //echo $row['transactionType']; ?>" <?php //echo $selected; ?>>
-                                <?php //echo $row['transactionType']; ?>
-                            </option> -->
-                                    <?php //endwhile; ?>
-                        </p>
-
-                        <h2>
-                            <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" disabled />
-                        
+                            <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
+                            <?php if ($row['transactionType'] === $typeRow['transactionType']) {
+                                $selected = 'selected';
+                            }else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
+                                <?php echo $typeRow['transactionType']; ?>
+                            </option>
+                            <?php endwhile; ?>
+                           
+                        </select>
+                        </div>
+                        <h2><?php echo $row['transactionNote']; ?>
                         </h2>
                         <h2>
                             <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
                         </h2>
+                        <div class="listings__job--info-line2Amount"><?php echo $row['transactionAmount']; ?>
+                        </div>
                         <div class="listings__job--info-line2Amount">
-                            <?php echo "$".$row['transactionAmount']; ?>
+                            <input name="transactionAmount" value="<?php echo $row['transactionAmount']; ?>" hidden />                        
                         </div>
                         <div>
                             <?php 
                                 //create and run sum query for current transaction balance
-                                $lineTransactionDate = $row['dateTransaction'];
-                                $result=$db->select("SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE dateTransaction <= '$lineTransactionDate';");
+                                $lineTransactionDate = $row['transactionDate'];
+                                $result=$db->select("SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE transactionDate <= '$lineTransactionDate';");
                                 $sumRow=$result->fetch_assoc();
                                 $lineSum=$sumRow['lineValueSum'];
                                 //$lineSum=40.35;
