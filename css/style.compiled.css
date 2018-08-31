@@ -456,49 +456,51 @@ header {
         .search__form--selectBoxes-item {
           width: auto; } }
 
-.listings {
+.transactions {
   padding: 0 2rem 0 2rem; }
   @media only screen and (max-width: 56.25em) {
-    .listings {
+    .transactions {
       padding: 0; } }
-  .listings__headers {
+  .transactions__headers {
     display: flex;
     margin-top: 1.5rem; }
-    .listings__headers--type {
+    .transactions__headers--type {
       flex: 3; }
-    .listings__headers--note {
+    .transactions__headers--note {
       flex: 8; }
-    .listings__headers--amount {
+    .transactions__headers--amount {
       flex: 2; }
-    .listings__headers--balance {
+    .transactions__headers--balance {
       flex: 1; }
-  .listings__job {
-    padding-top: 1.5rem; }
-    .listings__job--info {
-      font-size: 80%; }
-      .listings__job--info-line1 {
-        display: flex;
-        justify-content: space-between; }
+  .transactions__lineItem {
+    padding-top: 1.5rem;
+    font-size: 110%; }
+    .transactions__lineItem--line1 {
+      display: flex;
+      justify-content: space-between; }
+      @media only screen and (max-width: 56.25em) {
+        .transactions__lineItem--line1 {
+          margin-top: 1rem; } }
+      .transactions__lineItem--line1-datePosted {
+        font-style: italic;
+        margin-bottom: 8px; }
+      .transactions__lineItem--line1-editDelete > button {
+        font-size: 90%;
+        margin-left: .5rem; }
+    .transactions__lineItem--line2 {
+      display: flex; }
+      .transactions__lineItem--line2-type {
+        flex: 2.5;
+        padding: 3px 5px;
+        display: inline-flex;
+        margin-right: 2rem; }
         @media only screen and (max-width: 56.25em) {
-          .listings__job--info-line1 {
-            margin-top: 1rem; } }
-        .listings__job--info-line1-datePosted {
-          font-style: italic;
-          margin-bottom: 8px; }
-      .listings__job--info-line2 {
-        display: flex; }
-        .listings__job--info-line2Type {
-          flex: 1.5;
-          padding: 3px 5px;
-          display: inline-flex;
-          margin-right: 2rem; }
-          @media only screen and (max-width: 56.25em) {
-            .listings__job--info-line2Type {
-              margin: 0; } }
-        .listings__job--info-line2 > h2 {
-          flex: 8; }
-        .listings__job--info-line2Amount, .listings__job--info-line2Balance {
-          flex: 1; }
+          .transactions__lineItem--line2-type {
+            margin: 0; } }
+      .transactions__lineItem--line2 > h2 {
+        flex: 8; }
+      .transactions__lineItem--line2-amount, .transactions__lineItem--line2-balance {
+        flex: 1; }
 
 .addTransaction {
   border: 2px solid #e47587;
@@ -507,10 +509,29 @@ header {
     color: #D9AE5C; }
     .addTransaction > h3 > span {
       color: #e47587; }
-  .addTransaction__form > form {
+  .addTransaction__form {
     display: flex;
     justify-content: space-between; }
-    .addTransaction__form > form > input {
+    .addTransaction__form--type {
+      flex: 1;
+      display: flex; }
+    .addTransaction__form--date {
+      flex: .5;
+      display: flex; }
+    .addTransaction__form--note {
+      flex: 5;
+      display: flex; }
+      .addTransaction__form--note > input {
+        width: 100%; }
+    .addTransaction__form--amount {
+      flex: .5;
+      display: flex; }
+    .addTransaction__form--submit {
+      flex: 1; }
+    .addTransaction__form > div > label,
+    .addTransaction__form > div > input,
+    .addTransaction__form > div > select {
+      margin-right: .5rem;
       border-radius: 7px; }
 
 .addJob {

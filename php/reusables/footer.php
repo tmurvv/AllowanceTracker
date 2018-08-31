@@ -5,17 +5,12 @@
                     <a href="#top">Home</a>
                 </li>
                 <li>
-                    <a href="#jobs">Job Listings</a>
-                </li>
-                <li>
-                    <a href="#search">Search</a>
-                </li>
-                <li>
                     <a href="#about">About</a>
                 </li>
+                <li>
+                    <a href="#jobs">Contact</a>
+                </li>              
             </ul>
-
-
             <ul class="footer__topRow--contact">
                 <li>
                     <a href="http://www.linkedin.com/in/tisha-murvihill-tech" target="_blank">

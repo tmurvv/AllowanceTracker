@@ -7,10 +7,36 @@
             color: $colorPrimary;
         }
     }
-    &__form>form {
+    &__form {
         display: flex;
         justify-content: space-between;
-        &>input {
+
+        &--type {
+            flex: 1;
+            display:flex;
+        }
+        &--date {
+            flex: .5;
+            display:flex;
+        }
+        &--note {
+            flex: 5;
+            display:flex;
+            &>input {
+                width: 100%;
+            }
+        }
+        &--amount {
+            flex: .5;
+            display:flex;
+        }
+        &--submit {
+            flex: 1;
+        }
+        &>div>label,
+        &>div>input,
+        &>div>select {
+            margin-right: .5rem;
             border-radius: 7px;
         }
     }

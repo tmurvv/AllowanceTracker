@@ -89,7 +89,7 @@
 <body>
     <?php include 'php/reusables/hero.php' ?>
 
-    <div class="mainBoard" id="jobs">
+    <div class="mainBoard" id="lineItems">
         <h1>
             Allowance
             <span>Tracker</span>
@@ -104,63 +104,73 @@
             <h3>Add
                 <span>Transaction</span>
             </h3>
-            <div class="addTransaction__form">
-                <form action="index.php" method="post">
-                    <label for="type">Type: </label>
-                    <select name="type" class="addSearch__form--selectBoxes-item" id="">
-                        <option value="" disabled selected>Select your option</option>
-                        <?php 
-                            //Create and run Type Selector Query
-                            $query = "SELECT * FROM transactionType ORDER BY transactionType";
-                            $transactionTypes = $db->select($query);
-                        ?>
-                        <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
-                        
-                        <option value="<?php echo $typeRow['transactionType']; ?>">
-                            <?php echo $typeRow['transactionType']; ?>
-                        </option>
-                        <?php endwhile; ?>
-                        
-                    </select>
-                    <label for="date">Date: </label>
-                    <input name="date" type="date" placeholder="enter date">
-                    <label for="note">Note: </label>
-                    <input name="note" type="text" placeholder="enter note">
-                    <label for="amount">Amount: </label>
-                    <input name="amount" type="text" placeholder="enter amount">
-                    <input type="submit" name="submit" class="btn" value="Submit">
+            
+                <form action="index.php" method="post"class="addTransaction__form">
+                    
+                    <div class="addTransaction__form--type">
+                        <label for="type">Type: </label>
+                        <select name="type" id="">
+                            <option value="" disabled selected>Select your option</option>
+                            <?php 
+                                //Create and run Type Selector Query
+                                $query = "SELECT * FROM transactionType ORDER BY transactionType";
+                                $transactionTypes = $db->select($query);
+                            ?>
+                            <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
+                            
+                            <option value="<?php echo $typeRow['transactionType']; ?>">
+                                <?php echo $typeRow['transactionType']; ?>
+                            </option>
+                            <?php endwhile; ?>                     
+                        </select>
+                    </div>
+                    
+                    <div class="addTransaction__form--date">
+                        <label for="date">Date: </label>
+                        <input name="date" type="date" placeholder="enter date">                      
+                    </div>                 
+                    <div class="addTransaction__form--note">
+                        <label for="note">Note: </label>
+                        <input name="note" type="text" placeholder="enter note">                
+                    </div>
+                    <div class="addTransaction__form--amount">
+                    	<label for="amount">Amount: </label>
+                    	<input name="amount" type="text" placeholder="enter amount">                   	
+                    </div>
+                    <div class="addTransaction__form--submit">
+                        <input type="submit" name="submit" class="btn" value="Submit">
+                    </div>
                 </form>
-            </div>
+            
         </div>
-        <div class="listings">
-            <div class="listings__headers">
-                <div class="listings__headers--type">Type</div>
-                <div class="listings__headers--note">Note</div>
-                <div class="listings__headers--amount">Amount</div>
-                <div class="listings__headers--balance">Balance</div>
+        <div class="transactions">
+            <div class="transactions__headers">
+                <div class="transactions__headers--type">Type</div>
+                <div class="transactions__headers--note">Note</div>
+                <div class="transactions__headers--amount">Amount</div>
+                <div class="transactions__headers--balance">Balance</div>
             </div>
             <?php if($transactions) : ?>
             <?php while($row = $transactions->fetch_assoc()) : ?>
             <form method="post" name="edit" action="index.php?id=<?php echo $row['id'] ?>">
-            <div class="listings__job">
-                <div class="listings__job--info">
-                    <div class="listings__job--info-line1">
-                        <div class="listings__job--info-line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
-                        <div class="listings__job--info-line1-datePosted">
+            <div class="transactions__lineItem">              
+                    <div class="transactions__lineItem--line1">
+                        <div class="transactions__lineItem--line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
+                        <div class="transactions__lineItem--line1-datePosted">
                             <input name="transactionDate" type="date" value="<?php echo formatDateHTMLInput($row['transactionDate']); ?>" hidden />
                         </div>
-                        <div class="listings__job--info-line1-editDelete"> 
-                            <div>                          
-                                <button name="edit" type="button" class="btn btn__secondary" onClick="startEditSelector(this)">Edit</button>
-                                <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditSelector(this)">Delete</button>
-                            </div>
+                        <div class="transactions__lineItem--line1-editDelete"> 
+                             
+                            <button name="edit" type="button" class="btn btn__secondary" onClick="startEditSelector(this)">Edit</button>
+                            <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditSelector(this)">Delete</button>
+
                         </div>
                     </div>
-                    <div class="listings__job--info-line2">
+                    <div class="transactions__lineItem--line2">
                        
-                        <div class="btn btn__primary listings__job--info-line2Type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
+                        <div class="btn btn__primary transactions__lineItem--line2-type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
                         <div>
-                        <select name="transactionType" class="addSearch__form--selectBoxes-item" id="" hidden>
+                        <select name="transactionType" id="" hidden>
                                                   
                             <?php 
                                 //Create and run Type Selector Query
@@ -186,9 +196,9 @@
                         <h2>
                             <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
                         </h2>
-                        <div class="listings__job--info-line2Amount"><?php echo $row['transactionAmount']; ?>
+                        <div class="transactions__lineItem--line2-amount"><?php echo $row['transactionAmount']; ?>
                         </div>
-                        <div class="listings__job--info-line2Amount">
+                        <div class="transactions__lineItem--line2-amount">
                             <input name="transactionAmount" value="<?php echo $row['transactionAmount']; ?>" hidden />                        
                         </div>
                         <div>
@@ -203,8 +213,7 @@
                             <?php echo "$".$lineSum; ?>
                         </div>
 
-                    </div>
-                </div>                
+                    </div>               
             </div>
             </form>
             <br>
