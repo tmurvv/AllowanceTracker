@@ -158,7 +158,7 @@
                     </div>
                     <div class="listings__job--info-line2">
                        
-                        <div class="btn btn__primary"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
+                        <div class="btn btn__primary listings__job--info-line2Type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
                         <div>
                         <select name="transactionType" class="addSearch__form--selectBoxes-item" id="" hidden>
                                                   
