@@ -10,28 +10,52 @@
     &__form {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
 
         &--type {
+            margin-bottom: 1rem;
             flex: 1;
             display:flex;
+
+            @include respond(phone) {
+                display: block;
+            }
         }
         &--date {
+            margin-bottom: 1rem;
             flex: .5;
             display:flex;
+            @include respond(phone) {
+                display: block;
+            }
         }
         &--note {
+            margin-bottom: 1rem;
             flex: 5;
             display:flex;
             &>input {
-                width: 100%;
+                min-width: 10rem;
+                width: 100%;               
+            }
+            @include respond(phone) {
+                display: block;
             }
         }
         &--amount {
+            margin-bottom: 1rem;
             flex: .5;
             display:flex;
+            @include respond(phone) {
+                display: block;
+                width: 75%;
+            }
         }
         &--submit {
+            margin-bottom: 1rem;
             flex: 1;
+            &>input {
+                font-size: 100%;
+            }            
         }
         &>div>label,
         &>div>input,
@@ -39,5 +63,13 @@
             margin-right: .5rem;
             border-radius: 7px;
         }
+
+        &>div>input,
+        &>div>select {
+            @include respond(phone) {
+                font-size: 100%;
+            }
+        }
+
     }
 }

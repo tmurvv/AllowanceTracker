@@ -318,6 +318,12 @@ header {
 
 .mainBoard {
   padding: 2rem 4rem 0 4rem; }
+  @media only screen and (max-width: 56.25em) {
+    .mainBoard {
+      padding: 1rem 2rem 0 2rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .mainBoard {
+      padding: .5rem 1rem 0 1rem; } }
   .mainBoard > h1 > span {
     color: #e47587; }
   .mainBoard__bankImage {
@@ -511,28 +517,54 @@ header {
       color: #e47587; }
   .addTransaction__form {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    flex-wrap: wrap; }
     .addTransaction__form--type {
+      margin-bottom: 1rem;
       flex: 1;
       display: flex; }
+      @media only screen and (max-width: 37.5em) {
+        .addTransaction__form--type {
+          display: block; } }
     .addTransaction__form--date {
+      margin-bottom: 1rem;
       flex: .5;
       display: flex; }
+      @media only screen and (max-width: 37.5em) {
+        .addTransaction__form--date {
+          display: block; } }
     .addTransaction__form--note {
+      margin-bottom: 1rem;
       flex: 5;
       display: flex; }
       .addTransaction__form--note > input {
+        min-width: 10rem;
         width: 100%; }
+      @media only screen and (max-width: 37.5em) {
+        .addTransaction__form--note {
+          display: block; } }
     .addTransaction__form--amount {
+      margin-bottom: 1rem;
       flex: .5;
       display: flex; }
+      @media only screen and (max-width: 37.5em) {
+        .addTransaction__form--amount {
+          display: block;
+          width: 75%; } }
     .addTransaction__form--submit {
+      margin-bottom: 1rem;
       flex: 1; }
+      .addTransaction__form--submit > input {
+        font-size: 100%; }
     .addTransaction__form > div > label,
     .addTransaction__form > div > input,
     .addTransaction__form > div > select {
       margin-right: .5rem;
       border-radius: 7px; }
+    @media only screen and (max-width: 37.5em) {
+      .addTransaction__form > div > input,
+      .addTransaction__form > div > select {
+        font-size: 100%; } }
 
 .addJob {
   margin: 50px 25px; }
