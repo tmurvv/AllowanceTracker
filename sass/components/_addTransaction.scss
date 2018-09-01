@@ -8,9 +8,15 @@
         }
     }
     &__form {
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-wrap: wrap; /* Safari 6.1+ */
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+
+        @include respond(phone) {
+            display: block;
+        }
 
         &--type {
             margin-bottom: 1rem;

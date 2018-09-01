@@ -169,8 +169,8 @@
                     <div class="transactions__lineItem--line2">
                        
                         <div class="btn btn__primary transactions__lineItem--line2-type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
-                        <div>
-                        <select name="transactionType" id="" hidden>
+                        
+                        <select name="transactionType" hidden>
                                                   
                             <?php 
                                 //Create and run Type Selector Query
@@ -190,12 +190,12 @@
                             <?php endwhile; ?>
                            
                         </select>
+                        <div class="transactions__lineItem--line2-note">
+                            <h2><?php echo $row['transactionNote']; ?></h2>
+                            <h2>
+                                <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
+                            </h2>
                         </div>
-                        <h2><?php echo $row['transactionNote']; ?>
-                        </h2>
-                        <h2>
-                            <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
-                        </h2>
                         <div class="transactions__lineItem--line2-amount"><?php echo $row['transactionAmount']; ?>
                         </div>
                         <div class="transactions__lineItem--line2-amount">

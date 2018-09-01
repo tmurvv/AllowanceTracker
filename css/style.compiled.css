@@ -470,6 +470,9 @@ header {
   .transactions__headers {
     display: flex;
     margin-top: 1.5rem; }
+    @media only screen and (max-width: 37.5em) {
+      .transactions__headers {
+        display: block; } }
     .transactions__headers--type {
       flex: 3; }
     .transactions__headers--note {
@@ -481,6 +484,12 @@ header {
   .transactions__lineItem {
     padding-top: 1.5rem;
     font-size: 110%; }
+    @media only screen and (max-width: 75em) {
+      .transactions__lineItem {
+        font-size: 90%; } }
+    @media only screen and (max-width: 37.5em) {
+      .transactions__lineItem {
+        font-size: 80%; } }
     .transactions__lineItem--line1 {
       display: flex;
       justify-content: space-between; }
@@ -495,6 +504,9 @@ header {
         margin-left: .5rem; }
     .transactions__lineItem--line2 {
       display: flex; }
+      @media only screen and (max-width: 37.5em) {
+        .transactions__lineItem--line2 {
+          display: block; } }
       .transactions__lineItem--line2-type {
         flex: 2.5;
         padding: 3px 5px;
@@ -502,9 +514,9 @@ header {
         margin-right: 2rem; }
         @media only screen and (max-width: 56.25em) {
           .transactions__lineItem--line2-type {
-            margin: 0; } }
-      .transactions__lineItem--line2 > h2 {
-        flex: 8; }
+            margin-right: 1rem; } }
+      .transactions__lineItem--line2-note {
+        flex: 5; }
       .transactions__lineItem--line2-amount, .transactions__lineItem--line2-balance {
         flex: 1; }
 
@@ -516,9 +528,16 @@ header {
     .addTransaction > h3 > span {
       color: #e47587; }
   .addTransaction__form {
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; }
+    @media only screen and (max-width: 37.5em) {
+      .addTransaction__form {
+        display: block; } }
     .addTransaction__form--type {
       margin-bottom: 1rem;
       flex: 1;
