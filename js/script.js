@@ -25,6 +25,7 @@ function adminProtect() {
 }  
 
 function startEditSelector(clickedItem) {
+
     var item;
     var itemEdit;
     var amount;   
@@ -39,15 +40,16 @@ function startEditSelector(clickedItem) {
 
     //define DOM elements
         
-    ancestorDiv = clickedItem.parentElement.parentElement.parentElement;       
-    item=ancestorDiv.nextElementSibling.children[2];
-    itemEdit=ancestorDiv.nextElementSibling.children[3].children[0];
-    amount=ancestorDiv.nextElementSibling.children[4];
-    amountEdit=ancestorDiv.nextElementSibling.children[5].children[0];
-    transDate=ancestorDiv.children[0];
-    transDateEdit=ancestorDiv.children[1].children[0];
-    transType=ancestorDiv.nextElementSibling.children[0];
-    transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0];   
+    ancestorDiv = clickedItem.parentElement.parentElement;  
+      
+    item=ancestorDiv.nextElementSibling.children[2].children[0];   
+    itemEdit=ancestorDiv.nextElementSibling.children[2].children[1]; 
+    amount=ancestorDiv.nextElementSibling.children[3]; 
+    amountEdit=ancestorDiv.nextElementSibling.children[4];
+    // transDate=ancestorDiv.children[0];
+    // transDateEdit=ancestorDiv.children[1].children[0];
+    // transType=ancestorDiv.nextElementSibling.children[0];
+    // transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0];   
     
     if(clickedItem.innerHTML=="Edit") {
         //define DOM elements
@@ -56,20 +58,20 @@ function startEditSelector(clickedItem) {
         //reset edit field values
         itemEdit.value=item.innerText;
         amountEdit.value=amount.innerText;
-        //transDateEdit.value=transDate.innerText;
-        //transTypeEdit.value=transType.value;
+    //     //transDateEdit.value=transDate.innerText;
+    //     //transTypeEdit.value=transType.value;
 
         //hide original data fields / show edit fields       
         item.hidden=true;
         itemEdit.hidden=false;        
         amount.hidden=true;
         amountEdit.hidden=false;
-        transDate.hidden=true;
-        transDateEdit.hidden=false;
-        transType.hidden=true;
-        transTypeEdit.hidden=false;
+    //     transDate.hidden=true;
+    //     transDateEdit.hidden=false;
+    //     transType.hidden=true;
+    //     transTypeEdit.hidden=false;
 
-        //change button text and style
+    //     //change button text and style
         clickedItem.innerHTML="Save";
         cancelButton.innerHTML="Cancel";
         cancelButton.style="background-color:yellow;color:#333";
@@ -84,7 +86,7 @@ function startEditSelector(clickedItem) {
         //reset edit fields values
         itemEdit.value=item.innerText;
         amountEdit.value=amount.innerText;
-        transDateEdit.value=transDate.innerText;
+        // transDateEdit.value=transDate.innerText;
         //transTypeEdit.value=transType.value;
 
         //show original data fields / hide edit fields       
@@ -92,15 +94,16 @@ function startEditSelector(clickedItem) {
         itemEdit.hidden=true;
         amount.hidden=false;
         amountEdit.hidden=true;
-        transDate.hidden=false;
-        transDateEdit.hidden=true;
-        transType.hidden=false;
-        transTypeEdit.hidden=true;
+        // transDate.hidden=false;
+        // transDateEdit.hidden=true;
+        // transType.hidden=false;
+        // transTypeEdit.hidden=true;
 
         //change button text and style
         clickedItem.previousElementSibling.innerHTML="Edit";
         cancelButton.innerHTML="Delete";
         cancelButton.style="background-color:#A43C3D;color:#eee";
+    
         return;       
     }
     if(clickedItem.innerHTML=="Delete"){

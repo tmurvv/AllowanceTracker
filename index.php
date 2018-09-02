@@ -169,37 +169,36 @@
                     <div class="transactions__lineItem--line2">
                        
                         <div class="btn btn__primary transactions__lineItem--line2-type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
-                        
-                        <select name="transactionType" hidden>
-                                                  
-                            <?php 
-                                //Create and run Type Selector Query
-                                $query = "SELECT * FROM transactionType ORDER BY transactionType";
-                                $transactionTypes = $db->select($query);
-                            ?>
-                            <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
-                            <?php if ($row['transactionType'] === $typeRow['transactionType']) {
-                                $selected = 'selected';
-                            }else{
-                                $selected = "";
-                            }
-                            ?>
-                            <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
-                                <?php echo $typeRow['transactionType']; ?>
-                            </option>
-                            <?php endwhile; ?>
-                           
-                        </select>
+                        <div>
+                            <select name="transactionType" hidden>                               
+                                <?php 
+                                    //Create and run Type Selector Query
+                                    $query = "SELECT * FROM transactionType ORDER BY transactionType";
+                                    $transactionTypes = $db->select($query);
+                                ?>
+                                <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
+                                <?php if ($row['transactionType'] === $typeRow['transactionType']) {
+                                    $selected = 'selected';
+                                }else{
+                                    $selected = "";
+                                }
+                                ?>
+                                <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
+                                    <?php echo $typeRow['transactionType']; ?>
+                                </option>
+                                <?php endwhile; ?>                    
+                            </select>
+                        </div>
                         <div class="transactions__lineItem--line2-note">
                             <h2><?php echo $row['transactionNote']; ?></h2>
-                            <h2>
-                                <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" hidden />
+                            <h2 hidden>
+                                <input name="transactionNote" value="<?php echo $row['transactionNote']; ?>" /> 
                             </h2>
                         </div>
                         <div class="transactions__lineItem--line2-amount"><?php echo $row['transactionAmount']; ?>
                         </div>
-                        <div class="transactions__lineItem--line2-amount">
-                            <input name="transactionAmount" value="<?php echo $row['transactionAmount']; ?>" hidden />                        
+                        <div class="transactions__lineItem--line2-amount" hidden>
+                            <input name="transactionAmount" value="<?php echo $row['transactionAmount']; ?>" />                        
                         </div>
                         <div>
                             <?php 
