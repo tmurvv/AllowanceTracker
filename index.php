@@ -127,15 +127,15 @@
                     
                     <div class="addTransaction__form--date">
                         <label for="date">Date: </label>
-                        <input name="date" type="date" placeholder="enter date">                      
+                        <input name="date" type="date">                      
                     </div>                 
                     <div class="addTransaction__form--note">
                         <label for="note">Note: </label>
-                        <input name="note" type="text" placeholder="enter note">                
+                        <input name="note" type="text" placeholder="  enter note">                
                     </div>
                     <div class="addTransaction__form--amount">
                     	<label for="amount">Amount: </label>
-                    	<input name="amount" type="text" placeholder="enter amount">                   	
+                    	<input name="amount" type="text" placeholder="  enter amount">                   	
                     </div>
                     <div class="addTransaction__form--submit">
                         <input type="submit" name="submit" class="btn" value="Submit">
@@ -168,9 +168,9 @@
                     </div>
                     <div class="transactions__lineItem--line2">
                        
-                        <div class="btn btn__primary transactions__lineItem--line2-type"><?php if($row['transactionType']=="1. Deposit") {echo "Cha-CHING";} elseif($row['transactionType']=="3. Invest") {echo "Invest";} else {echo "Money Out";} ?></div>
+                        <div class="btn btn__primary transactions__lineItem--line2-type"><p><?php echo $row['transactionType']; ?></p></div>
                         <div>
-                            <select name="transactionType" hidden>                               
+                            <select  style="display:none" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
                                 <?php 
                                     //Create and run Type Selector Query
                                     $query = "SELECT * FROM transactionType ORDER BY transactionType";
