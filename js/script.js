@@ -32,6 +32,7 @@ function startEditSelector(clickedItem) {
     var amountEdit;
     var transDate;
     var transDateEdit;
+    var transTimeEdit;
     var transType;
     var transTypeEdit;
     
@@ -48,6 +49,7 @@ function startEditSelector(clickedItem) {
     amountEdit=ancestorDiv.nextElementSibling.children[4];
     transDate=ancestorDiv.children[0];
     transDateEdit=ancestorDiv.children[1].children[0];
+    transTimeEdit=ancestorDiv.children[1].children[1];
     transType=ancestorDiv.nextElementSibling.children[0];
     transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0];   
     
@@ -55,10 +57,17 @@ function startEditSelector(clickedItem) {
         //define DOM elements
         cancelButton=clickedItem.nextElementSibling;
 
+        //convert Javascript dateObject to HTML date format -- REFACTOR to function
+        var transDateObject = new Date(transDate.innerText);
+        var month = transDateObject.getMonth()+1;
+        var day = transDateObject.getDate();   
+        month < 10 == true ? month = "0" + month : month = month;
+        day < 10 == true ? day = "0" + day : day = day;
+
         //reset edit field values
         itemEdit.value=item.innerText;
         amountEdit.value=amount.innerText;
-        transDateEdit.value=transDate.innerText;
+        transDateEdit.value=transDateObject.getFullYear()+'-' + month + '-' + day;
         transTypeEdit.value=transType.innerText.trim();
 
         //hide original data fields / show edit fields       
@@ -68,6 +77,7 @@ function startEditSelector(clickedItem) {
         amountEdit.hidden=false;
         transDate.hidden=true;
         transDateEdit.hidden=false;
+        transTimeEdit.hidden=false;
         transType.style.display = "none";
         transTypeEdit.style.display="block";
 

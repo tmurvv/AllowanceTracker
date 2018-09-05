@@ -43,17 +43,19 @@
     if(isset($_POST['submit'])){
     //Assign Vars
     $transactionNote = mysqli_real_escape_string($db->link, $_POST['note']);  
-    $transactionDate = mysqli_real_escape_string($db->link, $_POST['date']); 
+    $transactionDate = mysqli_real_escape_string($db->link, $_POST['date']);     
+    $transactionTime = mysqli_real_escape_string($db->link, $_POST['time']);
+    $transactionDateTime = $transactionDate." ".$transactionTime;
     $transactionAmount = mysqli_real_escape_string($db->link, $_POST['amount']);
     $transactionType = mysqli_real_escape_string($db->link, $_POST['type']);
     $piggyUser = "tmurv";
       
     //Simple validation
     //if($title == '' || $body == '' || $category == '' || $author == ''){
-
+ 
     $query = "INSERT INTO transactions
                 (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
-                VALUES('$transactionType', '$transactionAmount', '$transactionDate', '$transactionNote', '$piggyUser')";
+                VALUES('$transactionType', '$transactionAmount', '$transactionDateTime', '$transactionNote', '$piggyUser')";
     $insert_row = $db->insert($query);           
     
     //header("Location: admin.php", true, 301);
@@ -66,10 +68,12 @@
         $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
         $transactionAmount = mysqli_real_escape_string($db->link, $_POST['transactionAmount']);
         $transactionDate = mysqli_real_escape_string($db->link, $_POST['transactionDate']);
+        $transactionTime = mysqli_real_escape_string($db->link, $_POST['transactionTime']);
+        $transactionDateTime = $transactionDate." ".$transactionTime;
         $transactionType = mysqli_real_escape_string($db->link, $_POST['transactionType']);
 
         //Update Data       
-        $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDate', transactionType = '$transactionType' WHERE id=".$id;      
+        $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDateTime', transactionType = '$transactionType' WHERE id=".$id;      
         $update = $db->update($query);
     }
 ?>
@@ -128,6 +132,8 @@
                     <div class="addTransaction__form--date">
                         <label for="date">Date: </label>
                         <input name="date" type="date">                      
+                        <label for="time">Time: </label>
+                        <input name="time" type="time">                      
                     </div>                 
                     <div class="addTransaction__form--note">
                         <label for="note">Note: </label>
@@ -153,11 +159,12 @@
             <?php if($transactions) : ?>
             <?php while($row = $transactions->fetch_assoc()) : ?>
             <form method="post" name="edit" action="index.php?id=<?php echo $row['id'] ?>">
-            <div class="transactions__lineItem">              
-                    <div class="transactions__lineItem--line1">
+                <div class="transactions__lineItem">  
+                   <div class="transactions__lineItem--line1">
                         <div class="transactions__lineItem--line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
                         <div class="transactions__lineItem--line1-datePosted">
-                            <input name="transactionDate" type="date" value="<?php echo formatDateHTMLInput($row['transactionDate']); ?>" hidden />
+                            <input name="transactionDate" type="date" value="<?php echo date('Y-m-d',strtotime($row['transactionDate'])); ?>" hidden />
+                            <input name="transactionTime" type="time" value="<?php echo date('H:i:s',strtotime($row['transactionDate'])); ?>" hidden />
                         </div>
                         <div class="transactions__lineItem--line1-editDelete"> 
                              
@@ -211,9 +218,8 @@
                             ?>
                             <?php echo "$".$lineSum; ?>
                         </div>
-
                     </div>               
-            </div>
+                </div>
             </form>
             <br>
             <hr>
