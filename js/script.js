@@ -30,6 +30,7 @@ function startEditSelector(clickedItem) {
     var itemEdit;
     var amount;   
     var amountEdit;
+    var transRawDateTime;
     var transDate;
     var transDateEdit;
     var transTimeEdit;
@@ -47,6 +48,8 @@ function startEditSelector(clickedItem) {
     itemEdit=ancestorDiv.nextElementSibling.children[2].children[1]; 
     amount=ancestorDiv.nextElementSibling.children[3]; 
     amountEdit=ancestorDiv.nextElementSibling.children[4];
+    transRawDateTime=ancestorDiv.children[3];
+    transRawDateTime.style.backgroundColor="tomato";
     transDate=ancestorDiv.children[0];
     transDateEdit=ancestorDiv.children[1].children[0];
     transTimeEdit=ancestorDiv.children[1].children[1];
@@ -58,23 +61,30 @@ function startEditSelector(clickedItem) {
         cancelButton=clickedItem.nextElementSibling;
 
         //convert Javascript dateObject to HTML date format -- REFACTOR to function
-        var transDateObject = new Date(transDate.innerText);
+        var transDateObject = new Date(transRawDateTime.innerText);
         var month = transDateObject.getMonth()+1;
         var day = transDateObject.getDate();   
+        var hour = transDateObject.getHours();
+        var minute = transDateObject.getMinutes();  
+        var second = transDateObject.getSeconds();  
         month < 10 == true ? month = "0" + month : month = month;
         day < 10 == true ? day = "0" + day : day = day;
+        hour < 10 == true ? hour = "0" + hour : hour = hour;
+        minute < 10 == true ? minute = "0" + minute : minute = minute;
+        second < 10 == true ? second = "0" + second : second = second;
 
         //reset edit field values
-        itemEdit.value=item.innerText;
-        amountEdit.value=amount.innerText;
+        itemEdit.children[0].value=item.innerText;
+        amountEdit.children[0].value=amount.innerText;
         transDateEdit.value=transDateObject.getFullYear()+'-' + month + '-' + day;
+        transTimeEdit.value=hour+":"+minute+":"+second;
         transTypeEdit.value=transType.innerText.trim();
 
         //hide original data fields / show edit fields       
         item.hidden=true;
         itemEdit.hidden=false;
         itemEdit.children[0].style.fontSize="50%";   
-        itemEdit.children[0].width="90%";   
+        itemEdit.children[0].style.width="90%";   
         amount.hidden=true;
         amountEdit.hidden=false;
         transDate.hidden=true;
@@ -112,9 +122,12 @@ function startEditSelector(clickedItem) {
         amountEdit.hidden=true;
         transDate.hidden=false;
         transDateEdit.hidden=true;
-        transTmieEdit.hidden=true;
+        transTimeEdit.hidden=true;
         transType.style.display = "block";
         transTypeEdit.style.display="none";
+        transTypeEdit.parentElement.classList.remove('btn');
+        transTypeEdit.parentElement.classList.remove('btn__primary');
+        transTypeEdit.parentElement.classList.remove('transactions__lineItem--line2-type');
 
         //change button text and style
         clickedItem.previousElementSibling.innerHTML="Edit";

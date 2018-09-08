@@ -132,7 +132,7 @@
                     <div class="addTransaction__form--date">
                         <label for="date">Date: </label>
                         <input name="date" type="date">                      
-                        <label for="time">Time: </label>
+                        <label for="time">Time(opt): </label>
                         <input name="time" type="time">                      
                     </div>                 
                     <div class="addTransaction__form--note">
@@ -161,7 +161,9 @@
             <form method="post" name="edit" action="index.php?id=<?php echo $row['id'] ?>">
                 <div class="transactions__lineItem">  
                    <div class="transactions__lineItem--line1">
-                        <div class="transactions__lineItem--line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
+                        <div class="transactions__lineItem--line1-datePosted">
+                            <?php echo formatDate($row['transactionDate']); ?>
+                        </div>
                         <div class="transactions__lineItem--line1-datePosted">
                             <input class="transactions__lineItem--line1-datePosted" name="transactionDate" type="date" value="<?php echo date('Y-m-d',strtotime($row['transactionDate'])); ?>" hidden />
                             <input name="transactionTime" type="time" value="<?php echo date('H:i:s',strtotime($row['transactionDate'])); ?>" hidden />
@@ -170,8 +172,8 @@
                              
                             <button name="edit" type="button" class="btn btn__secondary" onClick="startEditSelector(this)">Edit</button>
                             <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditSelector(this)">Delete</button>
-
                         </div>
+                        <div hidden><?php echo $row['transactionDate']; ?></div>
                     </div>
                     <div class="transactions__lineItem--line2">
                        

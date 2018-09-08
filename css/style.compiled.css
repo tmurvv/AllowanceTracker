@@ -560,7 +560,7 @@ header {
         padding-left: 5px; }
     .addTransaction__form--note {
       margin-bottom: 1rem;
-      flex: 5;
+      flex: 7;
       display: flex; }
       .addTransaction__form--note > input {
         min-width: 10rem;
