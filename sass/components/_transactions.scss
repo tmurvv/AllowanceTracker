@@ -34,8 +34,7 @@
             font-size: 80%;
         }
         &--line1 {
-            display: flex; 
-                         
+            display: flex;                         
             justify-content: space-between;
             @include respond(portrait) {
                 margin-top: 1rem;

@@ -1,0 +1,83 @@
+.user {
+    margin: 1rem;
+    border: 2px solid #e47587;
+    border-top: 30px solid #e47587;
+    padding: 1rem;
+    line-height: .7rem;
+
+    &__line1 {
+        display: flex;
+        &>h3 {
+            font-size: 200%;
+            color: $colorSecondary;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+            &>span {
+                color: $colorPrimary;
+            }
+        }
+
+        &--signup {
+            padding-top: 1rem;
+            >a {
+                font-style: italic;
+                color: $colorPrimary;
+                margin-left: 1rem;
+                
+            }
+        }
+    }
+
+    &__form {
+
+        &--username {
+            
+            display: flex;
+            &>input {
+                padding-left: 5px;
+            }
+            @include respond(phone) {
+                display: block;
+            }
+        }
+        &--email {
+           
+            display: flex;
+            &>input {
+                padding-left: 5px;
+            }
+            @include respond(phone) {
+                display: block;
+            }
+        }
+        &--password {
+           
+            display:flex;
+            
+            @include respond(phone) {
+                display: block;
+            }
+        }
+        
+        &--submit {
+           
+            display: flex;
+            &>input {
+                font-size: 100%;
+            }            
+        }
+        &>div>label,
+        &>div>input,
+        &>div>select {
+            margin: .5rem;
+            border-radius: 7px;
+        }
+
+        &>div>input,
+        &>div>select {
+            @include respond(phone) {
+                font-size: 100%;
+            }
+        }
+    }
+}

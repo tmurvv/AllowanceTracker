@@ -25,6 +25,10 @@ hr:last-child {
   visibility: hidden;
   opacity: 0; }
 
+input {
+  border-radius: 3px;
+  padding: 5px; }
+
 @media only screen and (max-width: 75em) {
   font-size: 56.25%; }
 
@@ -586,6 +590,60 @@ header {
       .addTransaction__form > div > input,
       .addTransaction__form > div > select {
         font-size: 100%; } }
+
+.user {
+  margin: 1rem;
+  border: 2px solid #e47587;
+  border-top: 30px solid #e47587;
+  padding: 1rem;
+  line-height: .7rem; }
+  .user__line1 {
+    display: flex; }
+    .user__line1 > h3 {
+      font-size: 200%;
+      color: #D9AE5C;
+      margin-bottom: 2rem;
+      margin-top: 1rem; }
+      .user__line1 > h3 > span {
+        color: #e47587; }
+    .user__line1--signup {
+      padding-top: 1rem; }
+      .user__line1--signup > a {
+        font-style: italic;
+        color: #e47587;
+        margin-left: 1rem; }
+  .user__form--username {
+    display: flex; }
+    .user__form--username > input {
+      padding-left: 5px; }
+    @media only screen and (max-width: 37.5em) {
+      .user__form--username {
+        display: block; } }
+  .user__form--email {
+    display: flex; }
+    .user__form--email > input {
+      padding-left: 5px; }
+    @media only screen and (max-width: 37.5em) {
+      .user__form--email {
+        display: block; } }
+  .user__form--password {
+    display: flex; }
+    @media only screen and (max-width: 37.5em) {
+      .user__form--password {
+        display: block; } }
+  .user__form--submit {
+    display: flex; }
+    .user__form--submit > input {
+      font-size: 100%; }
+  .user__form > div > label,
+  .user__form > div > input,
+  .user__form > div > select {
+    margin: .5rem;
+    border-radius: 7px; }
+  @media only screen and (max-width: 37.5em) {
+    .user__form > div > input,
+    .user__form > div > select {
+      font-size: 100%; } }
 
 .addJob {
   margin: 50px 25px; }

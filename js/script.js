@@ -51,7 +51,7 @@ function startEditSelector(clickedItem) {
     transDateEdit=ancestorDiv.children[1].children[0];
     transTimeEdit=ancestorDiv.children[1].children[1];
     transType=ancestorDiv.nextElementSibling.children[0];
-    transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0];   
+    transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0]; 
     
     if(clickedItem.innerHTML=="Edit") {
         //define DOM elements
@@ -72,7 +72,9 @@ function startEditSelector(clickedItem) {
 
         //hide original data fields / show edit fields       
         item.hidden=true;
-        itemEdit.hidden=false;        
+        itemEdit.hidden=false;
+        itemEdit.children[0].style.fontSize="50%";   
+        itemEdit.children[0].width="90%";   
         amount.hidden=true;
         amountEdit.hidden=false;
         transDate.hidden=true;
@@ -80,6 +82,10 @@ function startEditSelector(clickedItem) {
         transTimeEdit.hidden=false;
         transType.style.display = "none";
         transTypeEdit.style.display="block";
+        transTypeEdit.parentElement.classList.add('btn');
+        transTypeEdit.parentElement.classList.add('btn__primary');
+        transTypeEdit.parentElement.classList.add('transactions__lineItem--line2-type');
+
 
         //change button text and style
         clickedItem.innerHTML="Save";
@@ -106,6 +112,7 @@ function startEditSelector(clickedItem) {
         amountEdit.hidden=true;
         transDate.hidden=false;
         transDateEdit.hidden=true;
+        transTmieEdit.hidden=true;
         transType.style.display = "block";
         transTypeEdit.style.display="none";
 

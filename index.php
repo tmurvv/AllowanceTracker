@@ -163,7 +163,7 @@
                    <div class="transactions__lineItem--line1">
                         <div class="transactions__lineItem--line1-datePosted"><?php echo formatDate($row['transactionDate']); ?></div>
                         <div class="transactions__lineItem--line1-datePosted">
-                            <input name="transactionDate" type="date" value="<?php echo date('Y-m-d',strtotime($row['transactionDate'])); ?>" hidden />
+                            <input class="transactions__lineItem--line1-datePosted" name="transactionDate" type="date" value="<?php echo date('Y-m-d',strtotime($row['transactionDate'])); ?>" hidden />
                             <input name="transactionTime" type="time" value="<?php echo date('H:i:s',strtotime($row['transactionDate'])); ?>" hidden />
                         </div>
                         <div class="transactions__lineItem--line1-editDelete"> 
@@ -177,7 +177,7 @@
                        
                         <div class="btn btn__primary transactions__lineItem--line2-type"><p><?php echo $row['transactionType']; ?></p></div>
                         <div>
-                            <select  style="display:none" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
+                            <select style="display:none;" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
                                 <?php 
                                     //Create and run Type Selector Query
                                     $query = "SELECT * FROM transactionType ORDER BY transactionType";

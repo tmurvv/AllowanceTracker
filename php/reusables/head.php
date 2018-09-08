@@ -10,7 +10,7 @@
 
     <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js\script.js?274"></script>
+    <script type="text/javascript" src="js\script.js?279"></script>
 
     <title>Allowance Tracker</title>
 
