@@ -595,8 +595,7 @@ header {
   margin: 1rem;
   border: 2px solid #e47587;
   border-top: 30px solid #e47587;
-  padding: 1rem;
-  line-height: .7rem; }
+  padding: 1rem; }
   .user__line1 {
     display: flex; }
     .user__line1 > h3 {
@@ -612,38 +611,41 @@ header {
         font-style: italic;
         color: #e47587;
         margin-left: 1rem; }
-  .user__form--username {
-    display: flex; }
-    .user__form--username > input {
-      padding-left: 5px; }
-    @media only screen and (max-width: 37.5em) {
-      .user__form--username {
-        display: block; } }
-  .user__form--email {
-    display: flex; }
-    .user__form--email > input {
-      padding-left: 5px; }
-    @media only screen and (max-width: 37.5em) {
-      .user__form--email {
-        display: block; } }
-  .user__form--password {
-    display: flex; }
-    @media only screen and (max-width: 37.5em) {
-      .user__form--password {
-        display: block; } }
-  .user__form--submit {
-    display: flex; }
-    .user__form--submit > input {
-      font-size: 100%; }
-  .user__form > div > label,
-  .user__form > div > input,
-  .user__form > div > select {
-    margin: .5rem;
-    border-radius: 7px; }
-  @media only screen and (max-width: 37.5em) {
+  .user__form {
+    justify-content: baseline; }
+    .user__form--username {
+      display: flex; }
+      .user__form--username > input {
+        padding-left: 5px; }
+      @media only screen and (max-width: 37.5em) {
+        .user__form--username {
+          display: block; } }
+    .user__form--email {
+      display: flex; }
+      .user__form--email > input {
+        padding-left: 5px;
+        width: 14rem; }
+      @media only screen and (max-width: 37.5em) {
+        .user__form--email {
+          display: block; } }
+    .user__form--password {
+      display: flex; }
+      @media only screen and (max-width: 37.5em) {
+        .user__form--password {
+          display: block; } }
+    .user__form--submit {
+      display: flex; }
+      .user__form--submit > input {
+        font-size: 100%; }
+    .user__form > div > label,
     .user__form > div > input,
     .user__form > div > select {
-      font-size: 100%; } }
+      margin: .5rem;
+      border-radius: 7px; }
+    @media only screen and (max-width: 37.5em) {
+      .user__form > div > input,
+      .user__form > div > select {
+        font-size: 100%; } }
 
 .addJob {
   margin: 50px 25px; }

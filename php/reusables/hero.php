@@ -10,6 +10,12 @@
         <li class="hero__mainNav--item">
             <a href="index.php#contact">Contact</a>
         </li>
+        <li class="hero__mainNav--item">
+            <a href="login.php#contact">Login</a>
+        </li>
+        <li class="hero__mainNav--item">
+            <a href="signup.php#contact">Signup</a>
+        </li>
     </ul>
     <a class="hero__hamburger js--mainNav-icon"><i class="fas fa-bars"></i></a>
     

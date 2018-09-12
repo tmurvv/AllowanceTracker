@@ -1,3 +1,16 @@
+<?php include 'php/config/config.php'; ?>
+<?php include 'php/classes/Database.php'; ?>
+<?php include 'php/helpers/controllers.php'; ?>
+<?php include 'php/helpers/formatting.php'; ?>
+<?php if(isset($_POST['submit'])){
+    // $user = "tmurv";
+    // $splQuery = "SELECT * FROM users WHERE username = :username";
+    // $statement = $db->prepare($splQuery);
+    // $statement->execute(array(':username'=>$user));
+    // echo "Submit pressed";
+    //return;
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -16,7 +29,7 @@
             </h4>
         </div>
         
-        <form action="index.php" method="post"class="user__form">
+        <form action="login.php" method="post" class="user__form">
             
             <div class="user__form--username">
                 <label for="username">Username: </label>
