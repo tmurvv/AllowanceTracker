@@ -37,49 +37,57 @@
 ?>
 <?php
     
-    // if(isset($_POST['submit'])){
-    // //Assign Vars
-    // $transactionNote = mysqli_real_escape_string($db->link, $_POST['note']);  
-    // $transactionDate = mysqli_real_escape_string($db->link, $_POST['date']);     
-    // $transactionTime = mysqli_real_escape_string($db->link, $_POST['time']);
-    // $transactionDateTime = $transactionDate." ".$transactionTime;
-    // $transactionAmount = mysqli_real_escape_string($db->link, $_POST['amount']);
-    // $transactionType = mysqli_real_escape_string($db->link, $_POST['type']);
-    // $piggyUser = "tmurv";
+    if(isset($_POST['submit'])){
+    //Assign Vars
+    $transactionNote = $_POST['note'];  
+    $transactionDate = $_POST['date'];     
+    $transactionTime = $_POST['time'];
+    $transactionDateTime = $transactionDate." ".$transactionTime;
+    $transactionAmount = $_POST['amount'];
+    $transactionType = $_POST['type'];
+    $piggyUser = 'tmurv';
       
-    // //Simple validation
-    // //if($title == '' || $body == '' || $category == '' || $author == ''){
- 
-    // $query = "INSERT INTO transactions
-    //             (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
-    //             VALUES('$transactionType', '$transactionAmount', '$transactionDateTime', '$transactionNote', '$piggyUser')";
-    // $insert_row = $db->insert($query);           
+    $query = "INSERT INTO transactions
+                (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
+                VALUES(?,?,?,?,?)";
+    $statement = $db->prepare($query); 
+    $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $piggyUser]);         
     
-    // //header("Location: admin.php", true, 301);
+    header("Location: index.php", true, 301);
     
-    // }
+    }
 ?>
 <?php
-    // if(isset($_POST['edit'])){
-    //     //Assign Vars   
-    //     $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
-    //     $transactionAmount = mysqli_real_escape_string($db->link, $_POST['transactionAmount']);
-    //     $transactionDate = mysqli_real_escape_string($db->link, $_POST['transactionDate']);
-    //     $transactionTime = mysqli_real_escape_string($db->link, $_POST['transactionTime']);
-    //     $transactionDateTime = $transactionDate." ".$transactionTime;
-    //     $transactionType = mysqli_real_escape_string($db->link, $_POST['transactionType']);
+    if(isset($_POST['edit'])){
+        //Assign Vars   
+        $transactionNote = $_POST['transactionNote'];
+        $transactionAmount = $_POST['transactionAmount'];
+        $transactionDate = $_POST['transactionDate'];
+        $transactionTime = $_POST['transactionTime'];
+        $transactionDateTime = $transactionDate." ".$transactionTime;
+        $transactionType = $_POST['transactionType'];
 
-    //     //Update Data       
-    //     $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDateTime', transactionType = '$transactionType' WHERE id=".$id;      
-    //     $update = $db->update($query);
-    // }
+        //Update Data       
+        $query = "UPDATE transactions SET transactionNote = :transactionNote, 
+                                            transactionAmount = :transactionAmount, 
+                                            transactionDate = :transactionDateTime, 
+                                            transactionType = :transactionType WHERE id=:id";      
+        $statement = $db->prepare($query);
+        $statement->execute(array(':transactionNote'=>$transactionNote,
+                                    ':transactionAmount'=>$transactionAmount,
+                                    ':transactionDateTime'=>$transactionDateTime,
+                                    ':transactionType'=>$transactionType,
+                                    ':id'=>$id
+                                ));
+    }
 ?>
 <?php
-//   if(isset($_POST['delete'])){
-//     $id = $_GET['id'];
-//     $query = "DELETE FROM transactions WHERE id = ".$id;
-//     $delete_row = $db->delete($query);
-//   }
+  if(isset($_POST['delete'])){
+    $id = $_GET['id'];
+    $query = "DELETE FROM transactions WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->execute(array(":id"=>$id));
+  }
 ?>
 <!DOCTYPE html>
 

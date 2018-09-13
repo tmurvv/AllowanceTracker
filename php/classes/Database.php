@@ -15,7 +15,7 @@
         $db = new PDO($dsn,$db_username,$db_password);
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected to piggyb database";
+        //echo "Connected to piggyb database";
     } catch (PDOException $ex){
         echo "Connection failed ".$ex->getMessage();
     }
