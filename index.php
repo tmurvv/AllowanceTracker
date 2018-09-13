@@ -19,70 +19,67 @@
 <?php
   $id = $_GET['id'];
 
-  //Create DB Object
-  $db = new Database();
-  
   //Create Query
-  $query = createQuery();  
+  //$query = createQuery();  
   //Run Query
-  $transactions = $db->select($query);
+  $statement = $db->query("SELECT * FROM transactions ORDER BY transactionDate DESC");
+  $transactions = $statement->fetchAll(PDO::FETCH_ASSOC);  
 
   //create and run sum query for balance
-  $result=$db->select('SELECT SUM(transactionAmount) AS valueSum FROM transactions');
-  $row=$result->fetch_assoc();
+  $statement='SELECT SUM(transactionAmount) AS valueSum FROM transactions';
+  $result=$db->query($statement);
+  $row=$result->fetch(PDO::FETCH_ASSOC);
   $sum=$row['valueSum'];
 
   //Create and run Type Selector Query
-  $query = "SELECT * FROM transactionType";
-  $transactionTypes = $db->select($query);
+  $statement = $db->query("SELECT * FROM transactionType ORDER BY transactionType");
+  $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php
-    //Create DB Object
-    $db = new Database();
-
-    if(isset($_POST['submit'])){
-    //Assign Vars
-    $transactionNote = mysqli_real_escape_string($db->link, $_POST['note']);  
-    $transactionDate = mysqli_real_escape_string($db->link, $_POST['date']);     
-    $transactionTime = mysqli_real_escape_string($db->link, $_POST['time']);
-    $transactionDateTime = $transactionDate." ".$transactionTime;
-    $transactionAmount = mysqli_real_escape_string($db->link, $_POST['amount']);
-    $transactionType = mysqli_real_escape_string($db->link, $_POST['type']);
-    $piggyUser = "tmurv";
+    
+    // if(isset($_POST['submit'])){
+    // //Assign Vars
+    // $transactionNote = mysqli_real_escape_string($db->link, $_POST['note']);  
+    // $transactionDate = mysqli_real_escape_string($db->link, $_POST['date']);     
+    // $transactionTime = mysqli_real_escape_string($db->link, $_POST['time']);
+    // $transactionDateTime = $transactionDate." ".$transactionTime;
+    // $transactionAmount = mysqli_real_escape_string($db->link, $_POST['amount']);
+    // $transactionType = mysqli_real_escape_string($db->link, $_POST['type']);
+    // $piggyUser = "tmurv";
       
-    //Simple validation
-    //if($title == '' || $body == '' || $category == '' || $author == ''){
+    // //Simple validation
+    // //if($title == '' || $body == '' || $category == '' || $author == ''){
  
-    $query = "INSERT INTO transactions
-                (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
-                VALUES('$transactionType', '$transactionAmount', '$transactionDateTime', '$transactionNote', '$piggyUser')";
-    $insert_row = $db->insert($query);           
+    // $query = "INSERT INTO transactions
+    //             (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
+    //             VALUES('$transactionType', '$transactionAmount', '$transactionDateTime', '$transactionNote', '$piggyUser')";
+    // $insert_row = $db->insert($query);           
     
-    //header("Location: admin.php", true, 301);
+    // //header("Location: admin.php", true, 301);
     
-    }
+    // }
 ?>
 <?php
-    if(isset($_POST['edit'])){
-        //Assign Vars   
-        $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
-        $transactionAmount = mysqli_real_escape_string($db->link, $_POST['transactionAmount']);
-        $transactionDate = mysqli_real_escape_string($db->link, $_POST['transactionDate']);
-        $transactionTime = mysqli_real_escape_string($db->link, $_POST['transactionTime']);
-        $transactionDateTime = $transactionDate." ".$transactionTime;
-        $transactionType = mysqli_real_escape_string($db->link, $_POST['transactionType']);
+    // if(isset($_POST['edit'])){
+    //     //Assign Vars   
+    //     $transactionNote = mysqli_real_escape_string($db->link, $_POST['transactionNote']);
+    //     $transactionAmount = mysqli_real_escape_string($db->link, $_POST['transactionAmount']);
+    //     $transactionDate = mysqli_real_escape_string($db->link, $_POST['transactionDate']);
+    //     $transactionTime = mysqli_real_escape_string($db->link, $_POST['transactionTime']);
+    //     $transactionDateTime = $transactionDate." ".$transactionTime;
+    //     $transactionType = mysqli_real_escape_string($db->link, $_POST['transactionType']);
 
-        //Update Data       
-        $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDateTime', transactionType = '$transactionType' WHERE id=".$id;      
-        $update = $db->update($query);
-    }
+    //     //Update Data       
+    //     $query = "UPDATE transactions SET transactionNote = '$transactionNote', transactionAmount = '$transactionAmount', transactionDate = '$transactionDateTime', transactionType = '$transactionType' WHERE id=".$id;      
+    //     $update = $db->update($query);
+    // }
 ?>
 <?php
-  if(isset($_POST['delete'])){
-    $id = $_GET['id'];
-    $query = "DELETE FROM transactions WHERE id = ".$id;
-    $delete_row = $db->delete($query);
-  }
+//   if(isset($_POST['delete'])){
+//     $id = $_GET['id'];
+//     $query = "DELETE FROM transactions WHERE id = ".$id;
+//     $delete_row = $db->delete($query);
+//   }
 ?>
 <!DOCTYPE html>
 
@@ -114,18 +111,12 @@
                     <div class="addTransaction__form--type">
                         <label for="type">Type: </label>
                         <select name="type" id="">
-                            <option value="" disabled selected>Select your option</option>
-                            <?php 
-                                //Create and run Type Selector Query
-                                $query = "SELECT * FROM transactionType ORDER BY transactionType";
-                                $transactionTypes = $db->select($query);
-                            ?>
-                            <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
-                            
-                            <option value="<?php echo $typeRow['transactionType']; ?>">
-                                <?php echo $typeRow['transactionType']; ?>
-                            </option>
-                            <?php endwhile; ?>                     
+                            <option value="" disabled selected>Select your option</option>                           
+                            <?php foreach($transactionTypes as $typeRow) : ?>                           
+                                <option value="<?php echo $typeRow['transactionType']; ?>">
+                                    <?php echo $typeRow['transactionType']; ?>
+                                </option>
+                            <?php endforeach; ?>                     
                         </select>
                     </div>
                     
@@ -157,7 +148,7 @@
                 <div class="transactions__headers--balance">Balance</div>
             </div>
             <?php if($transactions) : ?>
-            <?php while($row = $transactions->fetch_assoc()) : ?>
+            <?php foreach($transactions as $row) : ?>
             <form method="post" name="edit" action="index.php?id=<?php echo $row['id'] ?>">
                 <div class="transactions__lineItem">  
                    <div class="transactions__lineItem--line1">
@@ -180,12 +171,7 @@
                         <div class="btn btn__primary transactions__lineItem--line2-type"><p><?php echo $row['transactionType']; ?></p></div>
                         <div>
                             <select style="display:none;" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
-                                <?php 
-                                    //Create and run Type Selector Query
-                                    $query = "SELECT * FROM transactionType ORDER BY transactionType";
-                                    $transactionTypes = $db->select($query);
-                                ?>
-                                <?php while($typeRow = $transactionTypes->fetch_assoc()) : ?>
+                                <?php foreach($transactionTypes as $typeRow) : ?>
                                 <?php if ($row['transactionType'] === $typeRow['transactionType']) {
                                     $selected = 'selected';
                                 }else{
@@ -195,7 +181,7 @@
                                 <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
                                     <?php echo $typeRow['transactionType']; ?>
                                 </option>
-                                <?php endwhile; ?>                    
+                                <?php endforeach; ?>                    
                             </select>
                         </div>
                         <div class="transactions__lineItem--line2-note">
@@ -213,10 +199,12 @@
                             <?php 
                                 //create and run sum query for current transaction balance
                                 $lineTransactionDate = $row['transactionDate'];
-                                $result=$db->select("SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE transactionDate <= '$lineTransactionDate';");
-                                $sumRow=$result->fetch_assoc();
-                                $lineSum=$sumRow['lineValueSum'];
-                                //$lineSum=40.35;
+
+                                $query="SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE transactionDate <= :lineTransactionDate";
+                                $statement= $db->prepare($query);
+                                $statement->execute(array(':lineTransactionDate'=> $lineTransactionDate));
+                                $lineSumRow=$statement->fetch(PDO::FETCH_ASSOC);
+                                $lineSum=$lineSumRow['lineValueSum'];
                             ?>
                             <?php echo "$".$lineSum; ?>
                         </div>
@@ -225,7 +213,7 @@
             </form>
             <br>
             <hr>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
             <?php endif; ?>
         </div>
 
