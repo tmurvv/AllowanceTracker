@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
     // $thisURL = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     // $myMessage = $_GET['msg'];
@@ -77,8 +78,8 @@
                                     ':transactionAmount'=>$transactionAmount,
                                     ':transactionDateTime'=>$transactionDateTime,
                                     ':transactionType'=>$transactionType,
-                                    ':id'=>$id
-                                ));
+                                    ':id'=>$id));
+        header("Location: index.php", true, 301);
     }
 ?>
 <?php

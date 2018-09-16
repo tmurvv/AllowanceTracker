@@ -1,0 +1,14 @@
+.signatureBox {
+    margin: 1rem;
+    border: 2px solid #e47587;
+    border-top: 30px solid #e47587;
+    padding: 1rem;
+    display: inline-block;
+
+    & h4 {
+        color: $colorPrimary;
+    }
+    & span {
+        color: $colorSecondary;
+    }
+}

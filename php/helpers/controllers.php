@@ -1,6 +1,5 @@
 <?php
 
-
 function createQuery() {
     $query = "";
     $query = "SELECT * FROM transactions ORDER BY transactionDate DESC";
@@ -13,4 +12,38 @@ function sumQuery() {
     return $query;
 }
 
+function validateEmail($data) {
+    //check if the email field has a value
+    if($data != null){
+
+        //Remove all illegal characters from email
+        filter_var($data, FILTER_SANITIZE_EMAIL);
+
+        //Check if input is a valid email address
+        if(filter_var($data, FILTER_VALIDATE_EMAIL) === false){
+            return false;
+        }
+    } else {
+        return false;
+    }
+     
+    return true;
+}
+
+function prepLogin($id, $username, $remember){
+    $_SESSION['id'] = $id;
+    $_SESSION['username'] = $username;
+    
+    //added security
+    $fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+    $_SESSION['last_active'] = time();
+    $_SESSION['fingerprint'] = $fingerprint;
+
+    //if remember me checked, set cookie
+    if($remember === "yes"){
+        rememberMe($id);
+    }
+    
+    redirectTo('index');                          
+}
 ?>

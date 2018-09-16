@@ -44,6 +44,17 @@ body {
   line-height: 1.7;
   color: #666; }
 
+.signatureBox {
+  margin: 1rem;
+  border: 2px solid #e47587;
+  border-top: 30px solid #e47587;
+  padding: 1rem;
+  display: inline-block; }
+  .signatureBox h4 {
+    color: #e47587; }
+  .signatureBox span {
+    color: #D9AE5C; }
+
 .btn {
   border-radius: 7px;
   padding: 3px 6px; }
@@ -591,60 +602,57 @@ header {
       .addTransaction__form > div > select {
         font-size: 100%; } }
 
-.user {
-  margin: 1rem;
-  border: 2px solid #e47587;
-  border-top: 30px solid #e47587;
-  padding: 1rem; }
-  .user__line1 {
+.login {
+  display: block; }
+  .login__line1 {
     display: flex; }
-    .user__line1 > h3 {
+    .login__line1 > h3 {
       font-size: 200%;
       color: #D9AE5C;
       margin-bottom: 2rem;
       margin-top: 1rem; }
-      .user__line1 > h3 > span {
+      .login__line1 > h3 > span {
         color: #e47587; }
-    .user__line1--signup {
+    .login__line1--signup {
       padding-top: 1rem; }
-      .user__line1--signup > a {
+      .login__line1--signup > a {
         font-style: italic;
         color: #e47587;
         margin-left: 1rem; }
-  .user__form {
+  .login__form {
     justify-content: baseline; }
-    .user__form--username {
+    .login__form--username {
       display: flex; }
-      .user__form--username > input {
+      .login__form--username > input {
         padding-left: 5px; }
       @media only screen and (max-width: 37.5em) {
-        .user__form--username {
+        .login__form--username {
           display: block; } }
-    .user__form--email {
+    .login__form--email {
       display: flex; }
-      .user__form--email > input {
+      .login__form--email > input {
         padding-left: 5px;
         width: 14rem; }
       @media only screen and (max-width: 37.5em) {
-        .user__form--email {
+        .login__form--email {
           display: block; } }
-    .user__form--password {
+    .login__form--password {
       display: flex; }
       @media only screen and (max-width: 37.5em) {
-        .user__form--password {
+        .login__form--password {
           display: block; } }
-    .user__form--submit {
+    .login__form--submit {
       display: flex; }
-      .user__form--submit > input {
+      .login__form--submit > input {
         font-size: 100%; }
-    .user__form > div > label,
-    .user__form > div > input,
-    .user__form > div > select {
+    .login__form > div > label,
+    .login__form > div > input,
+    .login__form > div > select {
       margin: .5rem;
       border-radius: 7px; }
     @media only screen and (max-width: 37.5em) {
-      .user__form > div > input,
-      .user__form > div > select {
+      .login__form > div > input,
+      .login__form > div > select {
         font-size: 100%; } }
 
 .addJob {
