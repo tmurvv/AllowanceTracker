@@ -187,8 +187,8 @@
                                         $selected = "";
                                     }
                                 ?>
-                                <option value="<?php echo $typeRow['transactionType']?>" <?php echo $selected; ?>>
-                                    <?php echo $typeRow['transactionType']; ?>
+                                <option value="<?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1)?>" <?php echo $selected; ?>>
+                                    <?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1); ?>
                                 </option>
                                 <?php endforeach; ?>                    
                             </select>
