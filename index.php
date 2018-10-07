@@ -187,7 +187,7 @@
                                         $selected = "";
                                     }
                                 ?>
-                                <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
+                                <option value="<?php echo $typeRow['transactionType']?>" <?php echo $selected; ?>>
                                     <?php echo $typeRow['transactionType']; ?>
                                 </option>
                                 <?php endforeach; ?>                    

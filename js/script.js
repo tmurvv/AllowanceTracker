@@ -36,6 +36,7 @@ function startEditSelector(clickedItem) {
     var transTimeEdit;
     var transType;
     var transTypeEdit;
+    var transTypeSelected;
     
     var cancelButton;
     var ancestorDiv;
@@ -54,7 +55,8 @@ function startEditSelector(clickedItem) {
     transDateEdit=ancestorDiv.children[1].children[0];
     transTimeEdit=ancestorDiv.children[1].children[1];
     transType=ancestorDiv.nextElementSibling.children[0];
-    transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0]; 
+    transTypeEdit=ancestorDiv.nextElementSibling.children[1].children[0];
+    transTypeSelected=transTypeEdit.selectedIndex;
     
     if(clickedItem.innerHTML=="Edit") {
         //define DOM elements
@@ -79,6 +81,7 @@ function startEditSelector(clickedItem) {
         transDateEdit.value=transDateObject.getFullYear()+'-' + month + '-' + day;
         transTimeEdit.value=hour+":"+minute+":"+second;
         transTypeEdit.value=transType.innerText.trim();
+        transTypeEdit.selectedIndex=transTypeSelected;
 
         //hide original data fields / show edit fields       
         item.hidden=true;
@@ -114,6 +117,7 @@ function startEditSelector(clickedItem) {
         amountEdit.value=amount.innerText;
         transDateEdit.value=transDate.innerText;
         transTypeEdit.value=transType.value;
+        transTypeEdit.selectedIndex=transTypeSelected;
 
         //show original data fields / hide edit fields       
         item.hidden=false;
