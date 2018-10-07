@@ -175,17 +175,17 @@
                         </div>
                         <div hidden><?php echo $row['transactionDate']; ?></div>
                     </div>
-                    <div class="transactions__lineItem--line2">
-                       
-                        <div class="btn btn__primary transactions__lineItem--line2-type"><p><?php echo $row['transactionType']; ?></p></div>
+                    <div class="transactions__lineItem--line2">                     
+                        <div class="btn btn__primary transactions__lineItem--line2-type"><p><?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1); ?></p></div>
                         <div>
                             <select style="display:none;" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
                                 <?php foreach($transactionTypes as $typeRow) : ?>
-                                <?php if ($row['transactionType'] === $typeRow['transactionType']) {
-                                    $selected = 'selected';
-                                }else{
-                                    $selected = "";
-                                }
+                                <?php 
+                                    if ($row['transactionType'] === $typeRow['transactionType']) {
+                                        $selected = 'selected';
+                                    }else{
+                                        $selected = "";
+                                    }
                                 ?>
                                 <option value="<?php echo $typeRow['transactionType']; ?>" <?php echo $selected; ?>>
                                     <?php echo $typeRow['transactionType']; ?>
