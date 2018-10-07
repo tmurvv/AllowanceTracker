@@ -4,7 +4,7 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php if(isset($_POST['submit'])){
-    $inputUsername = $_POST['username'];
+    $inputOwner = $_POST['owner'];
     $inputPassword = $_POST['password'];
     $inputEmail = $_POST['email'];
     
@@ -15,17 +15,16 @@
 
         if($row=$statement->fetch()){
             $id = $row['id'];
-            //NOT YET IMPLEMENTED $hashed_password = $row['password'];
+            $hashed_password = $row['password'];
             $password = $row['password'];
-            $username = $row['username'];
+            $owner = $row['piggybank_owner'];
             //NOT YET IMPLEMENTED $activated = $row['activated'];
-            $result = "user found: ".$password."|".$username."|".$id."|";
         
-            if($password == $inputPassword){
+            if(password_verify($inputPassword, $hashed_password)){
                 //prepLogin($id, $username, $remember);
-                $_SESSION['id'] = 5;
+                $_SESSION['id'] = $id;
                 //$_SESSION['id'] = $row['id'];
-                $result = "logged in user id = ".$_SESSION['id'];
+                $result = $owner." logged in user id = ".$_SESSION['id'];
             }else{           
                 $result = "Invalid password.<br>Please try again.";
             }
@@ -63,7 +62,11 @@
         </div>
         
         <form action="login.php" method="post" class="login__form">
-                             
+                           
+            <div class="login__form--owner">
+                <label for="owner">Piggybank Owner: </label>
+                <input name="owner" type="text">                                           
+            </div>                 
             <div class="login__form--email">
                 <label for="email">Email: </label>
                 <input name="email" type="email" required>                                           
