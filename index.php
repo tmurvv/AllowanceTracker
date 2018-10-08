@@ -18,18 +18,34 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php
-  $id = $_GET['id'];
+  if(isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+  }
+  
+  //Find user query
+  $query = "SELECT * FROM users WHERE id=:id";
+  $statement = $db->prepare($query);
+  $statement->execute(array(':id'=>$id));
 
-  //Create Query
-  //$query = createQuery();  
-  //Run Query
-  $statement = $db->query("SELECT * FROM transactions ORDER BY transactionDate DESC");
-  $transactions = $statement->fetchAll(PDO::FETCH_ASSOC);  
+  if($userAccount=$statement->fetch()) {
+  
+    $owner = $userAccount['piggybank_owner'];
+    
+  } else {
+    $owner = "Your name here";
+  }
+
+  //Run Transaction Query
+  $query  = "SELECT * FROM transactions WHERE piggyuser=:id ORDER BY transactionDate DESC";
+  $statement = $db->prepare($query);
+  $statement->execute(array(':id'=>$id));
+  $transactions = $statement->fetchAll(PDO::FETCH_ASSOC); 
 
   //create and run sum query for balance
-  $statement='SELECT SUM(transactionAmount) AS valueSum FROM transactions';
-  $result=$db->query($statement);
-  $row=$result->fetch(PDO::FETCH_ASSOC);
+  $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyuser=:id";
+  $statement=$db->prepare($query);
+  $statement->execute(array(':id'=>$id));
+  $row=$statement->fetch(PDO::FETCH_ASSOC);
   $sum=$row['valueSum'];
 
   //Create and run Type Selector Query
@@ -37,25 +53,32 @@
   $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php
-    
-    if(isset($_POST['submit'])){
-    //Assign Vars
-    $transactionNote = $_POST['note'];  
-    $transactionDate = $_POST['date'];     
-    $transactionTime = $_POST['time'];
-    $transactionDateTime = $transactionDate." ".$transactionTime;
-    $transactionAmount = $_POST['amount'];
-    $transactionType = $_POST['type'];
-    $piggyUser = 'tmurv';
-      
-    $query = "INSERT INTO transactions
-                (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
-                VALUES(?,?,?,?,?)";
-    $statement = $db->prepare($query); 
-    $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $piggyUser]);         
-    
-    header("Location: index.php", true, 301);
-    
+    if(isset($_SESSION['id'])) {
+      $id = $_SESSION['id'];
+      if(isset($_POST['submit'])){
+            //Assign Vars
+            $transactionNote = $_POST['note'];  
+            $transactionDate = $_POST['date'];     
+            $transactionTime = $_POST['time'];
+            $transactionDateTime = $transactionDate." ".$transactionTime;
+            $transactionAmount = $_POST['amount'];
+            $transactionType = $_POST['type'];
+            
+            if ($transactionType == '' || $transactionType == null) {
+                $transactionType = '0. Select your option';
+            }
+
+            $query = "INSERT INTO transactions
+                        (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
+                        VALUES(?,?,?,?,?)";
+            $statement = $db->prepare($query); 
+            
+            $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $id]);         
+            
+            header("Location: index.php", true, 301);           
+        }
+    }else{
+        $result = "User not found, please login again.";
     }
 ?>
 <?php
@@ -67,7 +90,8 @@
         $transactionTime = $_POST['transactionTime'];
         $transactionDateTime = $transactionDate." ".$transactionTime;
         $transactionType = $_POST['transactionType'];
-
+        $transactionId = $_POST['transactionId'];
+          
         //Update Data       
         $query = "UPDATE transactions SET transactionNote = :transactionNote, 
                                             transactionAmount = :transactionAmount, 
@@ -78,7 +102,7 @@
                                     ':transactionAmount'=>$transactionAmount,
                                     ':transactionDateTime'=>$transactionDateTime,
                                     ':transactionType'=>$transactionType,
-                                    ':id'=>$id));
+                                    ':id'=>$transactionId));
         header("Location: index.php", true, 301);
     }
 ?>
@@ -122,8 +146,8 @@
                         <select name="type" id="">
                             <option value="" disabled selected>Select your option</option>                           
                             <?php foreach($transactionTypes as $typeRow) : ?>                           
-                                <option value="<?php echo $typeRow['transactionType']; ?>">
-                                    <?php echo $typeRow['transactionType']; ?>
+                                <option value="<?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>">
+                                    <?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>
                                 </option>
                             <?php endforeach; ?>                     
                         </select>
@@ -187,8 +211,8 @@
                                         $selected = "";
                                     }
                                 ?>
-                                <option value="<?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1)?>" <?php echo $selected; ?>>
-                                    <?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1); ?>
+                                <option value="<?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1)?>" <?php echo $selected; ?>>
+                                    <?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>
                                 </option>
                                 <?php endforeach; ?>                    
                             </select>
@@ -217,6 +241,7 @@
                             ?>
                             <?php echo "$".$lineSum; ?>
                         </div>
+                        <div><input name="transactionId" value="<?php echo $row['id'] ?>" hidden /></div>
                     </div>               
                 </div>
             </form>

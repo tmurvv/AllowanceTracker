@@ -49,7 +49,7 @@ body {
   border: 2px solid #e47587;
   border-top: 30px solid #e47587;
   padding: 1rem;
-  display: inline-block; }
+  width: fit-content; }
   .signatureBox h4 {
     color: #e47587; }
   .signatureBox span {
@@ -57,7 +57,7 @@ body {
 
 .btn {
   border-radius: 7px;
-  padding: 3px 6px; }
+  padding: 3px 12px; }
   .btn > p {
     border-radius: 7px;
     padding: 3px 5px; }

@@ -32,7 +32,7 @@
                 $result = "An error occurred: ".$ex;
             }   
         } else {
-            $result = "passwords do not match";
+            $result = "Passwords do not match. Please try again.";
         }
     }
 

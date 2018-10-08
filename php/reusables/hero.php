@@ -31,10 +31,14 @@
     <div class="hero__mainTitle">
 
         <h1 class="hero__mainTitle--mainHeading">
-            Hayley's Allowance Tracker
+            <?php if($owner!="") : ?>
+                <?php echo $owner ?>'s PiggyBank
+            <?php else : ?>
+                Your name here's PiggyBank
+            <?php endif; ?>
         </h1>
         <h2 class="hero__mainTitle--subHeading">
-            More <span>SHOPPING</span> please!
+            More <span>PIGGY</span> please!
         </h2>
     </div>
 </div>

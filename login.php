@@ -23,8 +23,7 @@
             if(password_verify($inputPassword, $hashed_password)){
                 //prepLogin($id, $username, $remember);
                 $_SESSION['id'] = $id;
-                //$_SESSION['id'] = $row['id'];
-                $result = $owner." logged in user id = ".$_SESSION['id'];
+                header("Location: index.php");
             }else{           
                 $result = "Invalid password.<br>Please try again.";
             }
