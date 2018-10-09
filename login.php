@@ -4,37 +4,42 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php if(isset($_POST['submit'])){
-    $inputOwner = $_POST['owner'];
+    
     $inputPassword = $_POST['password'];
     $inputEmail = $_POST['email'];
+       
+    $splQuery = "SELECT * FROM users WHERE email = :email";
+    $statement = $db->prepare($splQuery);
+    $statement->execute(array(':email'=>$inputEmail));
+
+    if($row=$statement->fetch()){
+        $id = $row['id'];
+        $hashed_password = $row['password'];
+        $password = $row['password'];
+        $owner = $row['piggybank_owner'];
+        //NOT YET IMPLEMENTED $activated = $row['activated'];
     
-    if(!$nullField) {
-        $splQuery = "SELECT * FROM users WHERE email = :email";
-        $statement = $db->prepare($splQuery);
-        $statement->execute(array(':email'=>$inputEmail));
-
-        if($row=$statement->fetch()){
-            $id = $row['id'];
-            $hashed_password = $row['password'];
-            $password = $row['password'];
-            $owner = $row['piggybank_owner'];
-            //NOT YET IMPLEMENTED $activated = $row['activated'];
-        
-            if(password_verify($inputPassword, $hashed_password)){
-                //prepLogin($id, $username, $remember);
-                $_SESSION['id'] = $id;
-                header("Location: index.php");
-            }else{           
-                $result = "Invalid password.<br>Please try again.";
-            }
+        if(password_verify($inputPassword, $hashed_password)){
+            //prepLogin($id, $username, $remember);
+            $_SESSION['id'] = $id;
+            $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
+            $statement = $db->prepare($splQuery);
+            $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
+            if ($row = $statement->fetch()) {
+                $_SESSION['piggyBankId'] = $row['id'];
+                $_SESSION['piggyBankName'] = $row['piggybank_name'];
                 
-        }else{
-            $result = "Email not found.<br>Please try again.";
+            }else{
+                echo "default piggybank not found";
+            }           
+            header("Location: index.php");
+        }else{           
+            $result = "Invalid password.<br>Please try again.";
         }
+            
     }else{
-        $result = "Invalid Email. Please try again.";
+        $result = "Email not found.<br>Please try again.";
     }
-
 }
 ?>
 <!DOCTYPE html>
@@ -61,15 +66,12 @@
         </div>
         
         <form action="login.php" method="post" class="login__form">
-                           
-            <div class="login__form--owner">
-                <label for="owner">Piggybank Owner: </label>
-                <input name="owner" type="text">                                           
-            </div>                 
+                                            
             <div class="login__form--email">
                 <label for="email">Email: </label>
                 <input name="email" type="email" required>                                           
-            </div>                 
+            </div>
+                          
             <div class="login__form--password">
                 <label for="password">Password: </label>
                 <input name="password" type="password" placeholder="password" required>                

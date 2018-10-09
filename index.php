@@ -20,6 +20,8 @@
 <?php
   if(isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
+    $piggyBankId = $_SESSION['piggyBankId'];
+    $piggyBankName = $_SESSION['piggyBankName'];
   }
   
   //Find user query
@@ -36,15 +38,15 @@
   }
 
   //Run Transaction Query
-  $query  = "SELECT * FROM transactions WHERE piggyuser=:id ORDER BY transactionDate DESC";
+  $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";
   $statement = $db->prepare($query);
-  $statement->execute(array(':id'=>$id));
+  $statement->execute(array(':piggyBankId'=>$piggyBankId));
   $transactions = $statement->fetchAll(PDO::FETCH_ASSOC); 
 
   //create and run sum query for balance
-  $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyuser=:id";
+  $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyBankId=:piggyBankId";
   $statement=$db->prepare($query);
-  $statement->execute(array(':id'=>$id));
+  $statement->execute(array(':piggyBankId'=>$piggyBankId));
   $row=$statement->fetch(PDO::FETCH_ASSOC);
   $sum=$row['valueSum'];
 
@@ -125,8 +127,7 @@
 
     <div class="mainBoard" id="lineItems">
         <h1>
-            Allowance
-            <span>Tracker</span>
+            <?php echo $piggyBankName; ?>
         </h1>
         <div class="mainBoard__bankImage">
             <img src="img/piggyBankSmall.jpg" alt="PiggyBank Image">
@@ -135,8 +136,7 @@
                 <p>
         </div>
         <div class="addTransaction">
-            <h3>Add
-                <span>Transaction</span>
+            <h3>Add<span>Transaction</span>
             </h3>
             
                 <form action="index.php" method="post"class="addTransaction__form">

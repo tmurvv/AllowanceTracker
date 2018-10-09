@@ -10,9 +10,7 @@
         <li class="hero__mainNav--item">
             <a href="index.php#contact">Contact</a>
         </li>
-        <?php 
-
-            if(isset($_SESSION['id'])) : ?>
+        <?php if(isset($_SESSION['id'])) : ?>
 
             <li class="hero__mainNav--item">
                 <a href="logout.php">Logout</a>

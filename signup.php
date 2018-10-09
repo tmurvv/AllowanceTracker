@@ -12,25 +12,43 @@
         $password = $_POST['password'];
         $confirmPassword = $_POST['confirmPassword'];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+        $piggyBankName = $_POST['piggyBankName'];
+        $isDefault = TRUE;
+      
         if ($password == $confirmPassword) {
-                //insert record
-            try {               
-                //create SQL insert statement
-                $sqlInsert = "INSERT INTO users (piggybank_owner, email, password, join_date)
-                VALUES (:piggybank_owner, :email, :password, now())";
+             //check if email + name exists
+               
+            $sqlQuery = "SELECT * FROM users WHERE email= :email";
+            $statement = $db->prepare($sqlQuery);
+            $statement->execute(array(':email'=> $email));
+            
+            if (!$piggyUserRow = $statement->fetch()) {                   
+                try {               
+                    //insert user
+                    $sqlInsert = "INSERT INTO users (piggybank_owner, email, password, join_date)
+                    VALUES (:piggybank_owner, :email, :password, now())";
+                    $statement = $db->prepare($sqlInsert);
+                    $statement->execute(array(':piggybank_owner' => $owner, ':email' => $email, ':password' => $hashed_password));
+                    $piggyUserId = $db->lastInsertId();
 
-                //use PDO prepared to sanitize data
-                $statement = $db->prepare($sqlInsert);
+                    try {               
+                        //insert first piggy bank
+                        $sqlInsert = "INSERT INTO piggybanks (piggyUser, piggybank_name, isDefault)
+                        VALUES (:piggyUser, :piggybank_name, :isDefault)";
+                        $statement = $db->prepare($sqlInsert);
+                        $statement->execute(array(':piggyUser' => $piggyUserId, ':piggybank_name' => $piggyBankName, ':isDefault' => $isDefault));
+                        $result = "Registration Successful";
 
-                //add the data into the database
-                $statement->execute(array(':piggybank_owner' => $owner, ':email' => $email, ':password' => $hashed_password));
-
-                $result = "Registration Successful";
-
-            } catch (PDOException $ex) {
-                $result = "An error occurred: ".$ex;
-            }   
+                    } catch (PDOException $ex) {
+                        $result = "An error occurred: ".$ex;
+                    }
+                } catch (PDOException $ex) {
+                    $result = "An error occurred: ".$ex;
+                }
+                
+            }else{
+                $result="Account email already exists. If you are trying to add a PiggyBank, login and then choose 'Add PiggyBank' from main menu.";
+            }
         } else {
             $result = "Passwords do not match. Please try again.";
         }
@@ -72,6 +90,11 @@
             <div class="user_form user__form--password">
                 <label for="confirmPassword">Confirm Password: </label>
                 <input name="confirmPassword" type="password" required>                
+            </div>
+            <div class="user_form user__form--password">
+                <label for="owner">PiggyBank name: </label>
+                <input name="piggyBankName" type="text">
+                <label for="owner">  "Hayley's Allowance Tracker"</label>                
             </div>
             <div class="user_form user__form--password">
                 <label for="owner">Who's PiggyBank is it? </label>
