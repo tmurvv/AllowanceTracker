@@ -3,6 +3,13 @@
 <?php include 'php/classes/Database.php'; ?>
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
+<?php 
+  //Run PiggyBank Query
+  $query  = "SELECT * FROM piggybanks WHERE piggyUser=:userId ORDER BY piggyBankName";
+  $statement = $db->prepare($query);
+  $statement->execute(array(':userId'=>$_SESSION['id']));
+  $piggyBanks = $statement->fetchAll(PDO::FETCH_ASSOC);
+?>
 <?php if(isset($_POST['submit'])){
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
@@ -61,6 +68,37 @@
                 <input type="submit" name="submit" class="btn" value="Submit"/>           
             </div>
         </form>
+
+        <?php if($piggyBanks) : ?>
+        <?php foreach($piggyBanks as $piggy) : ?>
+            <form method="post" name="edit" action="index.php?id=<?php echo $piggy['id'] ?>">
+                
+                <div style="display:flex; justify-content:space-between;" class="piggy__lineItem">
+                    <div class="piggy__lineItem--piggyBankName">
+                        <?php echo $piggy['piggyBankName']; ?>
+                    </div>
+                    <div class="piggy__lineItem--piggyBankName" hidden>
+                        <input class="piggy__lineItem-piggBankName" name="piggyBankName" type="text" value="<?php echo $piggy['piggyBankName']; ?>"/>
+                    </div>
+                    <div class="piggy__lineItem---piggyBankOwner">
+                        <?php echo $piggy['piggyBankOwner']; ?>
+                    </div>
+                    <div class="piggy__lineItem--piggyBankOwner" hidden>
+                        <input class="piggy__lineItem--piggBankOwner" name="piggyBankOwner" type="text" value="<?php echo $piggy['piggyBankOwner']; ?>" />
+                    </div>
+                    <?php if($piggy['isDefault']==1) {$checked = 'checked';}else{$checked="";} ?>
+                    <div class="piggy__lineItem--isDefault">
+                        <label for="isDefault">Default?</label>
+                        <input class="piggy__lineItem--isDefault" name="isDefault" type="checkbox" <?php echo $checked ?> disabled/>
+                    </div>
+                    <div class="piggy__lineItem--editDelete">                            
+                        <button name="edit" type="button" class="btn btn__secondary" onClick="startEditPiggyBanks(this)">Edit</button>
+                        <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditPiggyBanks(this)">Delete</button>
+                    </div>
+                </div>
+            </form>
+        <?php endforeach; ?>
+        <?php endif; ?>                 
     </div>
 </body>
 </html>

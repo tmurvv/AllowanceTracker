@@ -22,20 +22,21 @@
     $id = $_SESSION['id'];
     $piggyBankId = $_SESSION['piggyBankId'];
     $piggyBankName = $_SESSION['piggyBankName'];
+    $owner = $_SESSION['piggyBankOwner'];
   }
   
-  //Find user query
-  $query = "SELECT * FROM users WHERE id=:id";
-  $statement = $db->prepare($query);
-  $statement->execute(array(':id'=>$id));
+//   //Find user query
+//   $query = "SELECT * FROM users WHERE id=:id";
+//   $statement = $db->prepare($query);
+//   $statement->execute(array(':id'=>$id));
 
-  if($userAccount=$statement->fetch()) {
+//   if($userAccount=$statement->fetch()) {
   
-    $owner = $userAccount['piggybank_owner'];
+//     $owner = $userAccount['piggybank_owner'];
     
-  } else {
-    $owner = "Your name here";
-  }
+//   } else {
+//     $owner = "Your name here";
+//   }
 
   //Run Transaction Query
   $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";

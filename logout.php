@@ -14,15 +14,10 @@ session_start();
     <?php endif; ?>
     <div class="login signatureBox">
         <div class="login__line1">
-            <h3>Logout
-                <span> Page</span> 
-            </h3>
-            <h4 class="login__line1--signup"><a href="signup.php">Easy Sign-up</a>
-                
-            </h4>
+            <h3>Logout<span> Page</span> </h3>
         </div>       
         <form action="logout.php" method="post" class="login__form">                           
-            <div class="signatureBox">
+            <div>
                 <?php  
                     if(isset($_POST['logout'])) {
                         unset($_SESSION['id']);

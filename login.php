@@ -27,8 +27,8 @@
             $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
             if ($row = $statement->fetch()) {
                 $_SESSION['piggyBankId'] = $row['id'];
-                $_SESSION['piggyBankName'] = $row['piggybank_name'];
-                
+                $_SESSION['piggyBankName'] = $row['piggyBankName'];
+                $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];
             }else{
                 echo "default piggybank not found";
             }           

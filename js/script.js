@@ -161,6 +161,99 @@ function startEditSelector(clickedItem) {
     }     
 }
 
+function startEditPiggyBanks(clickedItem) {
+    //dec;are variables
+
+    var piggyBankName;
+    var piggyBankNameEdit;
+    var piggyBankOwner;
+    var piggyBankOwnerEdit;
+    var isDefault;
+    var isDefaultEdit;
+    
+    var cancelButton;
+    var ancestorDiv;
+
+    //define DOM elements
+        
+    ancestorDiv = clickedItem.parentElement.parentElement;  
+      
+    piggyBankName = ancestorDiv.children[0];
+    piggyBankNameEdit = ancestorDiv.children[1];
+    piggyBankOwner = ancestorDiv.children[2];
+    piggyBankOwnerEdit = ancestorDiv.children[3];
+    isDefault = ancestorDiv.children[4];
+    //isDefaultEdit is not a separate DOM element
+    
+    if(clickedItem.innerHTML=="Edit") {
+        //define DOM elements
+        cancelButton=clickedItem.nextElementSibling;
+   
+        //reset edit field values
+        piggyBankNameEdit.children[0].value=piggyBankName.innerText;
+        piggyBankOwnerEdit.children[0].value=piggyBankOwner.innerText;
+        isDefaultEdit=isDefault.value; //storing "on" or "off", not the innerText of a DOM element
+
+        //hide original data fields / show edit fields 
+    
+        piggyBankName.hidden = true;
+        piggyBankNameEdit.hidden = false;
+        piggyBankOwner.hidden = true;
+        piggyBankOwnerEdit.hidden = false;
+        isDefault.children[1].disabled = false;
+    
+        //change button text and style
+        clickedItem.innerHTML="Save";
+        cancelButton.innerHTML="Cancel";
+        cancelButton.style="background-color:yellow;color:#333";
+        
+        return;
+    }
+
+    if(clickedItem.innerHTML=="Cancel"){
+        //define DOM elements
+        cancelButton=clickedItem;
+
+        //reset edit fields values
+        piggyBankName.innerText=piggyBankNameEdit.children[0].value;
+        piggyBankOwner.innerText=piggyBankOwnerEdit.children[0].value;
+        isDefault.value=isDefaultEdit; //storing "on" or "off", not the innerText of a DOM element
+
+        //show original data fields / hide edit fields       
+        piggyBankName.hidden = false;
+        piggyBankNameEdit.hidden = true;
+        piggyBankOwner.hidden = false;
+        piggyBankOwnerEdit.hidden = true;
+        isDefault.children[1].disabled = true;
+
+        //change button text and style
+        clickedItem.previousElementSibling.innerHTML="Edit";
+        cancelButton.innerHTML="Delete";
+        cancelButton.style="background-color:#A43C3D;color:#eee";
+    
+        return;       
+    }
+    if(clickedItem.innerHTML=="Delete"){
+        if(!confirm("Delete Item?")) {
+            return;
+        }
+        clickedItem.type="submit";
+        return;
+    }
+    
+
+    // if(clickedItem.innerHTML=="Save"){
+    //     //define DOM elements
+    //     cancelButton=clickedItem.nextElementSibling;
+        
+    //     //change text and style of buttons
+    //     cancelButton.innerHTML="Delete";
+    //     cancelButton.style="background-color:#A43C3D;color:#eee";
+    //     clickedItem.innerHTML="Edit";
+    //     clickedItem.type="submit";  
+    // }     
+}
+
 $(document).ready(function() {
     /* Mobile navigation */
     $('.js--mainNav-icon').click(function() {

@@ -13,7 +13,7 @@
         <?php if(isset($_SESSION['id'])) : ?>
 
             <li class="hero__mainNav--item">
-                <a href="AddEditPiggyBanks.php">Add/Edit PiggyBanks</a>
+                <a href="addEditPiggyBanks.php">Add/Edit PiggyBanks</a>
             </li>
             <li class="hero__mainNav--item">
                 <a href="logout.php">Logout</a>
