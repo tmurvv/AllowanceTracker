@@ -1,43 +1,18 @@
 <?php session_start(); ?>
-<?php
-    // $thisURL = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    // $myMessage = $_GET['msg'];
-    
-    // if ($myMessage == "Record Added") {
-    //     header("Location: admin.php?msg=added");  
-    // } 
-    // if ($myMessage == "Record Deleted") {
-    //     header("Location: admin.php?msg=deleted");  
-    // } 
-    // if ($myMessage == "Record Updated") {
-    //     header("Location: admin.php?msg=updated");  
-    // }
-?>
 <?php include 'php/config/config.php'; ?>
 <?php include 'php/classes/Database.php'; ?>
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php
+  //Initialize variables
   if(isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     $piggyBankId = $_SESSION['piggyBankId'];
     $piggyBankName = $_SESSION['piggyBankName'];
     $owner = $_SESSION['piggyBankOwner'];
   }
-  
-//   //Find user query
-//   $query = "SELECT * FROM users WHERE id=:id";
-//   $statement = $db->prepare($query);
-//   $statement->execute(array(':id'=>$id));
-
-//   if($userAccount=$statement->fetch()) {
-  
-//     $owner = $userAccount['piggybank_owner'];
-    
-//   } else {
-//     $owner = "Your name here";
-//   }
-
+?>
+<?php 
   //Run Transaction Query
   $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";
   $statement = $db->prepare($query);
@@ -55,9 +30,9 @@
   $statement = $db->query("SELECT * FROM transactionType ORDER BY transactionType");
   $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<?php
+<?php 
+    //Add new transaction
     if(isset($_SESSION['id'])) {
-      $id = $_SESSION['id'];
       if(isset($_POST['submit'])){
             //Assign Vars
             $transactionNote = $_POST['note'];  
@@ -66,17 +41,18 @@
             $transactionDateTime = $transactionDate." ".$transactionTime;
             $transactionAmount = $_POST['amount'];
             $transactionType = $_POST['type'];
-            
+                       
             if ($transactionType == '' || $transactionType == null) {
                 $transactionType = '0. Select your option';
             }
 
+            //Create and run transaction
             $query = "INSERT INTO transactions
-                        (transactionType, transactionAmount, transactionDate, transactionNote, piggyUser)
+                        (transactionType, transactionAmount, transactionDate, transactionNote, piggyBankId)
                         VALUES(?,?,?,?,?)";
             $statement = $db->prepare($query); 
             
-            $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $id]);         
+            $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $piggyBankId]);         
             
             header("Location: index.php", true, 301);           
         }
@@ -85,6 +61,7 @@
     }
 ?>
 <?php
+    //Edit transaction
     if(isset($_POST['edit'])){
         //Assign Vars   
         $transactionNote = $_POST['transactionNote'];
@@ -110,6 +87,7 @@
     }
 ?>
 <?php
+  //Delete transaction
   if(isset($_POST['delete'])){
     $id = $_GET['id'];
     $query = "DELETE FROM transactions WHERE id = :id";
@@ -205,8 +183,8 @@
                         <div>
                             <select style="display:none;" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
                                 <?php foreach($transactionTypes as $typeRow) : ?>
-                                <?php 
-                                    if ($row['transactionType'] === $typeRow['transactionType']) {
+                                <?php
+                                    if ($row['transactionType'] === substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1)) {
                                         $selected = 'selected';
                                     }else{
                                         $selected = "";

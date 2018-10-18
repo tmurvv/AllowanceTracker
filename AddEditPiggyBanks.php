@@ -25,8 +25,44 @@
     VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault);";
     $statement = $db->prepare($splQuery);
     $statement->execute(array(':piggyUser'=>$_SESSION['id'],':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner,':isDefault'=>$default));
-
+    header("Location: addEditPiggyBanks.php");
 }
+?>
+<?php
+    //Edit transaction
+    if(isset($_POST['edit'])){      
+        //Assign Vars   
+        $piggyUser = $_SESSION['id'];
+        $piggyBankName = $_POST['piggyBankName'];
+        $piggyBankOwner = $_POST['owner'];
+        if($_POST['default']=='on'){
+            //NOT YET IMPLEMENTED UPDATE query to remove default
+            $isDefault = TRUE;
+        } else {
+            $isDefault = FALSE;
+        }
+          
+        //Update Data       
+        $query = "UPDATE transactions SET piggyBankName = :piggyBankName, 
+                                            piggyBankOwner = :piggyBankOwner, 
+                                            isDefault = :isDefault WHERE id=:piggyUser";      
+        $statement = $db->prepare($query);
+        $statement->execute(array(':piggyBankName'=>$piggyBankName,
+                                    ':piggyBankOwner'=>$piggyBankOwner,
+                                    ':isDefault'=>$isDefault,
+                                    ':id'=>$piggyUser));
+        header("Location: addEditPiggyBanks.php", true, 301);
+    }
+?>
+<?php
+  //Delete transaction
+  if(isset($_POST['delete'])){
+    $piggyBankId = $_POST['piggyBankId'];
+    $query = "DELETE FROM piggybanks WHERE id = :piggyBankId";
+    $statement = $db->prepare($query);
+    $statement->execute(array(":piggyBankId"=>$piggyBankId));
+    header("Location: addEditPiggyBanks.php", true, 301);
+  }
 ?>
 <!DOCTYPE html>
 
@@ -48,7 +84,7 @@
             </h3>
         </div>
         
-        <form action="AddEditPiggyBanks.php" method="post" class="addEditPiggy__form">
+        <form action="addEditPiggyBanks.php" method="post" class="addEditPiggy__form">
                                             
             <div class="addEditPiggy__form--name">
                 <label for="email">PiggyBank Name: </label>
@@ -56,9 +92,9 @@
             </div>
                           
             <div class="addEditPiggy__form--owner">
-                <label for="owner">Owner: </label>
+                <label for="owner">Whose PiggyBank is it? </label>
                 <input name="owner" type="text">
-                <label for="owner">  Whose PiggyBank is it? </label>               
+                <label for="owner">Name will appear above, "Your name here's Piggy Bank".</label>               
             </div>
             <div class="addEditPiggy__form--default">
                 <label for="default">Set as default? </label>
@@ -71,7 +107,7 @@
 
         <?php if($piggyBanks) : ?>
         <?php foreach($piggyBanks as $piggy) : ?>
-            <form method="post" name="edit" action="index.php?id=<?php echo $piggy['id'] ?>">
+            <form method="post" name="edit" action="addEditPiggyBanks.php">
                 
                 <div style="display:flex; justify-content:space-between;" class="piggy__lineItem">
                     <div class="piggy__lineItem--piggyBankName">
@@ -90,6 +126,9 @@
                     <div class="piggy__lineItem--isDefault">
                         <label for="isDefault">Default?</label>
                         <input class="piggy__lineItem--isDefault" name="isDefault" type="checkbox" <?php echo $checked ?> disabled/>
+                    </div>
+                    <div class="piggy__lineItem--piggyBankId" hidden>
+                        <input class="piggy__lineItem--piggBankId" name="piggyBankId" type="text" value="<?php echo $piggy['id']; ?>" hidden/>
                     </div>
                     <div class="piggy__lineItem--editDelete">                            
                         <button name="edit" type="button" class="btn btn__secondary" onClick="startEditPiggyBanks(this)">Edit</button>
