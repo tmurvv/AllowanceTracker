@@ -16,6 +16,9 @@
                 <a href="addEditPiggyBanks.php">Add/Edit PiggyBanks</a>
             </li>
             <li class="hero__mainNav--item">
+                <a href="profile.php">View Profile</a>
+            </li>
+            <li class="hero__mainNav--item">
                 <a href="logout.php">Logout</a>
             </li>
         <?php else : ?>
@@ -32,8 +35,8 @@
     <div class="hero__mainTitle">
 
         <h1 class="hero__mainTitle--mainHeading">
-            <?php if($owner!="") : ?>
-                <?php echo $owner ?>'s PiggyBank
+            <?php if($_SESSION['piggyBankOwner']!="") : ?>
+                <?php echo $_SESSION['piggyBankOwner'] ?>'s PiggyBank
             <?php else : ?>
                 Your name here's PiggyBank
             <?php endif; ?>

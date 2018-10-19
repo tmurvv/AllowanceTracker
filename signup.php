@@ -8,8 +8,8 @@
        
         //collect form data and store in variables
         $email = $_POST['email'];
-        $owner = $_POST['owner'];
         $password = $_POST['password'];
+        $piggyBankOwner = $_POST['piggyBankOwner'];
         $confirmPassword = $_POST['confirmPassword'];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $piggyBankName = $_POST['piggyBankName'];
@@ -25,18 +25,18 @@
             if (!$piggyUserRow = $statement->fetch()) {                   
                 try {               
                     //insert user
-                    $sqlInsert = "INSERT INTO users (piggybank_owner, email, password, join_date)
-                    VALUES (:piggybank_owner, :email, :password, now())";
+                    $sqlInsert = "INSERT INTO users (email, password, join_date)
+                    VALUES (:email, :password, now())";
                     $statement = $db->prepare($sqlInsert);
-                    $statement->execute(array(':piggybank_owner' => $owner, ':email' => $email, ':password' => $hashed_password));
+                    $statement->execute(array(':email' => $email, ':password' => $hashed_password));
                     $piggyUserId = $db->lastInsertId();
 
                     try {               
                         //insert first piggy bank
-                        $sqlInsert = "INSERT INTO piggybanks (piggyUser, piggybank_name, isDefault)
-                        VALUES (:piggyUser, :piggybank_name, :isDefault)";
+                        $sqlInsert = "INSERT INTO piggybanks (piggyUser, piggyBankName, piggyBankOwner, isDefault)
+                        VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault)";
                         $statement = $db->prepare($sqlInsert);
-                        $statement->execute(array(':piggyUser' => $piggyUserId, ':piggybank_name' => $piggyBankName, ':isDefault' => $isDefault));
+                        $statement->execute(array(':piggyUser' => $piggyUserId, ':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner, ':isDefault' => $isDefault));
                         $result = "Registration Successful";
 
                     } catch (PDOException $ex) {
@@ -92,14 +92,14 @@
                 <input name="confirmPassword" type="password" required>                
             </div>
             <div class="user_form user__form--password">
-                <label for="owner">PiggyBank name: </label>
+                <label for="piggyBankName">PiggyBank name: </label>
                 <input name="piggyBankName" type="text">
-                <label for="owner">  "Hayley's Allowance Tracker"</label>                
+                <label for="piggyBankName">  "Hayley's Allowance Tracker"</label>                
             </div>
             <div class="user_form user__form--password">
-                <label for="owner">Who's PiggyBank is it? </label>
-                <input name="owner" type="text">
-                <label for="owner">  "Your Piggy Bank" will appear on your main page.</label>                
+                <label for="piggyBankOwner">Who's PiggyBank is it? </label>
+                <input name="piggyBankOwner" type="text">
+                <label for="piggyBankOwner">  "Your Piggy Bank" will appear on your main page.</label>                
             </div>
         
             <div class="user_form user__form--submit">

@@ -1,30 +1,11 @@
 //JavaScript file
 
-"use strict";
+"use strict";  
 
-function adminProtect() {
-    var chances = 1;
-    var pass1 = prompt('Please Enter Your Password',' ');
-    while (chances < 7) {
-        if (!pass1) {
-            history.go(-1);
-        }
-        if (pass1.toLowerCase() == "admin4014") {
-            //open admin window
-            window.open("https://take2tech.ca/InnoTech/JobBoard/admin.php");
-            break;
-        } 
-        chances+=1;
-        var pass1 = 
-        prompt('Password Incorrect, Please Try Again.','Password');
-    }
-    if (pass1.toLowerCase()!="password" && chances ==7) {
-        history.go(-1);
-    }
-    return " ";
-}  
-
-function startEditSelector(clickedItem) {
+/***********************
+ * CRUD operations on Transactions
+ * ********************/
+function startEditTransaction(clickedItem) {
 
     var item;
     var itemEdit;
@@ -161,8 +142,12 @@ function startEditSelector(clickedItem) {
     }     
 }
 
+/***********************
+ * CRUD operations on Piggy Banks
+ * ********************/
+
 function startEditPiggyBanks(clickedItem) {
-    //dec;are variables
+    //declare variables
 
     var piggyBankName;
     var piggyBankNameEdit;
@@ -242,16 +227,24 @@ function startEditPiggyBanks(clickedItem) {
     }
     
 
-    // if(clickedItem.innerHTML=="Save"){
-    //     //define DOM elements
-    //     cancelButton=clickedItem.nextElementSibling;
+    if(clickedItem.innerHTML=="Save"){
+        //define DOM elements
+        cancelButton=clickedItem.nextElementSibling;
         
-    //     //change text and style of buttons
-    //     cancelButton.innerHTML="Delete";
-    //     cancelButton.style="background-color:#A43C3D;color:#eee";
-    //     clickedItem.innerHTML="Edit";
-    //     clickedItem.type="submit";  
-    // }     
+        //change text and style of buttons
+        cancelButton.innerHTML="Delete";
+        cancelButton.style="background-color:#A43C3D;color:#eee";
+        clickedItem.innerHTML="Edit";
+        clickedItem.type="submit";  
+    }     
+}
+
+/***********************
+ * CRUD operations on Piggy Banks
+ * ********************/
+
+function startEditProfile(clickedItem) {
+    alert("NOT YET IMPLEMENTED");
 }
 
 $(document).ready(function() {

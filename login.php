@@ -16,7 +16,6 @@
         $id = $row['id'];
         $hashed_password = $row['password'];
         $password = $row['password'];
-        $owner = $row['piggybank_owner'];
         //NOT YET IMPLEMENTED $activated = $row['activated'];
     
         if(password_verify($inputPassword, $hashed_password)){
@@ -30,7 +29,8 @@
                 $_SESSION['piggyBankName'] = $row['piggyBankName'];
                 $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];
             }else{
-                echo "default piggybank not found";
+                //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
+                $result = "An error occurred.";
             }           
             header("Location: index.php");
         }else{           

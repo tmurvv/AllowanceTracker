@@ -13,7 +13,7 @@
 <?php if(isset($_POST['submit'])){
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
-    $piggyBankOwner = $_POST['owner'];
+    $piggyBankOwner = $_POST['piggyBankOwner'];
     if($_POST['default']=='on'){
         //NOT YET IMPLEMENTED UPDATE query to remove default
         $default = TRUE;
@@ -34,23 +34,25 @@
         //Assign Vars   
         $piggyUser = $_SESSION['id'];
         $piggyBankName = $_POST['piggyBankName'];
-        $piggyBankOwner = $_POST['owner'];
+        $piggyBankOwner = $_POST['piggyBankOwner'];
+        $piggyBankId = $_POST['piggyBankId'];
+        $isDefault='';
         if($_POST['default']=='on'){
             //NOT YET IMPLEMENTED UPDATE query to remove default
             $isDefault = TRUE;
         } else {
             $isDefault = FALSE;
         }
-          
+
         //Update Data       
-        $query = "UPDATE transactions SET piggyBankName = :piggyBankName, 
+        $query = "UPDATE piggybanks SET piggyBankName = :piggyBankName, 
                                             piggyBankOwner = :piggyBankOwner, 
-                                            isDefault = :isDefault WHERE id=:piggyUser";      
+                                            isDefault = :isDefault WHERE id=:piggyBankId";      
         $statement = $db->prepare($query);
         $statement->execute(array(':piggyBankName'=>$piggyBankName,
                                     ':piggyBankOwner'=>$piggyBankOwner,
                                     ':isDefault'=>$isDefault,
-                                    ':id'=>$piggyUser));
+                                    ':piggyBankId'=>$piggyBankId));
         header("Location: addEditPiggyBanks.php", true, 301);
     }
 ?>
@@ -91,10 +93,10 @@
                 <input name="piggyBankName" type="text" required>                                           
             </div>
                           
-            <div class="addEditPiggy__form--owner">
-                <label for="owner">Whose PiggyBank is it? </label>
-                <input name="owner" type="text">
-                <label for="owner">Name will appear above, "Your name here's Piggy Bank".</label>               
+            <div class="addEditPiggy__form--piggyBankOwner">
+                <label for="piggyBankOwner">Whose PiggyBank is it? </label>
+                <input name="piggyBankOwner" type="text">
+                <label for="piggyBankOwner">Name will appear above, "Your name here's Piggy Bank".</label>               
             </div>
             <div class="addEditPiggy__form--default">
                 <label for="default">Set as default? </label>

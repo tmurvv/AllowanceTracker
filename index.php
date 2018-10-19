@@ -9,7 +9,7 @@
     $id = $_SESSION['id'];
     $piggyBankId = $_SESSION['piggyBankId'];
     $piggyBankName = $_SESSION['piggyBankName'];
-    $owner = $_SESSION['piggyBankOwner'];
+    $piggyBankOwner = $_SESSION['piggyBankOwner'];
   }
 ?>
 <?php 
@@ -26,8 +26,8 @@
   $row=$statement->fetch(PDO::FETCH_ASSOC);
   $sum=$row['valueSum'];
 
-  //Create and run Type Selector Query
-  $statement = $db->query("SELECT * FROM transactionType ORDER BY transactionType");
+  //Create and run Type Transaction Query
+  $statement = $db->query("SELECT * FROM transactionType ORDER BY selectBoxOrder");
   $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php 
@@ -125,8 +125,8 @@
                         <select name="type" id="">
                             <option value="" disabled selected>Select your option</option>                           
                             <?php foreach($transactionTypes as $typeRow) : ?>                           
-                                <option value="<?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>">
-                                    <?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>
+                                <option value="<?php echo $typeRow['transactionType']; ?>">
+                                    <?php echo $typeRow['transactionType']; ?>
                                 </option>
                             <?php endforeach; ?>                     
                         </select>
@@ -173,25 +173,25 @@
                         </div>
                         <div class="transactions__lineItem--line1-editDelete"> 
                              
-                            <button name="edit" type="button" class="btn btn__secondary" onClick="startEditSelector(this)">Edit</button>
-                            <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditSelector(this)">Delete</button>
+                            <button name="edit" type="button" class="btn btn__secondary" onClick="startEditTransaction(this)">Edit</button>
+                            <button name="delete" type="button" class="btn btn__primaryVeryDark" onClick="startEditTransaction(this)">Delete</button>
                         </div>
                         <div hidden><?php echo $row['transactionDate']; ?></div>
                     </div>
                     <div class="transactions__lineItem--line2">                     
-                        <div class="transactions__lineItem--line2-type"><p class="btn btn__primary"><?php echo substr($row['transactionType'], strpos($row['transactionType'], ".") +1); ?></p></div>
+                        <div class="transactions__lineItem--line2-type"><p class="btn btn__primary"><?php echo $row['transactionType']; ?></p></div>
                         <div>
                             <select style="display:none;" class="btn btn__primary transactions__lineItem--line2-type" name="transactionType">                               
                                 <?php foreach($transactionTypes as $typeRow) : ?>
                                 <?php
-                                    if ($row['transactionType'] === substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1)) {
+                                    if ($row['transactionType'] === $typeRow['transactionType']) {
                                         $selected = 'selected';
                                     }else{
                                         $selected = "";
                                     }
                                 ?>
-                                <option value="<?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1)?>" <?php echo $selected; ?>>
-                                    <?php echo substr($typeRow['transactionType'], strpos($typeRow['transactionType'], ".") +1); ?>
+                                <option value="<?php echo $typeRow['transactionType'];?>" <?php echo $selected; ?>>
+                                    <?php echo $typeRow['transactionType']; ?>
                                 </option>
                                 <?php endforeach; ?>                    
                             </select>
@@ -212,9 +212,9 @@
                                 //create and run sum query for current transaction balance
                                 $lineTransactionDate = $row['transactionDate'];
 
-                                $query="SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE transactionDate <= :lineTransactionDate";
+                                $query="SELECT SUM(transactionAmount) AS lineValueSum FROM transactions WHERE transactionDate <= :lineTransactionDate AND piggyBankId=:piggyBankId";
                                 $statement= $db->prepare($query);
-                                $statement->execute(array(':lineTransactionDate'=> $lineTransactionDate));
+                                $statement->execute(array(':lineTransactionDate'=> $lineTransactionDate, ':piggyBankId' => $piggyBankId));
                                 $lineSumRow=$statement->fetch(PDO::FETCH_ASSOC);
                                 $lineSum=$lineSumRow['lineValueSum'];
                             ?>
