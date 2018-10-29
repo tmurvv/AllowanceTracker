@@ -240,11 +240,75 @@ function startEditPiggyBanks(clickedItem) {
 }
 
 /***********************
- * CRUD operations on Piggy Banks
+ * CRUD operations on profiles
  * ********************/
 
-function startEditProfile(clickedItem) {
-    alert("NOT YET IMPLEMENTED");
+function startChangeEmail(clickedItem) {
+   
+    var emailInput;
+    var originalEmail;
+    var changeSaveEmailButton;
+    var cancelChangeEmailButton;
+
+    emailInput = document.getElementById('js--emailInput');
+    originalEmail = document.getElementById('js--profileOriginalEmail');
+    changeSaveEmailButton = document.getElementById('js--profileChangeSaveEmail');
+    cancelChangeEmailButton = document.getElementById('js--profileCancelEmail');
+
+    if (clickedItem.innerText == "Change Email") { 
+        emailInput.hidden = false;
+        cancelChangeEmailButton.hidden = false;
+        clickedItem.innerText = "Save";
+
+    } else if (clickedItem.innerText == "Save") {
+        emailInput.hidden = true;
+        cancelChangeEmailButton.hidden = true;
+        clickedItem.innerText = "Change Email";
+        originalEmail.innerText=emailInput.children[1].value;
+        changeSaveEmailButton.type = 'Submit';
+        
+    } else if (clickedItem.innerText == "Cancel") {
+        emailInput.children[1].value = "";
+        emailInput.hidden = true;
+        cancelChangeEmailButton.hidden = true;
+        changeSaveEmailButton.innerText = "Change Email";
+        return;
+    }
+}
+function startChangePassword(clickedItem) {
+   
+    var changePassword;
+    var newPassword;
+    var changePasswordButton;
+    var cancelPasswordButton;
+
+    changePassword = document.getElementById('js--profileChangePassword');
+    newPassword = document.getElementById('js--profileNewPassword');
+    changePasswordButton = document.getElementById('js--profileChangePasswordButton');
+    cancelPasswordButton = document.getElementById('js--profileCancelPasswordButton');
+    
+    if (clickedItem.innerText == "Change Password") { 
+        changePassword.hidden = false;
+        cancelPasswordButton.hidden = false;
+        clickedItem.innerText = "Save";
+
+    } else if (clickedItem.innerText == "Save") {
+        changePassword.hidden = true;
+        cancelPasswordButton.hidden = true;
+        clickedItem.innerText = "Change Password";
+        document.getElementById('js--profileOriginalPassword').innerText=newPassword.value;
+        changePasswordButton.type = 'Submit';
+        return;
+
+    } else if (clickedItem.innerText == "Cancel") {
+        changePassword.children[0].value = "";
+        changePassword.children[1].value = "";
+        changePassword.children[2].value = "";
+        changePassword.hidden = true;
+        cancelPasswordButton.hidden = true;
+        changePasswordButton.innerText = "Change Password";
+        return;
+    }
 }
 
 $(document).ready(function() {

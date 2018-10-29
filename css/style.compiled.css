@@ -655,6 +655,44 @@ header {
       .login__form > div > select {
         font-size: 100%; } }
 
+.profile {
+  padding: 1rem; }
+  .profile__line1 > h2 {
+    padding: 1rem;
+    color: #e47587; }
+    .profile__line1 > h2 > span {
+      color: #D9AE5C; }
+  .profile__container {
+    margin: 1rem;
+    border: 2px solid #e47587;
+    padding: 0;
+    width: fit-content; }
+    .profile__container--bottom {
+      padding: 1rem;
+      font-size: 100%; }
+      .profile__container--bottom input {
+        width: 100%;
+        border-radius: 7px;
+        margin-bottom: 3px; }
+  .profile__form--email {
+    background-color: #e47587;
+    color: #fff;
+    width: 100%;
+    padding: 5px 7px;
+    text-align: center; }
+  .profile__form--changeProfileButton {
+    font-size: 100%; }
+  .profile__form--changePassword > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .profile__form--changePassword > form > input {
+      margin: 3px;
+      border-radius: 7px; }
+  .profile__form--addEditPiggyBanks {
+    text-decoration: none;
+    box-shadow: 3px 3px grey; }
+
 .addJob {
   margin: 50px 25px; }
   .addJob__mainHeading {

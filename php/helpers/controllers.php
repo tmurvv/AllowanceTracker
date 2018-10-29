@@ -46,4 +46,19 @@ function prepLogin($id, $username, $remember){
     
     redirectTo('index');                          
 }
+
+//Logout
+function logout(){
+    unset($_SESSION['piggyBankId']);
+    unset($_SESSION['piggyBankOwner']);
+    unset($_SESSION['piggyBankName']);
+    unset($_SESSION['id']);
+
+    // NOT YET IMPLEMENTED if(isset($_COOKIE['rememberUserCookie'])){
+    //     uset($_COOKIE['rememberUserCookie']);
+    //     setcookie('rememberUserCookie', null, -1, '/');
+    // } 
+    session_destroy();
+    header('Location: index.php');
+}
 ?>
