@@ -2,11 +2,9 @@
 <?php include 'php/classes/Database.php'; ?>
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
-
 <?php 
-    if (isset($_POST['signupBtn'])) {
-       
-        //collect form data and store in variables
+    if (isset($_POST['signupBtn'])) {       
+        //collect form data and store in variables       
         $email = $_POST['email'];
         $password = $_POST['password'];
         $piggyBankOwner = $_POST['piggyBankOwner'];
@@ -14,6 +12,7 @@
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $piggyBankName = $_POST['piggyBankName'];
         $isDefault = TRUE;
+        $piggyUserId = NULL;
       
         if ($password == $confirmPassword) {
              //check if email + name exists
@@ -28,22 +27,53 @@
                     $sqlInsert = "INSERT INTO users (email, password, join_date)
                     VALUES (:email, :password, now())";
                     $statement = $db->prepare($sqlInsert);
-                    $statement->execute(array(':email' => $email, ':password' => $hashed_password));
-                    $piggyUserId = $db->lastInsertId();
+                    $statement->execute(array(':email' => $email, ':password' => $hashed_password));                  
 
-                    try {               
-                        //insert first piggy bank
-                        $sqlInsert = "INSERT INTO piggybanks (piggyUser, piggyBankName, piggyBankOwner, isDefault)
-                        VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault)";
-                        $statement = $db->prepare($sqlInsert);
-                        $statement->execute(array(':piggyUser' => $piggyUserId, ':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner, ':isDefault' => $isDefault));
-                        $result = "Registration Successful";
+                    if($statement->rowCount() == 1){
+                        $piggyUserId = $db->lastInsertId();
+                        //$encodeId = base64_encode("encodeuserid{$piggyUserId}");
+                    
+                        try {               
+                            //insert first piggy bank
+                            $sqlInsert = "INSERT INTO piggybanks (piggyUser, piggyBankName, piggyBankOwner, isDefault)
+                            VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault)";
+                            $statement = $db->prepare($sqlInsert);
+                            $statement->execute(array(':piggyUser' => $piggyUserId, ':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner, ':isDefault' => $isDefault));
+                            $result = "Registration Successful";
+    
+                        } catch (PDOException $ex) {
+                            $result = "An error occurred entering your first piggy bank: ".$ex;
+                        }
 
-                    } catch (PDOException $ex) {
-                        $result = "An error occurred: ".$ex;
+                        //prepare email body
+
+                        $mail_body = '<html>
+                            <body style="background-color:#CCCCCC; color:#000; font-family: Arial, Helvetica, sans-serif;
+                                                line-height:1.8em;">
+                            <h2>Message from PiggyBank</h2>
+                            <p>Dear PiggyBank user,<br><br>Thank you for registering, please click on the link below to
+                                confirm your email address</p>
+                            <p><a href='.$rootDirectory.'activate.php?id='.$piggyUserId.'"> Confirm Email</a></p>
+                            <p><strong>&copy;2018 <a href="https://take2tech.ca">take2tech.ca</strong></p>
+                            </body>
+                            </html>';
+                        
+                        $subject = "Message from PiggyBank";
+                        $headers = "From: PiggyBank.--User Signup" . "\r\n";
+                        $headers .= "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        
+                        //Error Handling for PHPMailer
+                        if(!mail($email, $subject, $mail_body, $headers)){
+                            $result = "Email send failed.";
+                        }
+                        else{
+                            $result = "Registration Successful. Please check email for confirmation link.";
+                        }
                     }
+
                 } catch (PDOException $ex) {
-                    $result = "An error occurred: ".$ex;
+                    $result = "An error occurred entering a new user: ".$ex;
                 }
                 
             }else{
@@ -80,25 +110,25 @@
                              
             <div class="user_form user__form--email">
                 <label for="email">Email: </label>
-                <input name="email" type="email" required> 
+                <input name="email" type="email" value="tech@take2tech.ca" required> 
                 <label for="email">  a confirmation email will be sent</label>                                          
             </div>                 
             <div class="user_form user__form--password">
                 <label for="password">Password: </label>
-                <input name="password" type="password" required>                
+                <input name="password" type="password" value="password" required>                
             </div>
             <div class="user_form user__form--password">
                 <label for="confirmPassword">Confirm Password: </label>
-                <input name="confirmPassword" type="password" required>                
+                <input name="confirmPassword" type="password" value="password" required>                
             </div>
             <div class="user_form user__form--password">
                 <label for="piggyBankName">PiggyBank name: </label>
-                <input name="piggyBankName" type="text">
+                <input name="piggyBankName" type="text" value="Puppy's Allowance" >
                 <label for="piggyBankName">  "Hayley's Allowance Tracker"</label>                
             </div>
             <div class="user_form user__form--password">
                 <label for="piggyBankOwner">Who's PiggyBank is it? </label>
-                <input name="piggyBankOwner" type="text">
+                <input name="piggyBankOwner" type="text" value="Puppy" >
                 <label for="piggyBankOwner">  "Your Piggy Bank" will appear on your main page.</label>                
             </div>
         

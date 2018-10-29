@@ -1,6 +1,7 @@
 <?php
 
-$rootDirectory = "https://take2tech.ca/TTT/SelfStudy/membershipLogin/auth/";
+$rootDirectory = "https://take2tech.ca/TTT/AllowanceTracker/";
+$accountActivationKey = "3cb81cc6-a940-452d-bb65-bacfd5a288f3";
 
 return [
     'database' => [
