@@ -5,11 +5,10 @@
 <?php include 'php/reusables/head.php' ?>
 <?php
     if(isset($_GET['id'])) {
-        // $encoded_id = $_GET['id'];
-        // $decode_id = base64_decode($encoded_id);
-        // $user_id_array = explode("encodeuserid", $decode_id);
-        // $id = $user_id_array[1];
-        $piggyUserId = $_GET['id'];
+        $encoded_id = $_GET['id'];
+        $decode_id = base64_decode($encoded_id);
+        $user_id_array = explode("encodeuserid", $decode_id);
+        $piggyUserId = $user_id_array[1];
         
         try {
             $sql = "UPDATE users SET active =:active WHERE id=:piggyUserId AND active='0'";       
@@ -18,7 +17,7 @@
            
             if ($statement->rowCount() == 1) {
                 $result = '<h2>Email Confirmed </h2>
-                <p>Your email address has been verified, you can now <a href="login.php">login</a> with your email and password.</p>';
+                <p>Your email address has been verified, you can now <a class="activate" href="login.php">login</a> with your email and password.</p>';
             } else {
                 $result = "<p class='lead'>No changes made please contact site admin,
                 if you have not confirmed your email before</p>";
@@ -44,7 +43,6 @@
     <?php endif; ?>
     <br>
     <br>
-    <a href="login.php">Login</a>
     <?php include_once "php/reusables/footer.php"; ?>
 </body>
 </html>

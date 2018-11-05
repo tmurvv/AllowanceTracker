@@ -32,10 +32,10 @@
     <div class="hero__mainTitle">
 
         <h1 class="hero__mainTitle--mainHeading">
-            <?php if($_SESSION['piggyBankOwner']!="") : ?>
+            <?php if(isset($_SESSION['piggyBankOwner']) && $_SESSION['piggyBankOwner']!="") : ?>
                 <?php echo $_SESSION['piggyBankOwner'] ?>'s PiggyBank
             <?php else : ?>
-                Your name here's PiggyBank
+                It's Your PiggyBank!
             <?php endif; ?>
         </h1>
         <h2 class="hero__mainTitle--subHeading">

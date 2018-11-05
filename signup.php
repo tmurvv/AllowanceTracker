@@ -15,7 +15,7 @@
         $piggyUserId = NULL;
       
         if ($password == $confirmPassword) {
-             //check if email + name exists
+            //check if email + name exists
                
             $sqlQuery = "SELECT * FROM users WHERE email= :email";
             $statement = $db->prepare($sqlQuery);
@@ -31,7 +31,7 @@
 
                     if($statement->rowCount() == 1){
                         $piggyUserId = $db->lastInsertId();
-                        //$encodeId = base64_encode("encodeuserid{$piggyUserId}");
+                        $encodeUserId = base64_encode("encodeuserid{$piggyUserId}");
                     
                         try {               
                             //insert first piggy bank
@@ -48,13 +48,13 @@
                         //prepare email body
 
                         $mail_body = '<html>
-                            <body style="background-color:#CCCCCC; color:#000; font-family: Arial, Helvetica, sans-serif;
+                            <body style="color:#C76978; font-family: Lato, Arial, Helvetica, sans-serif;
                                                 line-height:1.8em;">
-                            <h2>Message from PiggyBank</h2>
+                            <h2>Message from Piggy<span style="color:#D9AE5C;">Bank</span></h2>
                             <p>Dear PiggyBank user,<br><br>Thank you for registering, please click on the link below to
                                 confirm your email address</p>
-                            <p><a href='.$rootDirectory.'activate.php?id='.$piggyUserId.'"> Confirm Email</a></p>
-                            <p><strong>&copy;2018 <a href="https://take2tech.ca">take2tech.ca</strong></p>
+                            <p style="text-decoration: underline; font-size: 24px;"><a style="color:#D9AE5C;" href='.$rootDirectory.'activate.php?id='.$encodeUserId.'"> Confirm Email</a></p>
+                            <p><strong>&copy;2018 <a href="https://take2tech.ca" style="color:#D9AE5C;text-decoration: underline;">take2tech.ca</strong></p>
                             </body>
                             </html>';
                         
@@ -83,7 +83,6 @@
             $result = "Passwords do not match. Please try again.";
         }
     }
-
 ?>
 
 <!DOCTYPE html>

@@ -16,23 +16,29 @@
         $id = $row['id'];
         $hashed_password = $row['password'];
         $password = $row['password'];
-        //NOT YET IMPLEMENTED $activated = $row['activated'];
+        $activated = $row['active'];
     
         if(password_verify($inputPassword, $hashed_password)){
-            //prepLogin($id, $username, $remember);
-            $_SESSION['id'] = $id;
-            $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
-            $statement = $db->prepare($splQuery);
-            $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
-            if ($row = $statement->fetch()) {
-                $_SESSION['piggyBankId'] = $row['id'];
-                $_SESSION['piggyBankName'] = $row['piggyBankName'];
-                $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];
+            echo 'imin'.$activated;
+            return;
+            if($activated) {
+                //prepLogin($id, $username, $remember);
+                $_SESSION['id'] = $id;
+                $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
+                $statement = $db->prepare($splQuery);
+                $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
+                if ($row = $statement->fetch()) {
+                    $_SESSION['piggyBankId'] = $row['id'];
+                    $_SESSION['piggyBankName'] = $row['piggyBankName'];
+                    $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];
+                }else{
+                    //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
+                    $result = "An error occurred.";
+                }           
+                header("Location: index.php");
             }else{
-                //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
-                $result = "An error occurred.";
-            }           
-            header("Location: index.php");
+                $result="Account not activated. Please check your email inbox for a verification email.";
+            }
         }else{           
             $result = "Invalid password.<br>Please try again.";
         }
@@ -57,12 +63,8 @@
     <?php endif; ?>
     <div class="login signatureBox">
         <div class="login__line1">
-            <h3>Login
-                <span> Page</span> 
-            </h3>
-            <h4 class="login__line1--signup"><a href="signup.php">Easy Sign-up</a>
-                
-            </h4>
+            <h3>Login<span> Page</span> </h3>
+            <h4 class="login__line1--signup"><a href="signup.php">Easy Sign-up</a></h4>
         </div>
         
         <form action="login.php" method="post" class="login__form">

@@ -673,7 +673,7 @@ header {
       .profile__container--bottom input {
         width: 100%;
         border-radius: 7px;
-        margin-bottom: 3px; }
+        margin-bottom: 7px; }
   .profile__form--email {
     background-color: #e47587;
     color: #fff;
@@ -692,6 +692,10 @@ header {
   .profile__form--addEditPiggyBanks {
     text-decoration: none;
     box-shadow: 3px 3px grey; }
+
+.activate {
+  font-style: italic;
+  color: colorPrimary; }
 
 .addJob {
   margin: 50px 25px; }

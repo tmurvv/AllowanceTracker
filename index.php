@@ -5,6 +5,13 @@
 <?php include 'php/helpers/formatting.php'; ?>
 <?php
   //Initialize variables
+  $id = '';
+  $result = '';
+  $sum = '';
+  $piggyBankId = '';
+  $piggyBankName = '';
+  $piggyBankOwner = '';
+
   if(isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     $piggyBankId = $_SESSION['piggyBankId'];
