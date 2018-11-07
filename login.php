@@ -8,50 +8,64 @@
     $inputPassword = $_POST['password'];
     $inputEmail = $_POST['email'];
        
-    $splQuery = "SELECT * FROM users WHERE email = :email";
-    $statement = $db->prepare($splQuery);
-    $statement->execute(array(':email'=>$inputEmail));
+    try {
+        $splQuery = "SELECT * FROM users WHERE email = :email";
+        $statement = $db->prepare($splQuery);
+        $statement->execute(array(':email'=>$inputEmail));
 
-    if($row=$statement->fetch()){
-        $id = $row['id'];
-        $hashed_password = $row['password'];
-        $password = $row['password'];
-        $activated = $row['active'];
-    
-        if(password_verify($inputPassword, $hashed_password)){
-            echo 'imin'.$activated;
-            return;
-            if($activated) {
-                //prepLogin($id, $username, $remember);
-                $_SESSION['id'] = $id;
-                $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
-                $statement = $db->prepare($splQuery);
-                $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
-                if ($row = $statement->fetch()) {
-                    $_SESSION['piggyBankId'] = $row['id'];
-                    $_SESSION['piggyBankName'] = $row['piggyBankName'];
-                    $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];
-                }else{
-                    //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
-                    $result = "An error occurred.";
-                }           
-                header("Location: index.php");
-            }else{
-                $result="Account not activated. Please check your email inbox for a verification email.";
-            }
-        }else{           
-            $result = "Invalid password.<br>Please try again.";
-        }
+        if($row=$statement->fetch()){
+            $id = $row['id'];
+            $hashed_password = $row['password'];
+            $password = $row['password'];
+            $activated = $row['active'];
             
-    }else{
-        $result = "Email not found.<br>Please try again.";
-    }
+            if(password_verify($inputPassword, $hashed_password)){
+                
+                if ($activated) {
+                    //prepLogin($id, $username, $remember);
+                    $_SESSION['id'] = $id;
+                    
+                    try{
+                        $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
+                        $statement = $db->prepare($splQuery);
+                        $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
+
+                        if ($statement->rowCount()>0) {                           
+                            if ($row = $statement->fetch()) {                         
+                                $_SESSION['piggyBankId'] = $row['id'];
+                                $_SESSION['piggyBankName'] = $row['piggyBankName'];
+                                $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];                       
+                            }else{
+                                //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
+                                $result = "An error occurred finding your Piggy Bank.";
+                            }
+                        }else{
+                            $result="Piggy Bank not found";
+                        }
+                    }catch(PDOException $ex) {
+                        $result = "An error occurred.<br>Error message number: ".$ex->getCode();
+                    }
+                            
+                    header("Location: index.php");
+                }else{
+                    $result="Account not activated. Please check your email inbox for a verification email.";
+                }
+            }else{           
+                $result = "Invalid password.<br>Please try again.";
+            }
+                
+        }else{
+            $result = "Email not found.<br>Please try again.";
+        }
+
+    } catch (PDOException $ex) {
+        $result = "An error occurred.<br>Error message number: ".$ex->getCode();
+    }  
 }
 ?>
 <!DOCTYPE html>
 
 <html lang="en">
-
 <?php include 'php/reusables/head.php' ?>
 
 <body>

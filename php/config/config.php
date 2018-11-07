@@ -3,6 +3,21 @@
 $rootDirectory = "https://take2tech.ca/TTT/AllowanceTracker/";
 $accountActivationKey = "3cb81cc6-a940-452d-bb65-bacfd5a288f3";
 
+//declare session variables
+if(!isset($_SESSION['id'])) {
+    $_SESSION['id'] = "";
+}
+if(!isset($_SESSION['piggyBankId'])) {
+    $_SESSION['piggyBankId'] = "";
+}
+if(!isset($_SESSION['piggyBankName'])) {
+    $_SESSION['piggyBankName'] = "";
+}
+if(!isset($_SESSION['piggyBankOwner'])) {
+    $_SESSION['piggyBankOwner'] = "";
+}
+
+
 return [
     'database' => [
         'driver' => 'mysql',

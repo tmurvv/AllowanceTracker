@@ -57,6 +57,17 @@
         }
     }
 ?>
+<?php 
+    if (isset($_POST['closeAccountSubmit'])) {
+        echo "close account submit";
+        return;
+        // $email = $_POST['email'];
+        // $id = $_SESSION['id'];
+        // $splQuery = "UPDATE users SET email = :email WHERE id = :id";
+        // $statement = $db->prepare($splQuery);
+        // $statement->execute(array(':id'=>$id, 'email'=>$email));
+    }
+?>
 <?php
     $id = $_SESSION['id'];
     $splQuery = "SELECT * FROM users WHERE id = :id";
@@ -123,6 +134,7 @@
                             <button name="passwordSubmit" type="button" class="btn btn__secondary profile__form--changeProfileButton" onClick="startChangePassword(this)" id='js--profileChangePasswordButton'>Change Password</button>
                             <button name="passwordCancel" type="button" class="btn btn__primaryVeryDark profile__form--changeProfileButton" onClick="startChangePassword(this)" id="js--profileCancelPasswordButton" hidden>Cancel</button>                 
                         </div>
+                        
                         <div class="profile__form profile__form--password" id="js--profileOriginalPassword" hidden>
                             <?php 
                                 if ($row['password']) {
@@ -133,6 +145,13 @@
                     </form>
                 </div>
         
+                <br>
+                <form action="profile.php" method="post">
+                    
+                    <div class="profile_form profile__form--changeProfileButton">                             
+                        <button name="closeAccountSubmit" type="button" class="btn btn__secondary profile__form--changeProfileButton" onClick="startCloseAccount(this)" id="js--profileCloseAccount">Close Account</button>
+                    </div>
+                </form>
                 <br>
                 <div class="profile_form">
                     <a class="btn btn__secondary profile__form--addEditPiggyBanks" href="addEditPiggyBanks.php">Add, Edit, or Delete Piggy Banks</a>                

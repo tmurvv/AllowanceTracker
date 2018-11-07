@@ -30,22 +30,23 @@ function validateEmail($data) {
     return true;
 }
 
-function prepLogin($id, $username, $remember){
-    $_SESSION['id'] = $id;
-    $_SESSION['username'] = $username;
+// NOT IN USE
+// function prepLogin($id, $username, $remember){
+//     $_SESSION['id'] = $id;
+//     $_SESSION['username'] = $username;
     
-    //added security
-    $fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
-    $_SESSION['last_active'] = time();
-    $_SESSION['fingerprint'] = $fingerprint;
+//     //added security
+//     $fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+//     $_SESSION['last_active'] = time();
+//     $_SESSION['fingerprint'] = $fingerprint;
 
-    //if remember me checked, set cookie
-    if($remember === "yes"){
-        rememberMe($id);
-    }
+//     //if remember me checked, set cookie
+//     if($remember === "yes"){
+//         rememberMe($id);
+//     }
     
-    redirectTo('index');                          
-}
+//     redirectTo('index');                          
+// }
 
 //Logout
 function logout(){

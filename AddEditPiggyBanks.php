@@ -14,7 +14,7 @@
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
     $piggyBankOwner = $_POST['piggyBankOwner'];
-    if($_POST['default']=='on'){
+    if(isset($_POST['default']) && $_POST['default']=='on'){
         //NOT YET IMPLEMENTED UPDATE query to remove default
         $default = TRUE;
     } else {
@@ -57,7 +57,8 @@
     }
 ?>
 <?php
-  //Delete transaction
+  //Delete Piggy
+  //NOT YET IMPLEMENTED can not delete default piggy, if last piggy create empty default
   if(isset($_POST['delete'])){
     $piggyBankId = $_POST['piggyBankId'];
     $query = "DELETE FROM piggybanks WHERE id = :piggyBankId";

@@ -4,38 +4,40 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php
-  //Initialize variables
-  $id = '';
-  $result = '';
-  $sum = '';
-  $piggyBankId = '';
-  $piggyBankName = '';
-  $piggyBankOwner = '';
+    //Initialize variables
+    $id = '';
+    $result = '';
+    $sum = '';
 
-  if(isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
-    $piggyBankId = $_SESSION['piggyBankId'];
-    $piggyBankName = $_SESSION['piggyBankName'];
-    $piggyBankOwner = $_SESSION['piggyBankOwner'];
-  }
-?>
-<?php 
-  //Run Transaction Query
-  $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";
-  $statement = $db->prepare($query);
-  $statement->execute(array(':piggyBankId'=>$piggyBankId));
-  $transactions = $statement->fetchAll(PDO::FETCH_ASSOC); 
+    if(isset($_SESSION['id']) && !$_SESSION['id'] == '') {
+        $id = $_SESSION['id'];
+        $piggyBankId = $_SESSION['piggyBankId'];     
+        $piggyBankName = $_SESSION['piggyBankName'];   
+        $piggyBankOwner = $_SESSION['piggyBankOwner'];      
+        
+        //Run Transaction Query
+        $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";
+        $statement = $db->prepare($query);
+        $statement->execute(array(':piggyBankId'=>$piggyBankId));
+        $transactions = $statement->fetchAll(PDO::FETCH_ASSOC); 
 
-  //create and run sum query for balance
-  $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyBankId=:piggyBankId";
-  $statement=$db->prepare($query);
-  $statement->execute(array(':piggyBankId'=>$piggyBankId));
-  $row=$statement->fetch(PDO::FETCH_ASSOC);
-  $sum=$row['valueSum'];
+        //create and run sum query for balance
+        $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyBankId=:piggyBankId";
+        $statement=$db->prepare($query);
+        $statement->execute(array(':piggyBankId'=>$piggyBankId));
+        $row=$statement->fetch(PDO::FETCH_ASSOC);
+        $sum=$row['valueSum'];
 
-  //Create and run Type Transaction Query
-  $statement = $db->query("SELECT * FROM transactionType ORDER BY selectBoxOrder");
-  $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //Create and run Type Transaction Query
+        $statement = $db->query("SELECT * FROM transactionType ORDER BY selectBoxOrder");
+        $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }else{
+        $piggyBankId = '';     
+        $piggyBankName = '';   
+        $piggyBankOwner = '';
+        $transactions = '';
+        $transactionTypes = '';  
+    }
 ?>
 <?php 
     //Add new transaction
@@ -50,7 +52,7 @@
             $transactionType = $_POST['type'];
                        
             if ($transactionType == '' || $transactionType == null) {
-                $transactionType = '0. Select your option';
+                $transactionType = 'Select your option';
             }
 
             //Create and run transaction
