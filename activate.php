@@ -17,10 +17,9 @@
            
             if ($statement->rowCount() == 1) {
                 $result = '<h2>Email Confirmed </h2>
-                <p>Your email address has been verified, you can now <a class="activate" href="login.php">login</a> with your email and password.</p>';
+                <p>Your email address has been verified, you can now <a class="activate" href="login.php" style="color: #e47587; font-style: italic">login</a> with your email and password.</p>';
             } else {
-                $result = "<p class='lead'>No changes made please contact site admin,
-                if you have not confirmed your email before</p>";
+                $result = "<p class='lead'>Account already activated. :)</p>";
             }
         } catch(PDOException $ex) {
             $result = "An error occurred. ".$ex;

@@ -18,6 +18,11 @@
             display: block;
         }
 
+        & input,
+        & select {
+            font-size: 20px;
+        }
+
         &--type {
             margin-bottom: 1rem;
             flex: 1;

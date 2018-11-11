@@ -59,8 +59,7 @@
 ?>
 <?php 
     if (isset($_POST['closeAccountSubmit'])) {
-        echo "close account submit";
-        return;
+        $result = closeAccount($db, $_SESSION['id']);
         // $email = $_POST['email'];
         // $id = $_SESSION['id'];
         // $splQuery = "UPDATE users SET email = :email WHERE id = :id";
@@ -77,7 +76,7 @@
     if($row=$statement->fetch()){  
         $email = $row['email'];
     }else{
-        $result = 'User not found, please login again.';
+        $result = 'User not found, please login again or signup for a new account.';
     }
 ?>
 
@@ -101,8 +100,8 @@
         <div class="profile__container">
             <div class="profile__form profile__form--email" id="js--profileOriginalEmail">
                 <?php 
-                    if ($row['email']) {
-                        echo $row['email'];
+                    if (isset($email)) {
+                        echo $email;
                     } else {
                         echo "no email found";
                     }
@@ -149,7 +148,7 @@
                 <form action="profile.php" method="post">
                     
                     <div class="profile_form profile__form--changeProfileButton">                             
-                        <button name="closeAccountSubmit" type="button" class="btn btn__secondary profile__form--changeProfileButton" onClick="startCloseAccount(this)" id="js--profileCloseAccount">Close Account</button>
+                        <button name="closeAccountSubmit" type="button" class="btn btn__secondary profile__form--changeProfileButton" onClick="startCloseAccount(this, '<?php echo $row['email']; ?>')" id="js--profileCloseAccount">Close Account</button>
                     </div>
                 </form>
                 <br>

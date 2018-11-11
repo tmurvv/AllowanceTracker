@@ -310,14 +310,16 @@ function startChangePassword(clickedItem) {
         return;
     }
 }
-function startCloseAccount(clickedItem) {
+function startCloseAccount(clickedItem, userEmail) {
     
     if (clickedItem.innerText == "Close Account") { 
-        var yesNo = prompt('Close Account? Are you sure? This will delete your user account and all associated Piggy Banks. Please type "yes" below to close account.');
-        if (yesNo.toUpperCase() == "YES") {
-            alert('NOT YET IMPLEMENTED. Make a submit button. Then add PHP logic and SQL queries to delete account and PiggyBanks.');
-        }else{
-            return;
+        var yesNo = prompt('Close Account? Are you sure? This will delete your user account and all associated Piggy Banks and transactions. Please type your account email below to close the account.');
+        if (!(yesNo == null) && !(yesNo =='')) {
+            if (yesNo.toUpperCase() == userEmail.toUpperCase()) {
+                clickedItem.type = 'submit';
+            }else{
+                alert("The email entered does not match the email associated with this account. Account has not been closed.");
+            }
         }
     }  
 }

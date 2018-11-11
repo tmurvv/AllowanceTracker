@@ -4,6 +4,21 @@
     box-sizing: border-box;
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 11px;
+    opacity: .8; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size: 11px;
+    opacity: .8; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    font-size: 11px;
+    opacity: .8; /* Firefox */
+}
+
 html {
     //This defines what our default font is in rems. We decided we wanted 1 rem to default to = 10px. 
     //We chose 10px for ease of conversion from px to rem

@@ -4,7 +4,7 @@
         <li class="hero__mainNav--item">
             <a href="index.php">Home</a>
         </li>
-        <?php if(isset($_SESSION['id'])) : ?>
+        <?php if(isset($_SESSION['id']) && !$_SESSION['id'] == '') : ?>
 
             <li class="hero__mainNav--item">
                 <a href="addEditPiggyBanks.php">Add/Edit PiggyBanks</a>

@@ -98,40 +98,36 @@
             <?php include 'php/reusables/messageBox.php'; ?>
         </div>
     <?php endif; ?>
-    <div class="user signatureBox">
-        <div class="user__line1">
-            <h3>Easy 
-                <span> Signup</span>Page
+    <div class="signup signatureBox">
+        <div class="signup__line1">
+            <h3>Easy&nbsp;&nbsp;<span>Signup</span>Page
             </h3>
         </div>
         
-        <form action="signup.php" method="post"class="user__form">
+        <form action="signup.php" method="post" class="signup__form">
                              
-            <div class="user_form user__form--email">
+            <div class="signup__form--email">
                 <label for="email">Email: </label>
-                <input name="email" type="email" value="tech@take2tech.ca" required> 
-                <label for="email">  a confirmation email will be sent</label>                                          
+                <input name="email" type="email" value="harp@harptisha.com" placeholder="A confirmation email will appear in your inbox." required> 
             </div>                 
-            <div class="user_form user__form--password">
+            <div class="signup__form--password">
                 <label for="password">Password: </label>
                 <input name="password" type="password" value="password" required>                
             </div>
-            <div class="user_form user__form--password">
+            <div class="signup__form--password">
                 <label for="confirmPassword">Confirm Password: </label>
-                <input name="confirmPassword" type="password" value="password" required>                
+                <input name="confirmPassword" value="password" type="password" required>                
             </div>
-            <div class="user_form user__form--password">
-                <label for="piggyBankName">PiggyBank name: </label>
-                <input name="piggyBankName" type="text" value="Puppy's Allowance" >
-                <label for="piggyBankName">  "Hayley's Allowance Tracker"</label>                
+            <div class="signup__form--piggyName">
+                <label for="piggyBankName">PiggyBank Name: </label>
+                <input name="piggyBankName" type="text" value="Uni's Fun Fund" placeholder="For example 'allowance' or 'savings'" >
             </div>
-            <div class="user_form user__form--password">
-                <label for="piggyBankOwner">Who's PiggyBank is it? </label>
-                <input name="piggyBankOwner" type="text" value="Puppy" >
-                <label for="piggyBankOwner">  "Your Piggy Bank" will appear on your main page.</label>                
+            <div class="signup__form--piggyOwner">
+                <label for="piggyBankOwner">PiggyBank Owner: </label>
+                <input name="piggyBankOwner" type="text" value="Uni" placeholder="Who's PiggyBank is it?" >
             </div>
         
-            <div class="user_form user__form--submit">
+            <div class="signup__form--submit">
                 <input type="submit" name="signupBtn" class="btn" value="Submit"/>           
             </div>
         </form>

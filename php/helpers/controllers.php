@@ -1,5 +1,4 @@
 <?php
-
 function createQuery() {
     $query = "";
     $query = "SELECT * FROM transactions ORDER BY transactionDate DESC";
@@ -61,5 +60,62 @@ function logout(){
     // } 
     session_destroy();
     header('Location: index.php');
+}
+
+//Close Account
+function closeAccount($db, $closeAccountEmail) {
+    echo "in the close account function<br>".$_SESSION['id'];
+    $result = '';
+
+    //find PiggyBanks ass with user
+    
+    $splQuery = "Select * FROM piggybanks WHERE piggyUser = :id";
+    $statement = $db->prepare($splQuery);
+    $statement->execute(array(':id'=>$_SESSION['id']));
+
+    //delete tranactions assoc with piggy banks
+    
+    if($piggyBanks=$statement->fetchAll()){
+        foreach ($piggyBanks as $piggyBank) {
+            echo $piggyBank['piggyBankName'].'<br>';
+            
+            $deleteTransactionsId = $piggyBank['id'];
+            echo "<br>".$deleteTransactionsId."<br>";
+            //$deleteTransactionsId = '15';
+            $statement = $db->prepare( "DELETE FROM transactions WHERE piggyBankId =:id" );
+            $statement->execute(array(':id'=>$deleteTransactionsId));
+
+            //NOT YET IMPLEMENTED--delete for production
+            if (!$statement->rowCount()) {
+                $result = "No transactions deleted: ".$piggyBank['piggyBankName'];               
+            }
+
+            //delete PiggyBanks
+            $statement = $db->prepare("DELETE FROM piggybanks WHERE id = :id");
+            $statement->execute(array(':id'=>$piggyBank['id']));
+
+             //NOT YET IMPLEMENTED--delete for production
+            if (!$statement->rowCount()) {
+                $result = "No piggybank deleted: ".$piggyBank['piggyBankName'];               
+            }             
+        }
+        //delete User
+        $statement = $db->prepare("DELETE FROM users WHERE id = :id");
+        $statement->execute(array(':id'=>$_SESSION['id']));
+
+         //NOT YET IMPLEMENTED--delete for production
+        if (!$statement->rowCount()) {
+            $result = "Close account not successful for user ID#: ".$piggyBank['piggyUser'];               
+        }       
+        
+        return true;
+    }else{
+        return false;
+    }
+
+    
+   
+        
+
 }
 ?>

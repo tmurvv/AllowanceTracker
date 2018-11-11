@@ -1,8 +1,30 @@
 @import url(../css/ionicons.css);
+.centerBlock {
+  display: block;
+  margin: inherit auto; }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-size: 11px;
+  opacity: .8;
+  /* Firefox */ }
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  font-size: 11px;
+  opacity: .8;
+  /* Firefox */ }
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  font-size: 11px;
+  opacity: .8;
+  /* Firefox */ }
 
 html {
   font-size: 62.5%;
@@ -45,7 +67,8 @@ body {
   color: #666; }
 
 .signatureBox {
-  margin: 1rem;
+  display: block;
+  margin: 25px auto;
   border: 2px solid #e47587;
   border-top: 30px solid #e47587;
   padding: 1rem;
@@ -553,6 +576,9 @@ header {
     @media only screen and (max-width: 37.5em) {
       .addTransaction__form {
         display: block; } }
+    .addTransaction__form input,
+    .addTransaction__form select {
+      font-size: 20px; }
     .addTransaction__form--type {
       margin-bottom: 1rem;
       flex: 1;
@@ -697,142 +723,27 @@ header {
   font-style: italic;
   color: colorPrimary; }
 
-.addJob {
-  margin: 50px 25px; }
-  .addJob__mainHeading {
-    text-decoration: none;
-    color: #777; }
-  .addJob__mainHeading > span {
-    color: #e47587; }
-  .addJob > button {
-    border-radius: 7px;
-    padding: 5px 10px;
-    margin: 10px;
-    font-size: 125%; }
-  .addJob__job * input,
-  .addJob__job > select,
-  .addJob__job * textarea {
-    border-radius: 7px;
-    padding: 5px 10px;
-    margin: 10px; }
-  .addJob__job * input {
-    width: 100%; }
-  .addJob__job--datePosted > input {
-    width: 150px; }
-
-.admin__messageBox {
-  background-color: #e47587;
-  padding: 5px 10px;
-  border: 7px double white;
-  box-shadow: 2px 5px #eee;
-  color: #fff9e9;
-  width: auto;
-  text-align: center;
-  margin-bottom: 2.5rem;
-  margin-top: 0;
-  display: inline-flex; }
-
-.admin__editDelete {
-  display: flex; }
-  .admin__editDelete > a {
-    text-decoration: none;
-    width: 75px;
-    text-align: center;
-    font-size: 14px; }
-  .admin__editDelete--edit {
-    margin-right: 7px; }
-
-.edit__cancel {
-  text-decoration: none;
-  font-size: 14px;
-  box-shadow: 2px 2px #bbbaba;
-  margin-left: 15px; }
-
-.deleteJob {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 25px; }
-  .deleteJob__ask {
-    background-color: #777;
-    padding: 10px;
-    box-shadow: 2px 5px #eee;
-    border-radius: 7px;
-    text-align: center;
-    color: #fff9e9;
-    margin-right: 25px; }
-  .deleteJob > a {
-    text-decoration: none;
-    padding: 0px 6px;
-    margin-left: 25px;
-    margin-top: 6px;
-    box-shadow: 2px 2px grey;
-    display: inline-flex;
-    font-size: 15px; }
-
-.updateSelectorsHeading {
-  margin: 1.5rem; }
-
-.updateSelectors {
-  width: 50%;
-  margin: auto auto 5rem auto;
-  border: 5px double #e47587;
-  padding: 0 3rem 1.5rem 3rem;
-  border-radius: 7px; }
-  @media only screen and (max-width: 75em) {
-    .updateSelectors {
-      width: 80%; } }
-  @media only screen and (max-width: 56.25em) {
-    .updateSelectors {
-      width: 96%;
-      padding: 0 1rem 1.5rem 1rem; } }
-  .updateSelectors__selector {
-    margin: 1.5rem auto 2rem auto; }
-    .updateSelectors__selector--add {
-      display: flex;
-      padding: 2px 4px; }
-      .updateSelectors__selector--add > :first-child {
-        flex: 1;
-        width: 100%;
-        text-align: center;
-        margin-right: 5px;
-        border-radius: 7px;
-        padding: 3px 5px; }
-      .updateSelectors__selector--add > :nth-child(2) {
-        flex: 7;
-        margin-right: 5px;
-        padding: 3px 5px; }
-      .updateSelectors__selector--add > :nth-child(3) {
-        flex: 2; }
-    .updateSelectors__selector--item {
-      display: flex;
-      border-radius: 7px;
-      padding: 2px 4px; }
-      .updateSelectors__selector--item-order {
-        flex: 1;
-        margin-right: 5px; }
-        .updateSelectors__selector--item-order > input {
-          width: 100%;
-          padding: 3px 5px;
-          border-radius: 7px; }
-      .updateSelectors__selector--item-itemName {
-        flex: 7;
-        margin-right: 5px; }
-        .updateSelectors__selector--item-itemName > input {
-          width: 100%;
-          padding: 3px 5px;
-          border-radius: 7px; }
-      .updateSelectors__selector--item-saveEdit {
-        flex: 1; }
-        .updateSelectors__selector--item-saveEdit > input {
-          width: 100%;
-          padding: 2px;
-          border-radius: 7px; }
-          @media only screen and (max-width: 37.5em) {
-            .updateSelectors__selector--item-saveEdit > input {
-              font-size: 9px; } }
-        @media only screen and (max-width: 37.5em) {
-          .updateSelectors__selector--item-saveEdit > button {
-            font-size: 9px; } }
-    .updateSelectors__selector > p {
-      font-size: .65rem; }
+.signup {
+  width: 850px;
+  margin: 40px auto; }
+  .signup__line1 {
+    color: #e47587;
+    margin-bottom: 15px;
+    margin-left: 20px; }
+    .signup__line1 > h3 > span {
+      font-style: italic; }
+  .signup__form--email, .signup__form--password, .signup__form--piggyName, .signup__form--piggyOwner {
+    display: flex;
+    margin-bottom: 6px; }
+    .signup__form--email > label, .signup__form--password > label, .signup__form--piggyName > label, .signup__form--piggyOwner > label {
+      flex: 2;
+      text-align: right;
+      padding-right: 14px; }
+    .signup__form--email > input, .signup__form--password > input, .signup__form--piggyName > input, .signup__form--piggyOwner > input {
+      flex: 6;
+      font-size: 16px;
+      border-radius: 7px; }
+  .signup__form--submit > input {
+    display: block;
+    margin: 15px auto;
+    font-size: 20px; }
