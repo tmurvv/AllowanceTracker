@@ -64,58 +64,60 @@ function logout(){
 
 //Close Account
 function closeAccount($db, $closeAccountEmail) {
-    echo "in the close account function<br>".$_SESSION['id'];
     $result = '';
 
-    //find PiggyBanks ass with user
+    //find PiggyBanks associated with user    
+    try {
+        $splQuery = "Select * FROM piggybanks WHERE piggyUser = :id";
+        $statement = $db->prepare($splQuery);
+        $statement->execute(array(':id'=>$_SESSION['id']));
+    }catch (PDOexception $ex) {
+        $result = "An error occurred. Try logging out and logging in again.";
+    }
     
-    $splQuery = "Select * FROM piggybanks WHERE piggyUser = :id";
-    $statement = $db->prepare($splQuery);
-    $statement->execute(array(':id'=>$_SESSION['id']));
-
-    //delete tranactions assoc with piggy banks
-    
+    //delete transactions, piggybanks and user    
     if($piggyBanks=$statement->fetchAll()){
         foreach ($piggyBanks as $piggyBank) {
-            echo $piggyBank['piggyBankName'].'<br>';
-            
-            $deleteTransactionsId = $piggyBank['id'];
-            echo "<br>".$deleteTransactionsId."<br>";
-            //$deleteTransactionsId = '15';
-            $statement = $db->prepare( "DELETE FROM transactions WHERE piggyBankId =:id" );
-            $statement->execute(array(':id'=>$deleteTransactionsId));
+           
+            //delete tranactions assoc with piggy bank
+            try {
+                $statement = $db->prepare( "DELETE FROM transactions WHERE piggyBankId =:id" );
+                $statement->execute(array(':id'=>$piggyBank['id']));
 
-            //NOT YET IMPLEMENTED--delete for production
-            if (!$statement->rowCount()) {
-                $result = "No transactions deleted: ".$piggyBank['piggyBankName'];               
+            }catch (PDOexception $ex) {
+                $result = "An error occurred. Try logging out and logging in again.";
             }
 
-            //delete PiggyBanks
-            $statement = $db->prepare("DELETE FROM piggybanks WHERE id = :id");
-            $statement->execute(array(':id'=>$piggyBank['id']));
+            //delete PiggyBank
+            try {
+                $statement = $db->prepare("DELETE FROM piggybanks WHERE id = :id");
+                $statement->execute(array(':id'=>$piggyBank['id']));
 
-             //NOT YET IMPLEMENTED--delete for production
-            if (!$statement->rowCount()) {
-                $result = "No piggybank deleted: ".$piggyBank['piggyBankName'];               
-            }             
+                if (!$statement->rowCount()) {
+                    $result = "No piggybank deleted: ".$piggyBank['piggyBankName'];               
+                } 
+            }catch (PDOexception $ex) {
+                $result = "An error occurred. Try logging out and logging in again.";
+            }        
         }
+
         //delete User
-        $statement = $db->prepare("DELETE FROM users WHERE id = :id");
-        $statement->execute(array(':id'=>$_SESSION['id']));
+        try{
+            $statement = $db->prepare("DELETE FROM users WHERE id = :id");
+            $statement->execute(array(':id'=>$_SESSION['id']));
 
-         //NOT YET IMPLEMENTED--delete for production
-        if (!$statement->rowCount()) {
-            $result = "Close account not successful for user ID#: ".$piggyBank['piggyUser'];               
-        }       
-        
-        return true;
+            if (!$statement->rowCount()) {
+               $result = "Close account not successful for user Id#: ".$piggyBank['piggyUser']; 
+
+               //clean up environment
+               logout();             
+            }
+        }catch (PDOexception $ex) {
+            $result = "An error occurred. Try logging out and logging in again.";
+        }            
+        return $result;
     }else{
-        return false;
+        return "User or PiggyBanks not found. Please login again.";
     }
-
-    
-   
-        
-
 }
 ?>
