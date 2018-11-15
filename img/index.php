@@ -48,11 +48,11 @@
 <body>
     <?php include 'php/reusables/hero.php' ?>
 
-        <div class="mainBoard" id="jobs">
+        <div class="mainPage" id="jobs">
             <h1>
                 Allowance<span>Tracker</span>
             </h1>
-            <div class="mainBoard__bankImage"></div>
+            <div class="mainPage__bankImage"></div>
             <div class="listings">
                 <p class="btn btn__primary">
                     <?php $rowsum = $res->fetch_assoc(); ?>

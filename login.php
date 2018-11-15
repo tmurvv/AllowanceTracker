@@ -25,26 +25,7 @@
                     //prepLogin($id, $username, $remember);
                     $_SESSION['id'] = $id;
                     
-                    try{
-                        $splQuery = "SELECT * FROM piggybanks WHERE piggyUser = :id AND isDefault = :isDefault";
-                        $statement = $db->prepare($splQuery);
-                        $statement->execute(array(':id'=>$id, ':isDefault'=>TRUE));
-
-                        if ($statement->rowCount()>0) {                           
-                            if ($row = $statement->fetch()) {                         
-                                $_SESSION['piggyBankId'] = $row['id'];
-                                $_SESSION['piggyBankName'] = $row['piggyBankName'];
-                                $_SESSION['piggyBankOwner'] = $row['piggyBankOwner'];                       
-                            }else{
-                                //NOT YET IMPLEMENTED if no default piggy found, check if any piggies.
-                                $result = "An error occurred finding your Piggy Bank.";
-                            }
-                        }else{
-                            $result="Piggy Bank not found";
-                        }
-                    }catch(PDOException $ex) {
-                        $result = "An error occurred.<br>Error message number: ".$ex->getCode();
-                    }
+                   
                             
                     header("Location: index.php");
                 }else{

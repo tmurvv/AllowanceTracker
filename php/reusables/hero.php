@@ -4,6 +4,9 @@
         <li class="hero__mainNav--item">
             <a href="index.php">Home</a>
         </li>
+        <li class="hero__mainNav--item">
+            <a href="signup.php">Signup</a>
+        </li>
         <?php if(isset($_SESSION['id']) && !$_SESSION['id'] == '') : ?>
 
             <li class="hero__mainNav--item">
@@ -21,9 +24,6 @@
             </li>
             <li class="hero__mainNav--item">
                 <a href="login.php">Login</a>
-            </li>
-            <li class="hero__mainNav--item">
-                <a href="signup.php">Signup</a>
             </li>
         <?php endif; ?>
     </ul>

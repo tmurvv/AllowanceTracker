@@ -68,7 +68,7 @@
                 </form>
             </div>
         </div>
-        <div class="mainBoard" id="jobs">
+        <div class="mainPage" id="jobs">
             <?php 
             if ($msg) {
                 echo "<div class='admin__messageBox'>".$msg."</div>";

@@ -316,22 +316,22 @@ header {
         .hero__mainTitle--subHeading {
           font-size: 145%; } }
 
-.mainBoard {
+.mainPage {
   padding: 2rem 4rem 0 4rem; }
-  .mainBoard > h1 > span {
+  .mainPage > h1 > span {
     color: #e47587; }
-  .mainBoard__bankImage {
+  .mainPage__bankImage {
     position: relative;
     height: 400px;
     border-bottom: 30px solid #e47587; }
-    .mainBoard__bankImage > img,
-    .mainBoard__bankImage > p {
+    .mainPage__bankImage > img,
+    .mainPage__bankImage > p {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: -1; }
-    .mainBoard__bankImage > p {
+    .mainPage__bankImage > p {
       font-size: 40px;
       top: 57%; }
 

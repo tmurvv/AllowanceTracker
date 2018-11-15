@@ -14,7 +14,8 @@
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
     $piggyBankOwner = $_POST['piggyBankOwner'];
-    if(isset($_POST['default']) && $_POST['default']=='on'){
+
+    if(isset($_POST['isDefault']) && $_POST['isDefault']=='on'){
         //NOT YET IMPLEMENTED UPDATE query to remove default
         $default = TRUE;
     } else {
@@ -37,7 +38,7 @@
         $piggyBankOwner = $_POST['piggyBankOwner'];
         $piggyBankId = $_POST['piggyBankId'];
         $isDefault='';
-        if($_POST['default']=='on'){
+        if(isset($_POST['isDefault']) && $_POST['isDefault']=='on'){
             //NOT YET IMPLEMENTED UPDATE query to remove default
             $isDefault = TRUE;
         } else {
@@ -128,7 +129,11 @@
                     <?php if($piggy['isDefault']==1) {$checked = 'checked';}else{$checked="";} ?>
                     <div class="piggy__lineItem--isDefault">
                         <label for="isDefault">Default?</label>
-                        <input class="piggy__lineItem--isDefault" name="isDefault" type="checkbox" <?php echo $checked ?> disabled/>
+                        <input class="piggy__lineItem--isDefault" type="checkbox" <?php echo $checked ?> disabled/>
+                    </div>
+                    <div class="piggy__lineItem--isDefault" hidden>
+                        <label for="isDefault">Default?</label>
+                        <input class="piggy__lineItem--isDefault" name="isDefault" type="checkbox" <?php echo $checked ?> />
                     </div>
                     <div class="piggy__lineItem--piggyBankId" hidden>
                         <input class="piggy__lineItem--piggBankId" name="piggyBankId" type="text" value="<?php echo $piggy['id']; ?>" hidden/>

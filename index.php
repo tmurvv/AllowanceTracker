@@ -4,105 +4,13 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php
-    //Initialize variables
-    $id = '';
-    $result = '';
-    $sum = '';
-
-    if(isset($_SESSION['id']) && !$_SESSION['id'] == '') {
-        $id = $_SESSION['id'];
-        $piggyBankId = $_SESSION['piggyBankId'];     
-        $piggyBankName = $_SESSION['piggyBankName'];   
-        $piggyBankOwner = $_SESSION['piggyBankOwner'];      
-        
-        //Run Transaction Query
-        $query  = "SELECT * FROM transactions WHERE piggyBankId=:piggyBankId ORDER BY transactionDate DESC";
-        $statement = $db->prepare($query);
-        $statement->execute(array(':piggyBankId'=>$piggyBankId));
-        $transactions = $statement->fetchAll(PDO::FETCH_ASSOC); 
-
-        //create and run sum query for balance
-        $query="SELECT SUM(transactionAmount) AS valueSum FROM transactions WHERE piggyBankId=:piggyBankId";
-        $statement=$db->prepare($query);
-        $statement->execute(array(':piggyBankId'=>$piggyBankId));
-        $row=$statement->fetch(PDO::FETCH_ASSOC);
-        $sum=$row['valueSum'];
-
-        //Create and run Type Transaction Query
-        $statement = $db->query("SELECT * FROM transactionType ORDER BY selectBoxOrder");
-        $transactionTypes = $statement->fetchAll(PDO::FETCH_ASSOC);
-    }else{
-        $piggyBankId = '';     
-        $piggyBankName = '';   
-        $piggyBankOwner = '';
-        $transactions = '';
-        $transactionTypes = '';  
-    }
+    include 'php/reusables/getTransactions.php';
 ?>
 <?php 
-    //Add new transaction
-    if(isset($_SESSION['id'])) {
-      if(isset($_POST['submit'])){
-            //Assign Vars
-            $transactionNote = $_POST['note'];  
-            $transactionDate = $_POST['date'];     
-            $transactionTime = $_POST['time'];
-            $transactionDateTime = $transactionDate." ".$transactionTime;
-            $transactionAmount = $_POST['amount'];
-            $transactionType = $_POST['type'];
-                       
-            if ($transactionType == '' || $transactionType == null) {
-                $transactionType = 'Select your option';
-            }
-
-            //Create and run transaction
-            $query = "INSERT INTO transactions
-                        (transactionType, transactionAmount, transactionDate, transactionNote, piggyBankId)
-                        VALUES(?,?,?,?,?)";
-            $statement = $db->prepare($query); 
-            
-            $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $piggyBankId]);         
-            
-            header("Location: index.php", true, 301);           
-        }
-    }else{
-        $result = "User not found, please login again.";
-    }
+    include 'php/reusables/addEditDeleteTransactions.php';
 ?>
-<?php
-    //Edit transaction
-    if(isset($_POST['edit'])){
-        //Assign Vars   
-        $transactionNote = $_POST['transactionNote'];
-        $transactionAmount = $_POST['transactionAmount'];
-        $transactionDate = $_POST['transactionDate'];
-        $transactionTime = $_POST['transactionTime'];
-        $transactionDateTime = $transactionDate." ".$transactionTime;
-        $transactionType = $_POST['transactionType'];
-        $transactionId = $_POST['transactionId'];
-          
-        //Update Data       
-        $query = "UPDATE transactions SET transactionNote = :transactionNote, 
-                                            transactionAmount = :transactionAmount, 
-                                            transactionDate = :transactionDateTime, 
-                                            transactionType = :transactionType WHERE id=:id";      
-        $statement = $db->prepare($query);
-        $statement->execute(array(':transactionNote'=>$transactionNote,
-                                    ':transactionAmount'=>$transactionAmount,
-                                    ':transactionDateTime'=>$transactionDateTime,
-                                    ':transactionType'=>$transactionType,
-                                    ':id'=>$transactionId));
-        header("Location: index.php", true, 301);
-    }
-?>
-<?php
-  //Delete transaction
-  if(isset($_POST['delete'])){
-    $id = $_GET['id'];
-    $query = "DELETE FROM transactions WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->execute(array(":id"=>$id));
-  }
+<?php 
+    include 'php/reusables/getPiggyBanks.php';
 ?>
 <!DOCTYPE html>
 
@@ -113,52 +21,73 @@
 <body>
     <?php include 'php/reusables/hero.php' ?>
 
-    <div class="mainBoard" id="lineItems">
-        <h1>
-            <?php echo $piggyBankName; ?>
-        </h1>
-        <div class="mainBoard__bankImage">
+    <div class="mainPage" id="lineItems">
+        <h1><?php echo $piggyBankName; ?></h1>
+        <div style="display: flex">
+            <h3 style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction, but mostly works.</h3>
+        </div>
+        
+        <form name="switchPiggy" method="post" action="index.php" hidden>            
+            <div class="mainPage__switchPiggy">
+                <select name="switchPiggyName" id="js--switchPiggyName" onchange="updateSessionPiggyBank(this.value)">                                  
+                    <option value="Switch PiggyBank">Switch PiggyBank</option>
+                    <?php foreach($piggies as $piggy) : ?>
+                        <?php
+                            if ($piggy['piggyBankName'] === $_SESSION['piggyBankName']) {
+                                $selected = 'selected';
+                            }else{
+                                $selected = "";
+                            }
+                        ?>
+                        <option value="<?php echo $piggy['piggyBankName']; ?>" <?php if(isset($selected)) {echo $selected;} ?> >
+                            <?php echo $piggy['piggyBankName']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="btn btn__secondary" name="changePiggyBank" type="button" onclick="switchPiggyBank(this);" disabled>Change PiggyBank</button>
+                <img src="img/underconstruction.jpg" alt="Under Construction" width="100px;">
+            </div>
+        </form>
+        <div class="mainPage__bankImage">
             <img src="img/piggyBankSmall.jpg" alt="PiggyBank Image">
             <p>$
                 <?php echo $sum ?>
                 <p>
         </div>
         <div class="addTransaction">
-            <h3>Add<span>Transaction</span>
-            </h3>
+            <h3>Add<span>Transaction</span></h3>
             
-                <form action="index.php" method="post"class="addTransaction__form">
-                    
-                    <div class="addTransaction__form--type">
-                        <label for="type">Type: </label>
-                        <select name="type" id="">
-                            <option value="" disabled selected>Select your option</option>                           
-                            <?php foreach($transactionTypes as $typeRow) : ?>                           
-                                <option value="<?php echo $typeRow['transactionType']; ?>">
-                                    <?php echo $typeRow['transactionType']; ?>
-                                </option>
-                            <?php endforeach; ?>                     
-                        </select>
-                    </div>
-                    
-                    <div class="addTransaction__form--date">
-                        <label for="date">Date: </label>
-                        <input name="date" type="date">                      
-                        <label for="time">Time(opt): </label>
-                        <input name="time" type="time">                      
-                    </div>                 
-                    <div class="addTransaction__form--note">
-                        <label for="note">Note: </label>
-                        <input name="note" type="text" placeholder="  enter note">                
-                    </div>
-                    <div class="addTransaction__form--amount">
-                    	<label for="amount">Amount: </label>
-                    	<input name="amount" type="text" placeholder="  enter amount">                   	
-                    </div>
-                    <div class="addTransaction__form--submit">
-                        <input type="submit" name="submit" class="btn" value="Submit">
-                    </div>
-                </form>
+            <form action="index.php" method="post" class="addTransaction__form">                
+                <div class="addTransaction__form--type">
+                    <label for="type">Type: </label>
+                    <select name="type" id="">
+                        <option value="" disabled selected>Select your option</option>                           
+                        <?php foreach($transactionTypes as $typeRow) : ?>                           
+                            <option value="<?php echo $typeRow['transactionType']; ?>">
+                                <?php echo $typeRow['transactionType']; ?>
+                            </option>
+                        <?php endforeach; ?>                     
+                    </select>
+                </div>
+                
+                <div class="addTransaction__form--date">
+                    <label for="date">Date: </label>
+                    <input name="date" type="date">                      
+                    <label for="time">Time(opt): </label>
+                    <input name="time" type="time">                      
+                </div>                 
+                <div class="addTransaction__form--note">
+                    <label for="note">Note: </label>
+                    <input name="note" type="text" placeholder="  enter note">                
+                </div>
+                <div class="addTransaction__form--amount">
+                    <label for="amount">Amount: </label>
+                    <input name="amount" type="text" placeholder="  enter amount">                   	
+                </div>
+                <div class="addTransaction__form--submit">
+                    <input type="submit" name="submit" class="btn" value="Submit">
+                </div>
+            </form>
             
         </div>
         <div class="transactions">

@@ -3,6 +3,16 @@
 "use strict";  
 
 /***********************
+ * Switch Piggy Banks
+ * ********************/
+function switchPiggyBank(clickedItem) {
+   var switchPiggyDropDown = document.getElementById('js--switchPiggyName');
+    switchPiggyDropDown.hidden = false;
+    clickedItem.innerText = "Change PiggyBanks";
+    clickedItem.type = "submit";
+}
+
+/***********************
  * CRUD operations on Transactions
  * ********************/
 function startEditTransaction(clickedItem) {
@@ -168,7 +178,7 @@ function startEditPiggyBanks(clickedItem) {
     piggyBankOwner = ancestorDiv.children[2];
     piggyBankOwnerEdit = ancestorDiv.children[3];
     isDefault = ancestorDiv.children[4];
-    //isDefaultEdit is not a separate DOM element
+    isDefaultEdit = ancestorDiv.children[5];
     
     if(clickedItem.innerHTML=="Edit") {
         //define DOM elements
@@ -177,7 +187,7 @@ function startEditPiggyBanks(clickedItem) {
         //reset edit field values
         piggyBankNameEdit.children[0].value=piggyBankName.innerText;
         piggyBankOwnerEdit.children[0].value=piggyBankOwner.innerText;
-        isDefaultEdit=isDefault.value; //storing "on" or "off", not the innerText of a DOM element
+        isDefaultEdit.children[0].value=isDefault.children[1].value; 
 
         //hide original data fields / show edit fields 
     
@@ -185,7 +195,8 @@ function startEditPiggyBanks(clickedItem) {
         piggyBankNameEdit.hidden = false;
         piggyBankOwner.hidden = true;
         piggyBankOwnerEdit.hidden = false;
-        isDefault.children[1].disabled = false;
+        isDefault.hidden = true;
+        isDefaultEdit.hidden = false;
     
         //change button text and style
         clickedItem.innerHTML="Save";
@@ -200,15 +211,17 @@ function startEditPiggyBanks(clickedItem) {
         cancelButton=clickedItem;
 
         //reset edit fields values
-        piggyBankName.innerText=piggyBankNameEdit.children[0].value;
-        piggyBankOwner.innerText=piggyBankOwnerEdit.children[0].value;
-        isDefault.value=isDefaultEdit; //storing "on" or "off", not the innerText of a DOM element
+        piggyBankNameEdit.children[0].value=piggyBankName.innerText;
+        piggyBankOwnerEdit.children[0].value=piggyBankOwner.innerText;
+        isDefaultEdit.children[1].value=isDefault.value;
 
         //show original data fields / hide edit fields       
         piggyBankName.hidden = false;
         piggyBankNameEdit.hidden = true;
         piggyBankOwner.hidden = false;
         piggyBankOwnerEdit.hidden = true;
+        isDefault.hidden = false;
+        isDefaultEdit.hidden = true;
         isDefault.children[1].disabled = true;
 
         //change button text and style

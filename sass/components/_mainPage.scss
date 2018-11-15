@@ -1,4 +1,4 @@
-.mainBoard {
+.mainPage {
     padding: 2rem 4rem 0 4rem;
 
     @include respond(portrait) {
@@ -26,6 +26,22 @@
         &>p {
             font-size: 40px;
             top: 57%;
+        }
+    }
+
+    &__switchPiggy {
+        &>h1 {
+            margin-bottom: 15px;
+        }
+        &>select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 7px;
+            margin-right: 25px;
+        }
+
+        &>button {
+            font-size: 18px;
         }
     }
 }

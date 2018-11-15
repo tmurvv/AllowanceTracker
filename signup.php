@@ -108,23 +108,23 @@
                              
             <div class="signup__form--email">
                 <label for="email">Email: </label>
-                <input name="email" type="email" value="harp@harptisha.com" placeholder="A confirmation email will appear in your inbox." required> 
+                <input name="email" type="email" placeholder="A confirmation email will appear in your inbox." required> 
             </div>                 
             <div class="signup__form--password">
                 <label for="password">Password: </label>
-                <input name="password" type="password" value="password" required>                
+                <input name="password" type="password" required>                
             </div>
             <div class="signup__form--password">
                 <label for="confirmPassword">Confirm Password: </label>
-                <input name="confirmPassword" value="password" type="password" required>                
+                <input name="confirmPassword" type="password" required>                
             </div>
             <div class="signup__form--piggyName">
                 <label for="piggyBankName">PiggyBank Name: </label>
-                <input name="piggyBankName" type="text" value="Uni's Fun Fund" placeholder="For example 'allowance' or 'savings'" >
+                <input name="piggyBankName" type="text" placeholder="For example 'allowance' or 'savings'" >
             </div>
             <div class="signup__form--piggyOwner">
                 <label for="piggyBankOwner">PiggyBank Owner: </label>
-                <input name="piggyBankOwner" type="text" value="Uni" placeholder="Who's PiggyBank is it?" >
+                <input name="piggyBankOwner" type="text" placeholder="Who's PiggyBank is it?" >
             </div>
         
             <div class="signup__form--submit">
