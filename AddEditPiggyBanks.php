@@ -76,6 +76,9 @@
 
 <body>
     <?php include 'php/reusables/hero.php' ?>
+    <div style="display: flex">
+        <h3 style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction and this page still needs some formatting<br>to make it look prettier, but everything works!</h3>
+    </div>
     <?php if (isset($result)) : ?>
         <div class="signatureBox">
             <?php include 'php/reusables/messageBox.php'; ?>

@@ -33,9 +33,9 @@
 
         <h1 class="hero__mainTitle--mainHeading">
             <?php if(isset($_SESSION['piggyBankOwner']) && $_SESSION['piggyBankOwner']!="") : ?>
-                <?php echo $_SESSION['piggyBankOwner'] ?>'s PiggyBank
+                <?php echo $_SESSION['piggyBankOwner'] ?>'s Virtual PiggyBank
             <?php else : ?>
-                It's Your PiggyBank!
+                It's Your Virutal PiggyBank!
             <?php endif; ?>
         </h1>
         <h2 class="hero__mainTitle--subHeading">

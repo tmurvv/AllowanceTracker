@@ -87,7 +87,9 @@
 
 <body>
     <?php include 'php/reusables/hero.php' ?>
-    
+        <div style="display: flex">
+            <h3 name="NOT YET IMPLEMENTED" style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction and this page still needs some formatting to make it look prettier.</h3>
+        </div>
         <div class="profile__line1">
             <h2>Profile<span>Page</span></h2>
         </div>        
@@ -111,8 +113,9 @@
             <div class="profile__container--bottom">
                 <form action="profile.php" method="post">
                     <div id="js--emailInput" hidden>
-                        <p>NOT YET IMPLEMENTED--A verification email will be sent to the new email address.
-                        </p>
+                        <div style="display: flex">
+                            <h3 name="NOT YET IMPLEMENTED" style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction and eventually a verification email will be sent when the account email is changed.</h3>
+                        </div>
                         <input name="email" type="email" placeholder="enter new email">
                     </div>
                     <div class="profile_form profile__form--changeProfileButton">                             
