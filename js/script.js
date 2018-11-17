@@ -3,6 +3,85 @@
 "use strict";  
 
 /***********************
+ * ONLOAD functions
+ * ********************/
+window.onload = function() {
+    insertTodayDateHTML();
+    insertTodayTimeHTML();    
+}
+
+function insertTodayDateHTML() {
+    //declare/define variables
+    var htmlDate;
+    var todayDate = new Date();    
+    var todayMonth = todayDate.getMonth() + 1;
+    var todayDay = todayDate.getDate();
+
+    //prepend zeros to months and days
+    if (todayMonth < 10) {
+        todayMonth = "0" + todayMonth;
+    }
+    if (todayDay < 10) {
+        todayDay = "0" + todayDay;
+    }
+
+    //format for html
+    htmlDate = todayDate.getFullYear();
+    htmlDate += "-";
+    htmlDate += todayMonth;
+    htmlDate += "-";
+    htmlDate += todayDay;
+    
+    //change in DOM element
+    document.getElementById('js--addTransDate').value = htmlDate;
+}
+function insertTodayTimeHTML() {
+    //declare/define variables
+    var htmlTime;
+    var todayDate = new Date();   
+    var todayHours = todayDate.getHours();
+    var todayMinutes = todayDate.getMinutes();
+
+    //prepend zeros to hours & minutes
+    if (todayHours < 10) {
+        todayHours = "0" + todayHours;
+    }
+    if (todayMinutes < 10) {
+        todayMinutes = "0" + todayMinutes;
+    }
+
+    //format date for HTML
+    htmlTime = todayHours;
+    htmlTime += ":";
+    htmlTime += todayMinutes;
+    
+    //change DOM element
+    document.getElementById('js--addTransTime').value = htmlTime;
+}
+
+$(document).ready(function() {
+    /* Mobile navigation */
+    $('.js--mainNav-icon').click(function() {
+        var nav = $('.js--mainNav');
+        var icon = $('.js--mainNav-icon i');
+        
+        nav.slideToggle(200, function() {
+            if (nav.is(":hidden")) {
+                nav.removeAttr("style");               
+            }
+        });
+
+        if (icon.hasClass('fa-bars')) {
+            icon.addClass('fa-window-close');
+            icon.removeClass('fa-bars');
+        } else {
+            icon.addClass('fa-bars');
+            icon.removeClass('fa-window-close');           
+        }             
+    });
+});
+
+/***********************
  * Switch Piggy Banks
  * ********************/
 function switchPiggyBank(clickedItem) {
@@ -15,6 +94,19 @@ function switchPiggyBank(clickedItem) {
 /***********************
  * CRUD operations on Transactions
  * ********************/
+
+function checkMinusSign(changedItem) {
+    var addTransType = document.getElementById("js--addTransType").value;
+    var addTransAmount = document.getElementById("js--addTransAmount").value;
+    
+    if (addTransType == "Deposit" && addTransAmount < 0) {
+        alert("A deposit must be a positive number.");
+    }
+    if (addTransType == "Withdrawal" && addTransAmount > 0) {
+        alert("A withdrawal must be a negative number.");
+    }
+}
+
 function startEditTransaction(clickedItem) {
 
     var item;
@@ -336,25 +428,3 @@ function startCloseAccount(clickedItem, userEmail) {
         }
     }  
 }
-
-$(document).ready(function() {
-    /* Mobile navigation */
-    $('.js--mainNav-icon').click(function() {
-        var nav = $('.js--mainNav');
-        var icon = $('.js--mainNav-icon i');
-        
-        nav.slideToggle(200, function() {
-            if (nav.is(":hidden")) {
-                nav.removeAttr("style");               
-            }
-        });
-
-        if (icon.hasClass('fa-bars')) {
-            icon.addClass('fa-window-close');
-            icon.removeClass('fa-bars');
-        } else {
-            icon.addClass('fa-bars');
-            icon.removeClass('fa-window-close');           
-        }             
-    });
-});

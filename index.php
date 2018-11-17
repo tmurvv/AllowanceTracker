@@ -60,7 +60,7 @@
             <form action="index.php" method="post" class="addTransaction__form">                
                 <div class="addTransaction__form--type">
                     <label for="type">Type: </label>
-                    <select name="type" id="">
+                    <select name="type" id="js--addTransType">
                         <option value="" disabled selected>Select your option</option>                           
                         <?php foreach($transactionTypes as $typeRow) : ?>                           
                             <option value="<?php echo $typeRow['transactionType']; ?>">
@@ -72,9 +72,9 @@
                 
                 <div class="addTransaction__form--date">
                     <label for="date">Date: </label>
-                    <input name="date" type="date">                      
+                    <input name="date" type="date" id="js--addTransDate">                                           
                     <label for="time">Time(opt): </label>
-                    <input name="time" type="time">                      
+                    <input name="time" type="time" id="js--addTransTime">                      
                 </div>                 
                 <div class="addTransaction__form--note">
                     <label for="note">Note: </label>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="addTransaction__form--amount">
                     <label for="amount">Amount: </label>
-                    <input name="amount" type="text" placeholder="  enter amount">                   	
+                    <input name="amount" type="text" onchange="checkMinusSign();" id="js--addTransAmount" placeholder="  enter amount">                   	
                 </div>
                 <div class="addTransaction__form--submit">
                     <input type="submit" name="submit" class="btn" value="Submit">

@@ -77,7 +77,7 @@
                 }
                 
             }else{
-                $result="Account email already exists. If you are trying to add a PiggyBank, login and then choose 'Add PiggyBank' from main menu.";
+                $result="Account email already exists. Please use another email.";
             }
         } else {
             $result = "Passwords do not match. Please try again.";

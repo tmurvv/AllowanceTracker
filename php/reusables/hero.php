@@ -35,7 +35,7 @@
             <?php if(isset($_SESSION['piggyBankOwner']) && $_SESSION['piggyBankOwner']!="") : ?>
                 <?php echo $_SESSION['piggyBankOwner'] ?>'s Virtual PiggyBank
             <?php else : ?>
-                It's Your Virutal PiggyBank!
+                It's Your Virtual PiggyBank!
             <?php endif; ?>
         </h1>
         <h2 class="hero__mainTitle--subHeading">

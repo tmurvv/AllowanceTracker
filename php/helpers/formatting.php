@@ -11,6 +11,7 @@ function formatDate($date) {
 
 function formatDateHTMLInput($date) {
     return date('Y-m-d', strtotime($date));
+    //return "2013-11-03";
 }
 
 function concatText($text) {

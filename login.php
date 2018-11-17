@@ -3,8 +3,7 @@
 <?php include 'php/classes/Database.php'; ?>
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
-<?php if(isset($_POST['submit'])){
-    
+<?php if(isset($_POST['submit'])){    
     $inputPassword = $_POST['password'];
     $inputEmail = $_POST['email'];
        
@@ -23,10 +22,7 @@
                 
                 if ($activated) {
                     //prepLogin($id, $username, $remember);
-                    $_SESSION['id'] = $id;
-                    
-                   
-                            
+                    $_SESSION['id'] = $id;                           
                     header("Location: index.php");
                 }else{
                     $result="Account not activated. Please check your email inbox for a verification email.";
