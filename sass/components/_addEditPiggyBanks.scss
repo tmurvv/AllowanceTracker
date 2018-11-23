@@ -1,0 +1,78 @@
+.addEditPiggy {
+    &__addArea {
+        &--title {
+            >h3 {
+                color: $colorSecondary;
+                &>span {
+                    color: $colorPrimary;
+                }
+            }
+        }
+        &>form {
+            display: -webkit-flex; /* Safari */
+            -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            width: fit-content;
+
+            @include respond(phone) {
+                display: block;
+            }
+
+            & input,
+            & select {
+                font-size: 20px;
+                margin: 25px 25px 25px 10px;
+            }
+            
+            & input[type=checkbox] {
+                transform: scale(2);
+                margin-top: 39px;
+            }
+        }
+    }
+    &__editArea {
+        width: 80%;
+        margin: 60px auto;
+
+        &--title {
+            margin-bottom:25px;
+            >h3 {
+                color: $colorSecondary;
+                &>span {
+                    color: $colorPrimary;
+                }
+            }
+        }
+    }
+    &__piggy--lineItem {
+        &-headings {
+            margin-bottom:10px;
+       
+            &>* {
+                text-decoration: underline;
+            }
+        }
+        display: flex;
+        justify-content: space-between;
+
+        @include respond(portrait) {
+            display: block;
+        }
+
+        &-piggyBankName {
+            flex: 4;
+        }
+        &-piggyBankOwner {
+            flex: 2;
+        }
+        &-isDefault {
+            flex: 1;
+        }
+        &-editDelete {
+            flex: 1;
+        }
+    }
+}

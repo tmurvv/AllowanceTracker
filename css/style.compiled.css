@@ -10,7 +10,7 @@
 
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  font-size: 13px;
+  font-size: 16px;
   opacity: .8;
   /* Firefox */ }
 
@@ -724,9 +724,6 @@ header {
     .profile__form--changePassword > form > input {
       margin: 3px;
       border-radius: 7px; }
-  .profile__form--addEditPiggyBanks {
-    text-decoration: none;
-    box-shadow: 3px 3px grey; }
 
 .activate {
   font-style: italic;
@@ -756,3 +753,58 @@ header {
     display: block;
     margin: 15px auto;
     font-size: 20px; }
+
+.addEditPiggy__addArea--title > h3 {
+  color: #D9AE5C; }
+  .addEditPiggy__addArea--title > h3 > span {
+    color: #e47587; }
+
+.addEditPiggy__addArea > form {
+  display: -webkit-flex;
+  /* Safari */
+  -webkit-flex-wrap: wrap;
+  /* Safari 6.1+ */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: fit-content; }
+  @media only screen and (max-width: 37.5em) {
+    .addEditPiggy__addArea > form {
+      display: block; } }
+  .addEditPiggy__addArea > form input,
+  .addEditPiggy__addArea > form select {
+    font-size: 20px;
+    margin: 25px 25px 25px 10px; }
+  .addEditPiggy__addArea > form input[type=checkbox] {
+    transform: scale(2);
+    margin-top: 39px; }
+
+.addEditPiggy__editArea {
+  width: 80%;
+  margin: 60px auto; }
+  .addEditPiggy__editArea--title {
+    margin-bottom: 25px; }
+    .addEditPiggy__editArea--title > h3 {
+      color: #D9AE5C; }
+      .addEditPiggy__editArea--title > h3 > span {
+        color: #e47587; }
+
+.addEditPiggy__piggy--lineItem {
+  display: flex;
+  justify-content: space-between; }
+  .addEditPiggy__piggy--lineItem-headings {
+    margin-bottom: 10px; }
+    .addEditPiggy__piggy--lineItem-headings > * {
+      text-decoration: underline; }
+  @media only screen and (max-width: 56.25em) {
+    .addEditPiggy__piggy--lineItem {
+      display: block; } }
+  .addEditPiggy__piggy--lineItem-piggyBankName {
+    flex: 4; }
+  .addEditPiggy__piggy--lineItem-piggyBankOwner {
+    flex: 2; }
+  .addEditPiggy__piggy--lineItem-isDefault {
+    flex: 1; }
+  .addEditPiggy__piggy--lineItem-editDelete {
+    flex: 1; }

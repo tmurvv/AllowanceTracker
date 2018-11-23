@@ -6,8 +6,10 @@
  * ONLOAD functions
  * ********************/
 window.onload = function() {
-    insertTodayDateHTML();
-    insertTodayTimeHTML();    
+    if (window.location.href.match('index.php') != null) {
+        insertTodayDateHTML();
+        insertTodayTimeHTML();
+    }    
 }
 
 function insertTodayDateHTML() {
