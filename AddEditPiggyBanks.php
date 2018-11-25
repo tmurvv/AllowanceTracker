@@ -11,17 +11,26 @@
   $piggyBanks = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php if(isset($_POST['submit'])){
+    //Add Transaction
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
     $piggyBankOwner = $_POST['piggyBankOwner'];
-
     if(isset($_POST['isDefault']) && $_POST['isDefault']=='on'){
-        //NOT YET IMPLEMENTED UPDATE query to remove default
         $default = TRUE;
     } else {
         $default = FALSE;
     }
-       
+
+    //in case user changing to a new default account
+    
+    if (isset($isDefault) && $isDefault == TRUE) {
+        //remove default from all PiggyBanks, default will be added to the edited piggybank in the following query
+        $query = "UPDATE piggybanks SET isDefault = :isDefault WHERE isDefault = 1";      
+        $statement = $db->prepare($query);
+        $statement->execute(array(':isDefault'=>1));
+    }
+    
+    //insert new piggybank
     $splQuery = "INSERT INTO piggybanks (piggyUser, piggyBankName, piggyBankOwner, isDefault)
     VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault);";
     $statement = $db->prepare($splQuery);
@@ -31,18 +40,39 @@
 ?>
 <?php
     //Edit transaction
-    if(isset($_POST['edit'])){      
+    if(isset($_POST['edit'])){
         //Assign Vars   
         $piggyUser = $_SESSION['id'];
         $piggyBankName = $_POST['piggyBankName'];
         $piggyBankOwner = $_POST['piggyBankOwner'];
         $piggyBankId = $_POST['piggyBankId'];
         $isDefault='';
+        $isDefaultOld='';
         if(isset($_POST['isDefault']) && $_POST['isDefault']=='on'){
             //NOT YET IMPLEMENTED UPDATE query to remove default
             $isDefault = TRUE;
-        } else {
-            $isDefault = FALSE;
+        } 
+        
+        if(!isset($_POST['isDefault'])) {
+            $isDefault = 0;
+
+        }
+        if(isset($_POST['isDefaultOld']) && $_POST['isDefaultOld']=='on'){
+            //NOT YET IMPLEMENTED UPDATE query to remove default
+            $isDefaultOld = TRUE;
+        } 
+        
+        if(!isset($_POST['isDefaultOld'])) {
+            $isDefaultOld = 0;
+        }
+        // echo 'edited: '.$isDefault.'old: '.$isDefaultOld;
+        // return;
+        //in case user changing to a new default account
+        if ($isDefaultOld == 0 && $isDefault == 1) {
+            //remove default from all PiggyBanks, default=true will be added to the edited piggybank in the following query
+            $query = "UPDATE piggybanks SET isDefault = :isDefault WHERE piggyUser = :piggyUser AND isDefault=1";      
+            $statement = $db->prepare($query);
+            $statement->execute(array(':isDefault'=>0, ':piggyUser'=>$_SESSION['id']));
         }
 
         //Update Data       
@@ -59,7 +89,6 @@
 ?>
 <?php
   //Delete Piggy
-  //NOT YET IMPLEMENTED can not delete default piggy, if last piggy create empty default
   if(isset($_POST['delete'])){
     $piggyBankId = $_POST['piggyBankId'];
     $query = "DELETE FROM piggybanks WHERE id = :piggyBankId";
@@ -151,7 +180,7 @@
                             <?php if($piggy['isDefault']==1) {$checked = 'checked';}else{$checked="";} ?>
                             <div class="addEditPiggy__piggy--lineItem-isDefault">
                                 <label for="isDefault">Default?</label>
-                                <input class="addEditPiggy__piggy--lineItem-isDefault" type="checkbox" <?php echo $checked ?> disabled/>
+                                <input class="addEditPiggy__piggy--lineItem-isDefault" name="isDefaultOld" type="checkbox" <?php echo $checked ?> disabled/>
                             </div>
                             <div class="addEditPiggy__piggy--lineItem-isDefault" hidden>
                                 <label for="isDefault">Default?</label>

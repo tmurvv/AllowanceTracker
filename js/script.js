@@ -105,7 +105,7 @@ function checkMinusSign(changedItem) {
         alert("A deposit must be a positive number.");
     }
     if (addTransType == "Withdrawal" && addTransAmount > 0) {
-        alert("A withdrawal must be a negative number.");
+        alert("A withdrawal must be a negative number. Please start with a minus sign.");
     }
 }
 
@@ -326,6 +326,10 @@ function startEditPiggyBanks(clickedItem) {
         return;       
     }
     if(clickedItem.innerHTML=="Delete"){
+        if (isDefault.children[1].checked == true) {
+            alert("Can not delete default PiggyBank. Please choose another default PiggyBank or add a new default PiggyBank before deleting.");
+            return;
+        }
         if(!confirm("Delete Item?")) {
             return;
         }
@@ -338,6 +342,9 @@ function startEditPiggyBanks(clickedItem) {
         //define DOM elements
         cancelButton=clickedItem.nextElementSibling;
         
+        //enable checkbox for php POST variable value check
+        isDefault.children[1].disabled = false;
+
         //change text and style of buttons
         cancelButton.innerHTML="Delete";
         cancelButton.style="background-color:#A43C3D;color:#eee";

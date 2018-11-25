@@ -82,7 +82,7 @@
                 </div>
                 <div class="addTransaction__form--amount">
                     <label for="amount">Amount: </label>
-                    <input name="amount" type="text" onchange="checkMinusSign();" id="js--addTransAmount" placeholder="  enter amount">                   	
+                    <input name="amount" type="text" oninput="checkMinusSign();" id="js--addTransAmount" placeholder="  enter amount">                   	
                 </div>
                 <div class="addTransaction__form--submit">
                     <input type="submit" name="submit" class="btn" value="Submit">
