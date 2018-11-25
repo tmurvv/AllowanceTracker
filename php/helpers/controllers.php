@@ -29,6 +29,16 @@ function validateEmail($data) {
     return true;
 }
 
+//Removes the default piggy for the session user in case a new default has been selected or added
+function removeDefaultPiggy($db, $userId) {
+   
+    //remove default from all PiggyBanks, default=true will be added to the edited piggybank in the following query
+    $query = "UPDATE piggybanks SET isDefault = :isDefault WHERE piggyUser = :piggyUser AND isDefault=1";      
+    $statement = $db->prepare($query);
+    $statement->execute(array(':isDefault'=>0, ':piggyUser'=>$userId));
+    
+}
+
 // NOT IN USE
 // function prepLogin($id, $username, $remember){
 //     $_SESSION['id'] = $id;

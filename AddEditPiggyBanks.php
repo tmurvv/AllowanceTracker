@@ -15,26 +15,25 @@
     //Get post variables
     $piggyBankName = $_POST['piggyBankName'];
     $piggyBankOwner = $_POST['piggyBankOwner'];
+    $isDefault='';
     if(isset($_POST['isDefault']) && $_POST['isDefault']=='on'){
-        $default = TRUE;
+        $isDefault = TRUE;
     } else {
-        $default = FALSE;
+        $isDefault = FALSE;
     }
 
     //in case user changing to a new default account
     
-    if (isset($isDefault) && $isDefault == TRUE) {
+    if (isset($isDefault) && $isDefault == 1) {
         //remove default from all PiggyBanks, default will be added to the edited piggybank in the following query
-        $query = "UPDATE piggybanks SET isDefault = :isDefault WHERE isDefault = 1";      
-        $statement = $db->prepare($query);
-        $statement->execute(array(':isDefault'=>1));
+        removeDefaultPiggy($db, $_SESSION['id']);
     }
     
     //insert new piggybank
     $splQuery = "INSERT INTO piggybanks (piggyUser, piggyBankName, piggyBankOwner, isDefault)
     VALUES (:piggyUser, :piggyBankName, :piggyBankOwner, :isDefault);";
     $statement = $db->prepare($splQuery);
-    $statement->execute(array(':piggyUser'=>$_SESSION['id'],':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner,':isDefault'=>$default));
+    $statement->execute(array(':piggyUser'=>$_SESSION['id'],':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner,':isDefault'=>$isDefault));
     header("Location: addEditPiggyBanks.php");
 }
 ?>
@@ -60,19 +59,14 @@
         if(isset($_POST['isDefaultOld']) && $_POST['isDefaultOld']=='on'){
             //NOT YET IMPLEMENTED UPDATE query to remove default
             $isDefaultOld = TRUE;
-        } 
-        
+        }         
         if(!isset($_POST['isDefaultOld'])) {
             $isDefaultOld = 0;
         }
-        // echo 'edited: '.$isDefault.'old: '.$isDefaultOld;
-        // return;
+        
         //in case user changing to a new default account
         if ($isDefaultOld == 0 && $isDefault == 1) {
-            //remove default from all PiggyBanks, default=true will be added to the edited piggybank in the following query
-            $query = "UPDATE piggybanks SET isDefault = :isDefault WHERE piggyUser = :piggyUser AND isDefault=1";      
-            $statement = $db->prepare($query);
-            $statement->execute(array(':isDefault'=>0, ':piggyUser'=>$_SESSION['id']));
+            removeDefaultPiggy($db, $_SESSION['id']);
         }
 
         //Update Data       
@@ -136,7 +130,7 @@
                 </div>
                 <div class="addEditPiggy__addArea--default">
                     <label for="default">Set as default? </label>
-                    <input name="default" type="checkbox">             
+                    <input name="isDefault" type="checkbox">             
                 </div>
                 <div class="addEditPiggy__addArea--submit">
                     <input type="submit" name="submit" class="btn" value="Submit"/>           
