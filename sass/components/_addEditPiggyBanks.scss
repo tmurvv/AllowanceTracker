@@ -8,7 +8,7 @@
                     color: $colorPrimary;
                 }
             }
-        }
+        } 
         &>form {
             display: -webkit-flex; /* Safari */
             -webkit-flex-wrap: wrap; /* Safari 6.1+ */
@@ -59,8 +59,18 @@
         display: flex;
         justify-content: space-between;
 
-        @include respond(portrait) {
+        @include respond(landscape) {
             display: block;
+        }
+
+        &>hr {
+            visibility: hidden;
+            opacity: 0;
+
+            @include respond(landscape) {
+                visibility: visible;
+                opacity: 1;
+            }
         }
 
         &-piggyBankName {

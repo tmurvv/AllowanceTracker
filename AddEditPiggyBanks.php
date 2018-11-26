@@ -189,6 +189,8 @@
                             </div>
                         </div>
                     </form>
+                    <br>
+                    <hr>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>                 

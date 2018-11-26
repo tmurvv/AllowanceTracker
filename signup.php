@@ -6,7 +6,12 @@
     if (isset($_POST['signupBtn'])) {
         //double-check session variables are cleared
         if (isset($_SESSION['id'])) {
-            logout();
+            session_start();
+            unset($_SESSION['piggyBankId']);
+            unset($_SESSION['piggyBankOwner']);
+            unset($_SESSION['piggyBankName']);
+            unset($_SESSION['id']);
+            session_destroy();
         }
         //collect form data and store in variables       
         $email = $_POST['email'];

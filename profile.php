@@ -60,6 +60,7 @@
 <?php 
     if (isset($_POST['closeAccountSubmit'])) {
         $result = closeAccount($db, $_SESSION['id']);
+        header('Location: index.php');
         // $email = $_POST['email'];
         // $id = $_SESSION['id'];
         // $splQuery = "UPDATE users SET email = :email WHERE id = :id";
@@ -87,9 +88,6 @@
 
 <body>
     <?php include 'php/reusables/hero.php' ?>
-        <div style="display: flex">
-            <h3 name="NOT YET IMPLEMENTED" style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction and this page still needs some formatting to make it look prettier.</h3>
-        </div>
         <div class="profile__line1">
             <h2>Profile<span>Page</span></h2>
         </div>        

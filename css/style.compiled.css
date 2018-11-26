@@ -516,6 +516,8 @@ header {
 
 .transactions {
   padding: 0 2rem 0 2rem; }
+  .transactions input {
+    font-size: 20px; }
   @media only screen and (max-width: 56.25em) {
     .transactions {
       padding: 0; } }
@@ -563,12 +565,15 @@ header {
         flex: 1.5;
         padding: 3px 5px;
         display: inline-flex;
-        margin-right: 2rem; }
+        margin-right: 2rem;
+        font-size: 100%; }
         @media only screen and (max-width: 56.25em) {
           .transactions__lineItem--line2-type {
             margin-right: 1rem; } }
       .transactions__lineItem--line2-note {
         flex: 5; }
+        .transactions__lineItem--line2-note input {
+          vertical-align: 50%; }
       .transactions__lineItem--line2-amount, .transactions__lineItem--line2-balance {
         flex: 1; }
 
@@ -632,6 +637,8 @@ header {
       margin-bottom: 1rem;
       flex: 1; }
       .addTransaction__form--submit > input {
+        font-size: 100%; }
+      .addTransaction__form--submit > button {
         font-size: 100%; }
     .addTransaction__form > div > label,
     .addTransaction__form > div > input,
@@ -700,11 +707,12 @@ header {
   padding: 1rem; }
   .profile__line1 > h2 {
     padding: 1rem;
-    color: #e47587; }
+    color: #e47587;
+    text-align: center; }
     .profile__line1 > h2 > span {
       color: #D9AE5C; }
   .profile__container {
-    margin: 1rem;
+    margin: 1rem auto;
     border: 2px solid #e47587;
     padding: 0;
     width: fit-content; }
@@ -804,9 +812,16 @@ header {
     margin-bottom: 10px; }
     .addEditPiggy__piggy--lineItem-headings > * {
       text-decoration: underline; }
-  @media only screen and (max-width: 56.25em) {
+  @media only screen and (max-width: 75em) {
     .addEditPiggy__piggy--lineItem {
       display: block; } }
+  .addEditPiggy__piggy--lineItem > hr {
+    visibility: hidden;
+    opacity: 0; }
+    @media only screen and (max-width: 75em) {
+      .addEditPiggy__piggy--lineItem > hr {
+        visibility: visible;
+        opacity: 1; } }
   .addEditPiggy__piggy--lineItem-piggyBankName {
     flex: 4; }
   .addEditPiggy__piggy--lineItem-piggyBankOwner {

@@ -91,6 +91,7 @@
                 </div>
                 <div class="addTransaction__form--submit">
                     <input type="submit" name="submit" class="btn" value="Submit">
+                    <button name="resetAdd" type="reset" class="btn btn__secondary">Reset</button> 
                 </div>
             </form>
             

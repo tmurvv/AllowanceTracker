@@ -1,4 +1,8 @@
 .transactions {
+    & input {
+        font-size: 20px;
+    }
+
     padding: 0 2rem 0 2rem;
     @include respond(portrait) {
         padding: 0;
@@ -62,12 +66,16 @@
                 padding: 3px 5px;
                 display: inline-flex;                     
                 margin-right: 2rem;
+                font-size: 100%;
                 @include respond(portrait) {
                     margin-right: 1rem;
                 }
             }
             &-note {
                 flex: 5;
+                & input {
+                    vertical-align: 50%;
+                }
             }
             &-amount,
             &-balance {
