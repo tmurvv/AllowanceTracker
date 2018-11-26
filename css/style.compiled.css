@@ -36,12 +36,13 @@ html {
   text-rendering: optimizeLegibility; }
 
 hr {
-  height: 1px;
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   border: 0;
-  color: #666; }
+  height: 1px;
+  color: #666;
+  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); }
 
 hr:last-child {
   visibility: hidden;
@@ -362,24 +363,28 @@ header {
   @media only screen and (max-width: 37.5em) {
     .mainPage {
       padding: .5rem 1rem 0 1rem; } }
+  .mainPage__piggyName {
+    color: #e47587; }
   .mainPage > h1 > span {
     color: #e47587; }
   .mainPage__bankImage {
     position: relative;
-    height: 400px;
-    border-bottom: 30px solid #e47587; }
+    height: 400px; }
     .mainPage__bankImage > img,
     .mainPage__bankImage > p {
       position: absolute;
-      top: 50%;
+      top: 35%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: -1; }
     .mainPage__bankImage > p {
       font-size: 40px;
-      top: 57%; }
+      top: 44%; }
   .mainPage__switchPiggy > h1 {
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    color: #e47587; }
+  .mainPage__switchPiggy > p {
+    color: #D9AE5C; }
   .mainPage__switchPiggy > select {
     padding: 10px;
     font-size: 16px;
@@ -569,6 +574,7 @@ header {
 
 .addTransaction {
   border: 2px solid #e47587;
+  border-top: 30px solid #e47587;
   padding: 1rem; }
   .addTransaction > h3 {
     color: #D9AE5C; }
@@ -754,31 +760,32 @@ header {
     margin: 15px auto;
     font-size: 20px; }
 
-.addEditPiggy__addArea--title > h3 {
-  color: #D9AE5C; }
-  .addEditPiggy__addArea--title > h3 > span {
-    color: #e47587; }
-
-.addEditPiggy__addArea > form {
-  display: -webkit-flex;
-  /* Safari */
-  -webkit-flex-wrap: wrap;
-  /* Safari 6.1+ */
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  width: fit-content; }
-  @media only screen and (max-width: 37.5em) {
-    .addEditPiggy__addArea > form {
-      display: block; } }
-  .addEditPiggy__addArea > form input,
-  .addEditPiggy__addArea > form select {
-    font-size: 20px;
-    margin: 25px 25px 25px 10px; }
-  .addEditPiggy__addArea > form input[type=checkbox] {
-    transform: scale(2);
-    margin-top: 39px; }
+.addEditPiggy__addArea {
+  width: 80%; }
+  .addEditPiggy__addArea--title > h3 {
+    color: #D9AE5C; }
+    .addEditPiggy__addArea--title > h3 > span {
+      color: #e47587; }
+  .addEditPiggy__addArea > form {
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 100%; }
+    @media only screen and (max-width: 37.5em) {
+      .addEditPiggy__addArea > form {
+        display: block; } }
+    .addEditPiggy__addArea > form input,
+    .addEditPiggy__addArea > form select {
+      font-size: 20px;
+      margin: 25px 25px 25px 10px; }
+    .addEditPiggy__addArea > form input[type=checkbox] {
+      transform: scale(2);
+      margin-top: 39px; }
 
 .addEditPiggy__editArea {
   width: 80%;

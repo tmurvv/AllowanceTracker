@@ -8,30 +8,36 @@
         padding: .5rem 1rem 0 1rem;
     }
 
+    &__piggyName {
+        color: $colorPrimary;
+    }
     &>h1>span {
         color: $colorPrimary;
     }
     &__bankImage {
         position: relative;
         height: 400px;
-        border-bottom: 30px solid $colorPrimary;
         &>img,
         &>p {
             position: absolute;
-            top: 50%;
+            top: 35%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
         }
         &>p {
             font-size: 40px;
-            top: 57%;
+            top: 44%;
         }
     }
 
     &__switchPiggy {
         &>h1 {
             margin-bottom: 15px;
+            color: $colorPrimary;
+        }
+        &>p {
+            color: $colorSecondary;
         }
         &>select {
             padding: 10px;

@@ -17,12 +17,23 @@
             $hashed_password = $row['password'];
             $password = $row['password'];
             $activated = $row['active'];
-            
+  
             if(password_verify($inputPassword, $hashed_password)){
                 
                 if ($activated) {
-                    //prepLogin($id, $username, $remember);
-                    $_SESSION['id'] = $id;                           
+                    //clear old session
+                    if (isset($_SESSION['id'])) {
+                        unset($_SESSION['piggyBankId']);
+                        unset($_SESSION['piggyBankOwner']);
+                        unset($_SESSION['piggyBankName']);
+                        unset($_SESSION['id']);
+
+                        // NOT YET IMPLEMENTED if(isset($_COOKIE['rememberUserCookie'])){
+                        //     uset($_COOKIE['rememberUserCookie']);
+                        //     setcookie('rememberUserCookie', null, -1, '/');
+                        // } 
+                    }
+                    $_SESSION['id'] = $id;                         
                     header("Location: index.php");
                 }else{
                     $result="Account not activated. Please check your email inbox for a verification email.";

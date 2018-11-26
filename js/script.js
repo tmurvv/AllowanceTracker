@@ -86,12 +86,12 @@ $(document).ready(function() {
 /***********************
  * Switch Piggy Banks
  * ********************/
-function switchPiggyBank(clickedItem) {
-   var switchPiggyDropDown = document.getElementById('js--switchPiggyName');
-    switchPiggyDropDown.hidden = false;
-    clickedItem.innerText = "Change PiggyBanks";
-    clickedItem.type = "submit";
-}
+// function updateSessionPiggyBank(clickedItem) {
+//    var switchPiggyDropDown = document.getElementById('js--switchPiggyName');
+//     switchPiggyDropDown.hidden = false;
+//     clickedItem.innerText = "Change PiggyBanks";
+//     clickedItem.type = "submit";
+// }
 
 /***********************
  * CRUD operations on Transactions

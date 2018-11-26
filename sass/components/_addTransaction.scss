@@ -1,5 +1,6 @@
 .addTransaction {
     border: 2px solid $colorPrimary;
+    border-top: 30px solid $colorPrimary;
     padding: 1rem;
     &>h3 {
         color: $colorSecondary;

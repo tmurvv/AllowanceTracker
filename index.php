@@ -1,17 +1,19 @@
-<?php session_start(); ?>
+<?php session_start(); 
+?>
 <?php include 'php/config/config.php'; ?>
 <?php include 'php/classes/Database.php'; ?>
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
+<?php 
+    include 'php/reusables/addEditDeleteTransactions.php';
+?>
 <?php
     include 'php/reusables/getTransactions.php';
 ?>
 <?php 
-    include 'php/reusables/addEditDeleteTransactions.php';
-?>
-<?php 
     include 'php/reusables/getPiggyBanks.php';
 ?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -21,15 +23,19 @@
 <body>
     <?php include 'php/reusables/hero.php' ?>
 
-    <div class="mainPage" id="lineItems">
-        <h1><?php echo $piggyBankName; ?></h1>
-        <div style="display: flex">
+    <div class="mainPage" id="lineItems">        
+        <div class="mainPage__piggyName">
+            <h1><?php echo $piggyBankName; ?></h1> 
+        </div>   
+        <!-- <div style="display: flex">
             <h3 style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction, but mostly works.</h3>
-        </div>
+        </div> -->
         
-        <form name="switchPiggy" method="post" action="index.php" hidden>            
+        <form name="switchPiggy" method="post" action="index.php">            
             <div class="mainPage__switchPiggy">
-                <select name="switchPiggyName" id="js--switchPiggyName" onchange="updateSessionPiggyBank(this.value)">                                  
+                <form>
+                <p>Change PiggyBank: </p>
+                <select name="switchPiggyName" id="js--switchPiggyName" onchange="this.form.submit()">                                  
                     <option value="Switch PiggyBank">Switch PiggyBank</option>
                     <?php foreach($piggies as $piggy) : ?>
                         <?php
@@ -44,8 +50,7 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <button class="btn btn__secondary" name="changePiggyBank" type="button" onclick="switchPiggyBank(this);" disabled>Change PiggyBank</button>
-                <img src="img/underconstruction.jpg" alt="Under Construction" width="100px;">
+                </form>
             </div>
         </form>
         <div class="mainPage__bankImage">

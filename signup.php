@@ -3,7 +3,11 @@
 <?php include 'php/helpers/controllers.php'; ?>
 <?php include 'php/helpers/formatting.php'; ?>
 <?php 
-    if (isset($_POST['signupBtn'])) {       
+    if (isset($_POST['signupBtn'])) {
+        //double-check session variables are cleared
+        if (isset($_SESSION['id'])) {
+            logout();
+        }
         //collect form data and store in variables       
         $email = $_POST['email'];
         $password = $_POST['password'];

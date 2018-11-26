@@ -1,5 +1,6 @@
 .addEditPiggy {
     &__addArea {
+        width: 80%;
         &--title {
             >h3 {
                 color: $colorSecondary;
@@ -15,7 +16,7 @@
             justify-content: space-between;
             flex-wrap: wrap;
             margin: 0 auto;
-            width: fit-content;
+            width: 100%;
 
             @include respond(phone) {
                 display: block;
