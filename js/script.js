@@ -9,7 +9,7 @@ window.onload = function() {
     if (window.location.href.match('index.php') != null) {
         insertTodayDateHTML();
         insertTodayTimeHTML();
-    }    
+    }  
 }
 
 function insertTodayDateHTML() {
@@ -60,38 +60,6 @@ function insertTodayTimeHTML() {
     //change DOM element
     document.getElementById('js--addTransTime').value = htmlTime;
 }
-
-$(document).ready(function() {
-    /* Mobile navigation */
-    $('.js--mainNav-icon').click(function() {
-        var nav = $('.js--mainNav');
-        var icon = $('.js--mainNav-icon i');
-        
-        nav.slideToggle(200, function() {
-            if (nav.is(":hidden")) {
-                nav.removeAttr("style");               
-            }
-        });
-
-        if (icon.hasClass('fa-bars')) {
-            icon.addClass('fa-window-close');
-            icon.removeClass('fa-bars');
-        } else {
-            icon.addClass('fa-bars');
-            icon.removeClass('fa-window-close');           
-        }             
-    });
-});
-
-/***********************
- * Switch Piggy Banks
- * ********************/
-// function updateSessionPiggyBank(clickedItem) {
-//    var switchPiggyDropDown = document.getElementById('js--switchPiggyName');
-//     switchPiggyDropDown.hidden = false;
-//     clickedItem.innerText = "Change PiggyBanks";
-//     clickedItem.type = "submit";
-// }
 
 /***********************
  * CRUD operations on Transactions
@@ -437,3 +405,45 @@ function startCloseAccount(clickedItem, userEmail) {
         }
     }  
 }
+
+/***********************
+ * Mobile Navigation
+ * ********************/
+function mobileNav() {
+    var mainNav = document.getElementById("js--mainNav");
+    var mobileIcon = document.getElementById("js--mobileNavIcon");
+    
+    if (mobileIcon.classList.contains('fa-bars')) {
+        mobileIcon.classList.remove('fa-bars');
+        mobileIcon.classList.add('fa-window-close');
+        mainNav.style.display = "block";
+    }else{
+        mobileIcon.classList.remove('fa-window-close');
+        mobileIcon.classList.add('fa-bars');
+        mainNav.style.display = "none";
+    }
+    
+} 
+
+
+// $(document).ready(function() {
+//     /* Mobile navigation */
+//     $('.js--mainNav-icon').click(function() {
+//         var nav = $('.js--mainNav');
+//         var icon = $('#js--mainNav-icon');
+        
+//         nav.slideToggle(200, function() {
+//             if (nav.is(":hidden")) {
+//                 nav.removeAttr("style");               
+//             }
+//         });
+
+//         if (icon.hasClass('fa-bars')) {
+//             icon.addClass('fa-window-close');
+//             icon.removeClass('fa-bars');
+//         } else {
+//             icon.addClass('fa-bars');
+//             icon.removeClass('fa-window-close');           
+//         }             
+//     });
+// });

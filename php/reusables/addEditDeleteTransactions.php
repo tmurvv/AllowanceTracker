@@ -8,7 +8,11 @@
             $transactionTime = $_POST['time'];
             $transactionDateTime = $transactionDate." ".$transactionTime;
             $transactionAmount = $_POST['amount'];
-            $transactionType = $_POST['type'];
+            if (isset($_POST['type'])) {
+                $transactionType = $_POST['type'];
+            }else {
+                $transactionType = '';
+            }
                        
             if ($transactionType == '' || $transactionType == null) {
                 $transactionType = 'Select your option';

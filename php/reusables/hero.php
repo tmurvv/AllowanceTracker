@@ -1,6 +1,6 @@
 <div class="hero" id='home'>
     <img class="hero__logo" src="img/logoAllowance.gif" alt="Tech Logo">
-    <ul class="hero__mainNav js--mainNav">
+    <ul class="hero__mainNav" id="js--mainNav">
         <li class="hero__mainNav--item">
             <a href="index.php">Home</a>
         </li>
@@ -27,8 +27,27 @@
             </li>
         <?php endif; ?>
     </ul>
-    <a class="hero__hamburger js--mainNav-icon"><i class="fas fa-bars"></i></a>
-    
+    <a href="javascript:void(0);" class="hero__hamburger" id="js--mobileIconContainer" onclick="mobileNav();"><i class="fas fa-bars" id="js--mobileNavIcon"></i></a>
+    <script>
+    window.addEventListener('resize', checkScreenWidth);
+    function checkScreenWidth() {
+        var mainNav = document.getElementById('js--mainNav');
+        var mobileIcon = document.getElementById('js--mobileNavIcon');
+        var mobileIconContainer = document.getElementById('js--mobileIconContainer');
+        
+        if (window.innerWidth > 900) {
+            mainNav.style.display="flex";
+            mobileIcon.classList.add("fa-bars");
+            mobileIcon.classList.remove("fa-window-close");
+        }else{
+            if (mobileIcon.classList.contains('fa-bars')) {
+                mainNav.style.display="none";
+            } else {
+                mainNav.style.display="block";
+            }
+        }
+    }
+    </script>
     <div class="hero__mainTitle">
 
         <h1 class="hero__mainTitle--mainHeading">

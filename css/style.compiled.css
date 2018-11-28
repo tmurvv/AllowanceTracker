@@ -225,14 +225,18 @@ header {
     display: flex;
     color: #fff;
     list-style: none;
-    height: 3.5rem; }
+    height: 3.5rem;
+    z-index: 1000; }
     @media only screen and (max-width: 56.25em) {
       .hero__mainNav {
         display: none;
         position: absolute;
         top: .4rem;
         right: 0;
-        line-height: 1; } }
+        line-height: 1.3;
+        z-index: 1000;
+        height: fit-content;
+        padding-left: 10px; } }
   @media only screen and (max-width: 56.25em) and (max-width: 37.5em) {
     .hero__mainNav {
       right: -2rem; } }
@@ -258,18 +262,17 @@ header {
     position: absolute;
     top: .5rem;
     right: 3rem;
-    visibility: hidden;
-    opacity: 0; }
+    z-index: 1000;
+    display: none; }
     @media only screen and (max-width: 37.5em) {
       .hero__hamburger {
         right: 1rem; } }
     @media only screen and (max-width: 56.25em) {
       .hero__hamburger {
-        visibility: visible;
-        opacity: 1; } }
+        display: block; } }
   .hero__hamburgerClose {
-    visibility: hidden;
-    opacity: 0; }
+    display: none;
+    z-index: 1000; }
 
 @media only screen and (max-width: 56.25em) {
   .menus {
@@ -319,7 +322,7 @@ header {
   color: #D9AE5C;
   position: absolute;
   top: .5rem;
-  right: 3.5rem; }
+  right: 2.75rem; }
 
 .hero {
   width: 100%;

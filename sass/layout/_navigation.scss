@@ -20,6 +20,7 @@
         color: #fff;
         list-style: none;
         height: 3.5rem;
+        z-index: 1000;
         @include respond(portrait) {
             display: none;
             position: absolute;
@@ -28,7 +29,11 @@
             @include respond(phone) {
                 right:-2rem;
             }
-            line-height: 1;
+            line-height: 1.3;
+            z-index: 1000;
+            height: fit-content;
+            padding-left: 10px;
+
         }
         &--item>a {
             margin-right: 2rem;
@@ -58,19 +63,18 @@
         position: absolute;
         top: .5rem;
         right: 3rem;
+        z-index: 1000;
         @include respond(phone) {
             right: 1rem;
         }
-        visibility: hidden;
-        opacity: 0;
+        display: none;
         @include respond(portrait) {
-            visibility: visible;
-            opacity: 1;
+            display: block; 
         }
     }
     &__hamburgerClose {
-        visibility: hidden;
-        opacity: 0;
+        display: none;
+        z-index: 1000;
     }
 }
 
@@ -130,5 +134,5 @@
     color: $colorSecondary;
     position: absolute;
     top: .5rem;
-    right: 3.5rem;
+    right: 2.75rem;
 }
