@@ -31,33 +31,12 @@
             <h3 style="color: #D9AE5C"><span style="color: #e47587">Piggy Says: </span>This website is under construction, but mostly works.</h3>
         </div> -->
         
-        <form name="switchPiggy" method="post" action="index.php">            
-            <div class="mainPage__switchPiggy">
-                <form>
-                <p>Change PiggyBank: </p>
-                <select name="switchPiggyName" id="js--switchPiggyName" onchange="this.form.submit()">                                  
-                    <option value="Switch PiggyBank">Switch PiggyBank</option>
-                    <?php foreach($piggies as $piggy) : ?>
-                        <?php
-                            if ($piggy['piggyBankName'] === $_SESSION['piggyBankName']) {
-                                $selected = 'selected';
-                            }else{
-                                $selected = "";
-                            }
-                        ?>
-                        <option value="<?php echo $piggy['piggyBankName']; ?>" <?php if(isset($selected)) {echo $selected;} ?> >
-                            <?php echo $piggy['piggyBankName']; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                </form>
-            </div>
-        </form>
         <div class="mainPage__bankImage">
             <img src="img/piggyBankSmall.jpg" alt="PiggyBank Image">
             <p>$
                 <?php echo $sum ?>
-                <p>
+            <p>
+            
         </div>
         <div class="addTransaction">
             <h3>Add<span>Transaction</span></h3>
@@ -97,6 +76,28 @@
             
         </div>
         <div class="transactions">
+            <form name="switchPiggy" method="post" action="index.php">            
+                <div class="mainPage__switchPiggy">
+                    <form>
+                    <p>Change PiggyBank:&nbsp;&nbsp;&nbsp;</p>
+                    <select name="switchPiggyName" id="js--switchPiggyName" onchange="this.form.submit()">                                  
+                        <option value="Switch PiggyBank">Switch PiggyBank</option>
+                        <?php foreach($piggies as $piggy) : ?>
+                            <?php
+                                if ($piggy['piggyBankName'] === $_SESSION['piggyBankName']) {
+                                    $selected = 'selected';
+                                }else{
+                                    $selected = "";
+                                }
+                            ?>
+                            <option value="<?php echo $piggy['piggyBankName']; ?>" <?php if(isset($selected)) {echo $selected;} ?> >
+                                <?php echo $piggy['piggyBankName']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    </form>
+                </div>
+            </form>
             <div class="transactions__headers">
                 <div class="transactions__headers--type">Type</div>
                 <div class="transactions__headers--note">Note</div>

@@ -37,7 +37,7 @@ html {
 
 hr {
   border: 0;
-  height: 1px;
+  height: 1.1px;
   color: #666;
   background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
@@ -367,7 +367,8 @@ header {
     .mainPage {
       padding: .5rem 1rem 0 1rem; } }
   .mainPage__piggyName {
-    color: #e47587; }
+    color: #e47587;
+    margin-bottom: 50px; }
   .mainPage > h1 > span {
     color: #e47587; }
   .mainPage__bankImage {
@@ -383,18 +384,21 @@ header {
     .mainPage__bankImage > p {
       font-size: 40px;
       top: 44%; }
-  .mainPage__switchPiggy > h1 {
-    margin-bottom: 15px;
-    color: #e47587; }
-  .mainPage__switchPiggy > p {
-    color: #D9AE5C; }
-  .mainPage__switchPiggy > select {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 7px;
-    margin-right: 25px; }
-  .mainPage__switchPiggy > button {
-    font-size: 18px; }
+  .mainPage__switchPiggy {
+    display: flex;
+    margin-top: 25px; }
+    .mainPage__switchPiggy > h1 {
+      margin-bottom: 15px;
+      color: #e47587; }
+    .mainPage__switchPiggy > p {
+      color: #D9AE5C; }
+    .mainPage__switchPiggy > select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 7px;
+      margin-right: 25px; }
+    .mainPage__switchPiggy > button {
+      font-size: 18px; }
 
 .about__container {
   width: 100%;
