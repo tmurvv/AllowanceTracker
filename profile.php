@@ -61,6 +61,7 @@
     if (isset($_POST['closeAccountSubmit'])) {
         $result = closeAccount($db, $_SESSION['id']);
         header('Location: index.php');
+        exit();
         // $email = $_POST['email'];
         // $id = $_SESSION['id'];
         // $splQuery = "UPDATE users SET email = :email WHERE id = :id";

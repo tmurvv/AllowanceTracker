@@ -25,7 +25,8 @@
             $statement = $db->prepare($query);             
             $statement->execute([$transactionType, $transactionAmount, $transactionDateTime, $transactionNote, $_SESSION['piggyBankId']]);         
             
-            header("Location: index.php", true, 301);           
+            header("Location: index.php", true, 301);
+            exit();       
         }
     }else{
         $result = "User not found, please login again.";
@@ -54,6 +55,7 @@
                                     ':transactionType'=>$transactionType,
                                     ':id'=>$transactionId));
         header("Location: index.php", true, 301);
+        exit();
     }
 
     //Delete transaction
@@ -63,5 +65,6 @@
         $statement = $db->prepare($query);
         $statement->execute(array(":id"=>$id));
         header("Location: index.php", true, 301);
+        exit();
     }
 ?>

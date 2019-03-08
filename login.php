@@ -35,6 +35,7 @@
                     }
                     $_SESSION['id'] = $id;                         
                     header("Location: index.php");
+                    exit();
                 }else{
                     $result="Account not activated. Please check your email inbox for a verification email.";
                 }

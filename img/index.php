@@ -3,13 +3,16 @@
     $myMessage = $_GET['msg'];
     
     if ($myMessage == "Record Added") {
-        header("Location: admin.php?msg=added");  
+        header("Location: admin.php?msg=added");
+        exit(); 
     } 
     if ($myMessage == "Record Deleted") {
-        header("Location: admin.php?msg=deleted");  
+        header("Location: admin.php?msg=deleted");
+        exit();   
     } 
     if ($myMessage == "Record Updated") {
         header("Location: admin.php?msg=updated");  
+        exit(); 
     }
 ?>
 <?php include 'php/config/config.php'; ?>

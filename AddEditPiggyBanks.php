@@ -35,6 +35,7 @@
     $statement = $db->prepare($splQuery);
     $statement->execute(array(':piggyUser'=>$_SESSION['id'],':piggyBankName' => $piggyBankName, ':piggyBankOwner' => $piggyBankOwner,':isDefault'=>$isDefault));
     header("Location: addEditPiggyBanks.php");
+    exit();
 }
 ?>
 <?php
@@ -79,6 +80,7 @@
                                     ':isDefault'=>$isDefault,
                                     ':piggyBankId'=>$piggyBankId));
         header("Location: addEditPiggyBanks.php", true, 301);
+        exit();
     }
 ?>
 <?php
@@ -89,6 +91,7 @@
     $statement = $db->prepare($query);
     $statement->execute(array(":piggyBankId"=>$piggyBankId));
     header("Location: addEditPiggyBanks.php", true, 301);
+    exit();
   }
 ?>
 <!DOCTYPE html>

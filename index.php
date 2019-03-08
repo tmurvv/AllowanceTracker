@@ -13,7 +13,6 @@
 <?php 
     include 'php/reusables/getPiggyBanks.php';
 ?>
-
 <!DOCTYPE html>
 
 <html lang="en">

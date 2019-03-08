@@ -37,7 +37,7 @@ session_start();
                         <input type="submit" name="logout" class="btn" value="Logout"/>           
                     </div> 
                 <?php else : ?>  
-                    <?php header("Location: index.php"); ?> 
+                    <?php header("Location: index.php"); exit();?>
                 <?php endif; ?>
             </div>                                   
         </form>
